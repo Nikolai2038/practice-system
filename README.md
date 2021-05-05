@@ -6,6 +6,19 @@
 
 <hr/>
 
+<p align="center"><h4>Технологии</h4></p>
+
+<hr/>
+
+- Laravel 8.40.0
+- PHP 7.3.28
+- XDebug 2.7.2
+- Nginx 1.19.6
+- Postgres 13.1
+- PGAdmin 4
+
+<hr/>
+
 <p align="center"><h4>Предварительная настройка</h4></p>
 
 <hr/>
@@ -39,6 +52,27 @@
 
 Остановка:<br/>
 <b><i>docker-compose down</i></b>
+
+<hr/>
+
+<p align="center"><h4>Debug в среде разработки PhpStorm</h4></p>
+
+<hr/>
+
+Для работы и debug'а в PhpStorm необходимо:
+
+1. Изменить настройки PhpStorm ("File" – "Settings"). Во вкладке "Build, Execution, Deployment" – "Docker" необходимо добавить новый Docker. Чуть ниже должно быть показано сообщение "Connection successful" (должен быть запущен Docker);
+
+2. Собрать образ PHP (или сразу всю конфигурацию). Далее "File" – "Settings" – "Languages & Frameworks" – "PHP". Выбрать версию PHP 7.3, CLI установить по контейнеру PHP по файлу docker-compose (в открывшемся окне XDebug должен быть успешно определён), и в "Include Path" добавить путь к корню проекта;
+
+3. "File" – "Settings" – "Languages & Frameworks" – "PHP" – "Debug". Изменить "Debug port" на 9003;
+
+4. "File" – "Settings" – "Languages & Frameworks" – "PHP" – "Servers". Добавить сервер Docker и настроить путь (path mapping) от корня проекта к "/usr/share/nginx/html";
+
+5. Включить "Listening for PHP Debug Connections" справа сверху окна PhpStorm.
+
+Для откладки XDebug в файлах представлений и др. файлах <b><i>.php</i></b> и <b><i>.blade.php</i></b> (не контроллеров), вставлять в код:
+<b><i><?php xdebug_break(); ?></i></b>
 
 <hr/>
 
