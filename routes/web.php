@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MainController;
+use App\Http\Controllers\AuthorizationController;
+use App\Http\Controllers\RegistrationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +16,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [MainController::class, 'index']);
+
+Route::get('/authorization', [AuthorizationController::class, 'index'])
+    ->name('authorization');
+Route::post('/authorization/checkForm', [AuthorizationController::class, 'checkForm']);
+
+Route::get('/registration', [RegistrationController::class, 'index'])
+    ->name('registration');
+Route::post('/registration/checkForm', [RegistrationController::class, 'checkForm']);
