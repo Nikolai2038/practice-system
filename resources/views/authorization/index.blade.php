@@ -5,15 +5,23 @@
     <link rel="stylesheet" href="{{ URL::asset('css/forms.css') }}" type="text/css">
 @endsection
 @section('content')
-    <form method="POST" action="/registration/checkForm" class="form_main">
+    <form method="POST" class="form_main">
+        {{ csrf_field() }}
         <h1>Авторизация</h1>
-        <div>
-            <input type="text" placeholder=" " name="login" id="login" required autofocus/>
+        <div class="field">
+            <input type="text" placeholder=" " name="login" id="login" value="{{ $form_data['login'] ?? '' }}" required/>
             <label for="login">Логин *</label>
         </div>
-        <div>
-            <input type="password" placeholder=" " name="password" id="password" required/>
+        <div class="field">
+            <input type="password" placeholder=" " name="password" id="password" value="{{ $form_data['password'] ?? '' }}" required/>
             <label for="password">Пароль *</label>
+        </div>
+        <div class="errors">
+            @if($errors != null)
+                @foreach($errors as $error)
+                    <p>{{ $error }}</p>
+                @endforeach
+            @endif
         </div>
         <button>Авторизоваться</button><br/>
         <br/>
