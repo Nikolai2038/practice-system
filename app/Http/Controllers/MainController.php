@@ -16,4 +16,10 @@ class MainController extends Controller
         Functions::deleteSession();
         return redirect()->route('authorization')->header('Content-Type', 'text/html');
     }
+
+    public function register()
+    {
+        $total_user = Functions::getTotalUser();
+        return response()->view('register', ['total_user' => $total_user])->header('Content-Type', 'text/html');
+    }
 }

@@ -39,6 +39,10 @@ class Functions
     public const MAX_LENGTH_PASSWORD = 128;
 
     public const ROUTE_NAME_TO_REDIRECT_FROM_AUTHORIZATION = 'index';
+    public const ROUTE_NAME_TO_REDIRECT_FROM_DENY_ACCESS = 'index';
+
+    /** Часовой пояс для дат в БД */
+    public const TIMEZONE_PRECISION = 3;
 
     /** Функция проверки поля ввода */
     public static function checkInput(Request $request, $input_key, $input_name, $min_length, $max_length, $is_required = false, &$errors = null)

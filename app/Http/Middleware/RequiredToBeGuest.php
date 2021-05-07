@@ -6,7 +6,7 @@ use App\Http\Functions;
 use Closure;
 use Illuminate\Http\Request;
 
-class RequiredNotToBeAuthorized
+class RequiredToBeGuest
 {
     /**
      * Handle an incoming request.
@@ -22,6 +22,9 @@ class RequiredNotToBeAuthorized
         {
             return redirect()->route(Functions::ROUTE_NAME_TO_REDIRECT_FROM_AUTHORIZATION)->header('Content-Type', 'text/html');
         }
-        return $next($request);
+        else
+        {
+            return $next($request);
+        }
     }
 }

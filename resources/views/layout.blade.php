@@ -14,14 +14,29 @@
                     <a href="{{ route('index') }}">АИС "ППП"</a>
                 </div>
                 <nav id="menu">
-                    <a href="{{ route('index') }}">Главная</a>
+                    <a href="{{ route('index') }}" class="button button_blue">Главная</a>
+                    @if($total_user != null)
+                        <a href="{{ route('contacts') }}" class="button button_blue">Контакты</a>
+                        <a href="{{ route('practices') }}" class="button button_blue">Практики</a>
+                        <a href="{{ route('chats') }}" class="button button_blue">Чаты</a>
+                        <a href="{{ route('users') }}" class="button button_blue">Пользователи</a><br/>
+                        @if($total_user->isDirector())
+                            <a href="{{ route('register') }}" class="button button_green">Зарегистрировать</a>
+                            @if($total_user->isAdmin() == false)
+                                <br/>
+                            @endif
+                        @endif
+                        @if($total_user->isAdmin())
+                            <a href="{{ route('administration') }}" class="button button_red">Администрирование</a><br/>
+                        @endif
+                    @endif
                     @if($total_user == null)
-                        <a href="{{ route('authorization') }}">Авторизация</a>
-                        <a href="{{ route('registration') }}">Регистрация</a>
+                        <a href="{{ route('authorization') }}" class="button button_blue">Авторизация</a>
+                        <a href="{{ route('registration') }}" class="button button_blue">Регистрация</a>
                     @else
-                        <a href="{{ route('profile') }}">Мой профиль</a>
-                        <a href="{{ route('users') }}">Пользователи</a>
-                        <a href="{{ route('logout') }}">Выйти из аккаунта</a>
+                        <a href="{{ route('profile') }}" class="button button_blue">Мой профиль</a>
+                        <a href="{{ route('settings') }}" class="button button_blue">Настройки</a>
+                        <a href="{{ route('logout') }}" class="button button_blue">Выйти из аккаунта</a>
                     @endif
                 </nav>
             </header>

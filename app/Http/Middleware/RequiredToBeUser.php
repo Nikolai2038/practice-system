@@ -6,7 +6,7 @@ use App\Http\Functions;
 use Closure;
 use Illuminate\Http\Request;
 
-class RequiredToBeAuthorized
+class RequiredToBeUser
 {
     /**
      * Handle an incoming request.
@@ -22,6 +22,9 @@ class RequiredToBeAuthorized
         {
             return redirect()->route('authorization')->header('Content-Type', 'text/html');
         }
-        return $next($request);
+        else
+        {
+            return $next($request);
+        }
     }
 }

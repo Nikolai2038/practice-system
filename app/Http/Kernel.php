@@ -62,7 +62,10 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'required_to_be_authorized' => \App\Http\Middleware\RequiredToBeAuthorized::class,
-        'required_not_to_be_authorized' => \App\Http\Middleware\RequiredNotToBeAuthorized::class,
+        'required_to_be_guest' => \App\Http\Middleware\RequiredToBeGuest::class,
+        'required_to_be_user' => \App\Http\Middleware\RequiredToBeUser::class,
+        'required_to_be_director' => \App\Http\Middleware\RequiredToBeDirector::class,
+        'required_to_be_administrator' => \App\Http\Middleware\RequiredToBeAdmininstrator::class,
+        'required_to_be_super_administrator' => \App\Http\Middleware\RequiredToBeSuperAdministrator::class,
     ];
 }

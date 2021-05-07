@@ -9,14 +9,10 @@ class Role extends Model
 {
     use HasFactory;
 
-    /**
-     * @var mixed
-     */
-    private $name;
-    /**
-     * @var mixed
-     */
-    private $weight;
+    public function users()
+    {
+        return $this->hasMany('App\Models\User');
+    }
 
     public const ROLE_WEIGHT_USER = 0;
     public const ROLE_WEIGHT_DIRECTOR_PRACTICE = 1;

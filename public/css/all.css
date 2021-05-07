@@ -23,23 +23,45 @@ header, footer {
     margin: 8px 0;
 }
 
-#menu a {
+.button {
     color: #ffffff;
     padding: 8px 16px;
-    background-color: #0065d2;
     border-radius: 5px;
     text-decoration: none;
     display: inline-block;
     margin-top: 4px;
 }
 
-#menu a:hover {
-    background-color: #56a3ff;
+.button:hover {
     font-weight: bolder;
 }
 
+.button_blue {
+    background-color: #0065d2;
+}
+
+.button_blue:hover {
+    background-color: #56a3ff;
+}
+
+.button_green {
+    background-color: #0a5a00;
+}
+
+.button_green:hover {
+    background-color: #45c74c;
+}
+
+.button_red {
+    background-color: #6d1a1a;
+}
+
+.button_red:hover {
+    background-color: #c97b7b;
+}
+
 body {
-    background-color: #e0ffe9;
+    background-color: #8098d2;
     text-align: center;
 }
 
@@ -59,13 +81,13 @@ body {
     margin: 16px;
     padding: 16px 32px;
     border-radius: 10px;
-    box-shadow: 0 0px 16px #1f4221;
+    box-shadow: 0 0px 16px #1f2f42;
 }
 
 .big_page {
     width: 100%;
-    max-width: 900px;
-    min-height: 600px;
+    max-width: 1600px;
+    min-height: 500px;
 }
 
 .big_page p {
