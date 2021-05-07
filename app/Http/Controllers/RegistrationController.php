@@ -35,9 +35,7 @@ class RegistrationController extends Controller
 
             if (count($errors) == 0)
             {
-                $user_found = User::where([
-                    ['login', '=', $request->input('login')]
-                ])->first();
+                $user_found = User::where('login', '=', $request->input('login'))->first();
 
                 if ($user_found != null)
                 {

@@ -19,6 +19,8 @@
                         <a href="{{ route('authorization') }}">Авторизация</a>
                         <a href="{{ route('registration') }}">Регистрация</a>
                     @else
+                        <a href="{{ route('profile') }}">Мой профиль</a>
+                        <a href="{{ route('users') }}">Пользователи</a>
                         <a href="{{ route('logout') }}">Выйти из аккаунта</a>
                     @endif
                 </nav>

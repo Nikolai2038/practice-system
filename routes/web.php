@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\AuthorizationController;
 use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\UsersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,3 +43,14 @@ Route::post('/registration', [RegistrationController::class, 'index'])
 Route::get('/logout', [MainController::class, 'logout'])
     ->name('logout')
     ->middleware('required_to_be_authorized');
+
+// Список пользователей
+Route::get('/users', [UsersController::class, 'all'])
+    ->name('users')
+    ->middleware('required_to_be_authorized');
+
+// Профиль пользователя (если ID не указан - показывается профиль текущего пользователя)
+Route::get('/users/profile/{id?}', [UsersController::class, 'profile'])
+    ->name('profile')
+    ->middleware('required_to_be_authorized')
+    ->where('id', '[0-9]+');

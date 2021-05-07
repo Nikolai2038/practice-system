@@ -54,14 +54,32 @@ body {
     min-height: calc(100% - 40px - 24px - 146px); /* высота = вся высота - подвал - необходимый отступ - шапка */
 }
 
-#page {
+.page {
     background-color: #ffffff;
-    width: 80%;
-    max-width: 900px;
+    margin: 16px;
     padding: 16px 32px;
     border-radius: 10px;
     box-shadow: 0 0px 16px #1f4221;
+}
+
+.big_page {
+    width: 100%;
+    max-width: 900px;
+    min-height: 600px;
+}
+
+.big_page p {
     text-align: justify;
+}
+
+.small_page {
+    width: 80%;
+    max-width: 500px;
+    text-align: center;
+}
+
+.small_page p {
+    text-align: center;
 }
 
 footer {
