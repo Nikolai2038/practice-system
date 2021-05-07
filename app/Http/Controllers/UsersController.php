@@ -10,7 +10,7 @@ class UsersController extends Controller
     public function all()
     {
         $total_user = Functions::getTotalUser();
-        $users = User::all();
+        $users = User::orderBy('id')->paginate(10);
         return response()->view('users.all', ['total_user' => $total_user, 'users' => $users])->header('Content-Type', 'text/html');
     }
 

@@ -7,9 +7,6 @@
 @section('page_sized_class', 'big_page')
 @section('page_title', 'Пользователи')
 @section('content')
-    <p>
-        таблица
-    </p>
     <div class="mobile-table">
         <table class="table_users">
             <thead>
@@ -36,4 +33,5 @@
             </tbody>
         </table>
     </div>
+    {{ $users->links('layouts.pagination') }}
 @endsection

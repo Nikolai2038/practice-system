@@ -10,9 +10,10 @@ class RegistrationController extends Controller
 {
     public function index(Request $request)
     {
+        $total_user = Functions::getTotalUser();
         if ($request->isMethod('get'))
         {
-            return response()->view('registration.index', ['total_user' => null])->header('Content-Type', 'text/html');
+            return response()->view('registration.index', ['total_user' => $total_user])->header('Content-Type', 'text/html');
         }
         else if ($request->isMethod('post'))
         {
@@ -64,7 +65,8 @@ class RegistrationController extends Controller
             return response()
                 ->view('registration.index', [
                     'form_data' => $request->only(['login', 'email', 'first_name', 'second_name', 'third_name', 'password', 'password_confirmed']),
-                    'errors' => $errors
+                    'errors' => $errors,
+                    'total_user' => $total_user
                 ])
                 ->header('Content-Type', 'text/html');
         }

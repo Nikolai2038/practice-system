@@ -10,9 +10,10 @@ class AuthorizationController extends Controller
 {
     public function index(Request $request)
     {
+        $total_user = Functions::getTotalUser();
         if ($request->isMethod('get'))
         {
-            return response()->view('authorization.index', ['total_user' => null])->header('Content-Type', 'text/html');
+            return response()->view('authorization.index', ['total_user' => $total_user])->header('Content-Type', 'text/html');
         }
         else if ($request->isMethod('post'))
         {
@@ -42,7 +43,8 @@ class AuthorizationController extends Controller
             return response()
                 ->view('authorization.index', [
                     'form_data' => $request->only(['login', 'password']),
-                    'errors' => $errors
+                    'errors' => $errors,
+                    'total_user' => $total_user
                 ])
                 ->header('Content-Type', 'text/html');
         }
