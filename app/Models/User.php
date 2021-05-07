@@ -30,7 +30,7 @@ class User extends Model
         );
     }
 
-    public function isAdmin()
+    public function isAdministrator()
     {
         $user_role_id = $this->role->id;
         return (
@@ -39,7 +39,7 @@ class User extends Model
         );
     }
 
-    public function isSuperAdmin()
+    public function isSuperAdministrator()
     {
         $user_role_id = $this->role->id;
         return ($user_role_id == Role::ROLE_ID_SUPER_ADMINISTRATOR);

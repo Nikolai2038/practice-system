@@ -22,11 +22,11 @@
                         <a href="{{ route('users') }}" class="button button_blue">Пользователи</a><br/>
                         @if($total_user->isDirector())
                             <a href="{{ route('register') }}" class="button button_green">Зарегистрировать</a>
-                            @if($total_user->isAdmin() == false)
+                            @if($total_user->isAdministrator() == false)
                                 <br/>
                             @endif
                         @endif
-                        @if($total_user->isAdmin())
+                        @if($total_user->isAdministrator())
                             <a href="{{ route('administration') }}" class="button button_red">Администрирование</a><br/>
                         @endif
                     @endif

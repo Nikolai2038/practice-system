@@ -73,21 +73,20 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: calc(100% - 40px - 24px - 146px); /* высота = вся высота - подвал - необходимый отступ - шапка */
+    min-height: calc(100% - 40px - 24px - 224px); /* высота = вся высота - подвал - необходимый отступ - шапка */
 }
 
 .page {
     background-color: #ffffff;
     margin: 16px;
     padding: 16px 32px;
-    border-radius: 10px;
     box-shadow: 0 0px 16px #1f2f42;
 }
 
 .big_page {
     width: 100%;
     max-width: 1600px;
-    min-height: 500px;
+    min-height: 540px;
 }
 
 .big_page p {
