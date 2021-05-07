@@ -2,7 +2,7 @@
     width: 300px;
     padding: 32px;
     border-radius: 10px;
-    box-shadow: 0 0px 16px #777777;
+    box-shadow: 0 0px 16px #1f4221;
     letter-spacing: 1px;
     text-align: center;
     margin: 16px auto;
@@ -13,6 +13,7 @@
     text-align: center;
     margin: 0 0 32px 0;
     font-weight: normal;
+    font-size: 40px;
 }
 
 .form_main .field {

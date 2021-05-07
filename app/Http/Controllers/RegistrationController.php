@@ -12,7 +12,7 @@ class RegistrationController extends Controller
     {
         if ($request->isMethod('get'))
         {
-            return response()->view('registration.index')->header('Content-Type', 'text/html');
+            return response()->view('registration.index', ['total_user' => null])->header('Content-Type', 'text/html');
         }
         else if ($request->isMethod('post'))
         {

@@ -12,7 +12,7 @@ class AuthorizationController extends Controller
     {
         if ($request->isMethod('get'))
         {
-            return response()->view('authorization.index')->header('Content-Type', 'text/html');
+            return response()->view('authorization.index', ['total_user' => null])->header('Content-Type', 'text/html');
         }
         else if ($request->isMethod('post'))
         {

@@ -9,31 +9,31 @@
         {{ csrf_field() }}
         <h1>Регистрация</h1>
         <div class="field">
-            <input type="text" placeholder=" " name="login" id="login" value="{{ $form_data['login'] }}" required/>
+            <input type="text" placeholder=" " name="login" id="login" value="{{ $form_data['login'] ?? '' }}" required/>
             <label for="login">Логин *</label>
         </div>
         <div class="field">
-            <input type="text" placeholder=" " name="email" id="email" value="{{ $form_data['email'] }}"/>
+            <input type="text" placeholder=" " name="email" id="email" value="{{ $form_data['email'] ?? '' }}"/>
             <label for="email">Email</label>
         </div>
         <div class="field">
-            <input type="text" placeholder=" " name="first_name" id="first_name" value="{{ $form_data['first_name'] }}" required/>
+            <input type="text" placeholder=" " name="first_name" id="first_name" value="{{ $form_data['first_name'] ?? '' }}" required/>
             <label for="first_name">Имя *</label>
         </div>
         <div class="field">
-            <input type="text" placeholder=" " name="second_name" id="second_name" value="{{ $form_data['second_name'] }}" required/>
+            <input type="text" placeholder=" " name="second_name" id="second_name" value="{{ $form_data['second_name'] ?? '' }}" required/>
             <label for="second_name">Фамилия *</label>
         </div>
         <div class="field">
-            <input type="text" placeholder=" " name="third_name" id="third_name" value="{{ $form_data['third_name'] }}" />
+            <input type="text" placeholder=" " name="third_name" id="third_name" value="{{ $form_data['third_name'] ?? '' }}" />
             <label for="third_name">Отчество</label>
         </div>
         <div class="field">
-            <input type="password" placeholder=" " name="password" id="password" value="{{ $form_data['password'] }}" required/>
+            <input type="password" placeholder=" " name="password" id="password" value="{{ $form_data['password'] ?? '' }}" required/>
             <label for="password">Пароль *</label>
         </div>
         <div class="field">
-            <input type="password" placeholder=" " name="password_confirmed" id="password_confirmed" value="{{ $form_data['password_confirmed'] }}" required/>
+            <input type="password" placeholder=" " name="password_confirmed" id="password_confirmed" value="{{ $form_data['password_confirmed'] ?? '' }}" required/>
             <label for="password_confirmed">Подтверждение пароля *</label>
         </div>
         <div class="errors">

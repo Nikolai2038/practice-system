@@ -1,11 +1,15 @@
 @extends('layout')
 @section('title', 'Регистрация')
 @section('content')
-    Добро пожаловать, {{ $total_user->login ?? 'Аноним' }}!<br/>
     @if($total_user != null)
-        <a href="{{ route('logout') }}">Выйти</a>
+        Добро пожаловать, {{ $total_user->login }}!<br/>
     @else
-        <a href="{{ route('authorization') }}">Авторизация</a><br/>
-        <a href="{{ route('registration') }}">Регистрация</a>
+        <div id="page">
+            <p>
+                Добро пожаловать в АИС "Прохождение производственной практики".
+                Для начала работы, Вам необходимо получить <b>ссылку на регистрацию</b> от администратора АИС.
+                Для входа в аккаунт используйте страницу "Авторизация".
+            </p>
+        </div>
     @endif
 @endsection
