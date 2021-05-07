@@ -39,7 +39,12 @@ class AuthorizationController extends Controller
                     return redirect()->route(Functions::ROUTE_NAME_TO_REDIRECT_FROM_AUTHORIZATION)->header('Content-Type', 'text/html');
                 }
             }
-            return response()->view('authorization.index', ['form_data' => $request->only(['login', 'password']), 'errors' => $errors])->header('Content-Type', 'text/html');
+            return response()
+                ->view('authorization.index', [
+                    'form_data' => $request->only(['login', 'password']),
+                    'errors' => $errors
+                ])
+                ->header('Content-Type', 'text/html');
         }
     }
 }

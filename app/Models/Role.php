@@ -23,4 +23,10 @@ class Role extends Model
     public const ROLE_WEIGHT_DIRECTOR_STUDY = 1;
     public const ROLE_WEIGHT_ADMINISTRATOR = 2;
     public const ROLE_WEIGHT_SUPER_ADMINISTRATOR = 3;
+
+    public const ROLE_ID_USER = 1;
+    public const ROLE_ID_DIRECTOR_PRACTICE = 2;
+    public const ROLE_ID_DIRECTOR_STUDY = 3;
+    public const ROLE_ID_ADMINISTRATOR = 4;
+    public const ROLE_ID_SUPER_ADMINISTRATOR = 5;
 }

@@ -8,10 +8,34 @@ use Illuminate\Support\Facades\Session;
 
 class Functions
 {
+    /** Минимальная длина логина пользователя */
     public const MIN_LENGTH_LOGIN = 4;
+    /** Максимальная длина логина пользователя */
     public const MAX_LENGTH_LOGIN = 64;
 
+    /** Минимальная длина адреса электронной почты пользователя */
+    public const MIN_LENGTH_EMAIL = 4;
+    /** Максимальная длина адреса электронной почты пользователя */
+    public const MAX_LENGTH_EMAIL = 64;
+
+    /** Минимальная длина имени пользователя */
+    public const MIN_LENGTH_FIRST_NAME = 2;
+    /** Максимальная длина имени пользователя */
+    public const MAX_LENGTH_FIRST_NAME = 32;
+
+    /** Минимальная длина фамилии пользователя */
+    public const MIN_LENGTH_SECOND_NAME = 2;
+    /** Максимальная длина фамилии пользователя */
+    public const MAX_LENGTH_SECOND_NAME = 32;
+
+    /** Минимальная длина отчества пользователя */
+    public const MIN_LENGTH_THIRD_NAME = 2;
+    /** Максимальная длина отчества пользователя */
+    public const MAX_LENGTH_THIRD_NAME = 32;
+
+    /** Минимальная длина пароля пользователя */
     public const MIN_LENGTH_PASSWORD = 4;
+    /** Максимальная длина пароля пользователя */
     public const MAX_LENGTH_PASSWORD = 128;
 
     public const ROUTE_NAME_TO_REDIRECT_FROM_AUTHORIZATION = 'index';
@@ -28,7 +52,7 @@ class Functions
                 $errors[] = 'Поле "'.$input_name.'" должно быть в диапазоне от '.$min_length.' до '.$max_length.' символов!';
             }
         }
-        else
+        else if($is_required && $text_length == 0)
         {
             $errors[] = 'Поле "'.$input_name.'" должно быть заполнено!';
         }
