@@ -1,9 +1,9 @@
 @extends('layouts.layout')
-@section('title', 'Практики')
+@section('title', 'Настройки')
 @section('page_sized_class', 'big_page')
-@section('page_title', 'Практики')
+@section('page_title', 'Настройки')
 @section('content')
     <p>
-        практики
+        настройки
     </p>
 @endsection

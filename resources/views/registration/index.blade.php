@@ -1,13 +1,14 @@
-@extends('layout')
+@extends('layouts.layout')
 @section('title', 'Регистрация')
 @section('css')
     @parent
     <link rel="stylesheet" href="{{ URL::asset('css/forms.css') }}" type="text/css">
 @endsection
+@section('page_sized_class', 'small_page')
+@section('page_title', 'Регистрация')
 @section('content')
     <form method="POST" class="form_main">
         {{ csrf_field() }}
-        <h1>Регистрация</h1>
         <div class="field">
             <input type="text" placeholder=" " name="login" id="login" value="{{ $form_data['login'] ?? '' }}" required/>
             <label for="login">Логин *</label>

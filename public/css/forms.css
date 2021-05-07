@@ -1,19 +1,5 @@
 .form_main {
-    width: 300px;
-    padding: 32px;
-    border-radius: 10px;
-    box-shadow: 0 0px 16px #1f2f42;
-    letter-spacing: 1px;
-    text-align: center;
-    margin: 16px auto;
-    background-color: #ffffff;
-}
-
-.form_main h1 {
-    text-align: center;
-    margin: 0 0 32px 0;
-    font-weight: normal;
-    font-size: 40px;
+    width: 100%;
 }
 
 .form_main .field {

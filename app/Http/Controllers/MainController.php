@@ -8,7 +8,7 @@ class MainController extends Controller
     public function index()
     {
         $total_user = Functions::getTotalUser();
-        return response()->view('index', ['total_user' => $total_user])->header('Content-Type', 'text/html');
+        return response()->view('main.index', ['total_user' => $total_user])->header('Content-Type', 'text/html');
     }
 
     public function logout()
@@ -20,6 +20,6 @@ class MainController extends Controller
     public function register()
     {
         $total_user = Functions::getTotalUser();
-        return response()->view('register', ['total_user' => $total_user])->header('Content-Type', 'text/html');
+        return response()->view('main.register', ['total_user' => $total_user])->header('Content-Type', 'text/html');
     }
 }

@@ -1,9 +1,9 @@
-@extends('layout')
+@extends('layouts.layout')
 @section('title', 'Чаты')
+@section('page_sized_class', 'big_page')
+@section('page_title', 'Чаты')
 @section('content')
-    <div class="page big_page">
-        <p>
-            чаты
-        </p>
-    </div>
+    <p>
+        чаты
+    </p>
 @endsection

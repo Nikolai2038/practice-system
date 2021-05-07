@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthorizationController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\AdministrationController;
+use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\PracticesController;
 use App\Http\Controllers\ChatsController;

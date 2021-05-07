@@ -41,9 +41,12 @@
                 </nav>
             </header>
             <div id="content">
-                @section('content')
-                    Контент не найден!
-                @show
+                <div class="page @yield('page_sized_class')">
+                    <h1>@yield('page_title')</h1>
+                    @section('content')
+                        Контент не найден!
+                    @show
+                </div>
             </div>
         </div>
         <footer>
