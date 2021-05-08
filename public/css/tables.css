@@ -1,42 +1,55 @@
-.table_users {
+.table_main {
     text-decoration: none;
     border-collapse: collapse;
     width: 100%;
     text-align: center;
 }
 
-.table_users th {
+.table_main th {
     font-weight: normal;
     font-size: 14px;
     color: #ffffff;
     background-color: #103957;
 }
 
-.table_users td,
-.table_users th {
+.table_main td,
+.table_main th {
     border: 1px solid #354251;
 }
 
-.table_users td a,
-.table_users th {
+.table_main tr {
+    height: 48px;
+}
+
+.td_small {
+    max-width: 120px;
+    width: 120px;
+}
+
+.table_main td a,
+.table_main th {
     line-height: 13px;
     vertical-align: middle;
     white-space: pre-wrap;
     padding: 10px 5px;
 }
 
-.table_users td a {
+.table_main td a,
+.table_main td a span {
     font-size: 13px;
+}
+
+.table_main td a {
     color: #354251;
     text-decoration: none;
     display: block;
 }
 
-.table_users tr:hover {
+.table_main tr:hover {
     background-color: #d2ebfc
 }
 
-.table_users tr:hover td a {
+.table_main tr:hover td a {
     color: #354251;
     cursor: pointer;
 }

@@ -137,6 +137,17 @@ body {
     margin: 16px 0;
 }
 
+
+.online_status {
+    color: #1e8b1e;
+    font-weight: bold;
+}
+
+.offline_status {
+    color: #892020;
+    font-weight: bold;
+}
+
 footer {
     display: flex;
     justify-content: center;

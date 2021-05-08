@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Http\Functions;
 
 class CreateUsersTable extends Migration
 {
@@ -23,8 +24,10 @@ class CreateUsersTable extends Migration
             $table->string('second_name', 64);
             $table->string('third_name', 64)->nullable();
             $table->string('email', 64)->nullable();
+            $table->tinyInteger('show_email')->default(Functions::SETTING_VALUE_SHOW_TO_NOONE);
+            $table->string('phone', 16)->nullable();
+            $table->tinyInteger('show_phone')->default(Functions::SETTING_VALUE_SHOW_TO_NOONE);
             $table->string('password_sha512', 128);
-            $table->bigInteger('registration_link_id')->nullable();
             $table->bigInteger('role_id')->default(0);
             $table->bigInteger('institution_id')->nullable();
             $table->timestamp('last_activity_at');

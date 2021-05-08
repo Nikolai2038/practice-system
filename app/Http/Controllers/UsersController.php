@@ -11,6 +11,17 @@ class UsersController extends Controller
     {
         $total_user = Functions::getTotalUser();
         $users = User::orderBy('id')->paginate(10);
+        foreach ($users as $user)
+        {
+            if($user->canShowEmailTo($total_user) == false)
+            {
+                $user['email'] = 'Скрыт';
+            }
+            if($user->canShowPhoneTo($total_user) == false)
+            {
+                $user['phone'] = 'Скрыт';
+            }
+        }
         return response()->view('users.all', ['total_user' => $total_user, 'users' => $users])->header('Content-Type', 'text/html');
     }
 

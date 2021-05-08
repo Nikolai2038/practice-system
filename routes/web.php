@@ -42,7 +42,6 @@ Route::post('/authorization', [ AuthorizationController::class, 'index' ])
 Route::get('/registration', [ RegistrationController::class, 'index' ])
     ->name('registration')
     ->middleware('required_to_be_guest');
-
 // Регистрация - отправка формы
 Route::post('/registration', [ RegistrationController::class, 'index' ])
     ->middleware('required_to_be_guest');
@@ -111,6 +110,12 @@ Route::group([
         'as' => '_institutions'
     ], function() {
         Route::get('/', [ InstitutionsController::class, 'index' ]);
+
+        // Создание предприятия / учебного заведения
+        Route::get('/create', [ InstitutionsController::class, 'create'])
+            ->name('_create');
+        Route::post('/create', [ InstitutionsController::class, 'create'])
+            ->name('_create');
     });
 });
 

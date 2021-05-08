@@ -21,6 +21,7 @@ class RegistrationController extends Controller
 
             Functions::checkInput($request,'login','Логин',Functions::MIN_LENGTH_LOGIN,Functions::MAX_LENGTH_LOGIN,true,$errors);
             Functions::checkInput($request,'email','Email',Functions::MIN_LENGTH_EMAIL,Functions::MAX_LENGTH_EMAIL,false,$errors);
+            Functions::checkInput($request,'phone','Телефон',Functions::MIN_LENGTH_PHONE,Functions::MAX_LENGTH_PHONE,false,$errors);
             Functions::checkInput($request,'first_name','Имя',Functions::MIN_LENGTH_FIRST_NAME,Functions::MAX_LENGTH_FIRST_NAME,true,$errors);
             Functions::checkInput($request,'second_name','Фамилия',Functions::MIN_LENGTH_SECOND_NAME,Functions::MAX_LENGTH_SECOND_NAME,true,$errors);
             Functions::checkInput($request,'third_name','Отчество',Functions::MIN_LENGTH_THIRD_NAME,Functions::MAX_LENGTH_THIRD_NAME,false,$errors);
@@ -50,6 +51,7 @@ class RegistrationController extends Controller
                     $user = new User;
                     $user->login = $request->input('login');
                     $user->email = $request->input('email');
+                    $user->phone = $request->input('phone');
                     $user->first_name = $request->input('first_name');
                     $user->second_name = $request->input('second_name');
                     $user->third_name = $request->input('third_name');

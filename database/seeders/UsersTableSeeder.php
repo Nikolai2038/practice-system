@@ -18,7 +18,7 @@ class UsersTableSeeder extends Seeder
         $user->last_activity_at = now();
         $user->save();
 
-        for($i = 2; $i <= 500; $i++)
+        for($i = 2; $i <= 200; $i++)
         {
             $user = new User;
             $user->login = 'user-'.$i;

@@ -18,6 +18,11 @@ class Functions
     /** Максимальная длина адреса электронной почты пользователя */
     public const MAX_LENGTH_EMAIL = 64;
 
+    /** Минимальная длина телефона пользователя */
+    public const MIN_LENGTH_PHONE = 10;
+    /** Максимальная длина телефона пользователя */
+    public const MAX_LENGTH_PHONE = 11;
+
     /** Минимальная длина имени пользователя */
     public const MIN_LENGTH_FIRST_NAME = 2;
     /** Максимальная длина имени пользователя */
@@ -40,6 +45,11 @@ class Functions
 
     public const ROUTE_NAME_TO_REDIRECT_FROM_AUTHORIZATION = 'index';
     public const ROUTE_NAME_TO_REDIRECT_FROM_DENY_ACCESS = 'index';
+
+
+    public const SETTING_VALUE_SHOW_TO_NOONE = 0;
+    public const SETTING_VALUE_SHOW_TO_CONTACTS = 1;
+    public const SETTING_VALUE_SHOW_TO_ALL = 2;
 
     /** Часовой пояс для дат в БД */
     public const TIMEZONE_PRECISION = 3;

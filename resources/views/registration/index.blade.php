@@ -23,6 +23,10 @@
             <label for="email">Email</label>
         </div>
         <div class="field">
+            <input type="text" placeholder=" " name="phone" id="phone" value="{{ $form_data['phone'] ?? '' }}"/>
+            <label for="phone">Телефон</label>
+        </div>
+        <div class="field">
             <input type="text" placeholder=" " name="first_name" id="first_name" value="{{ $form_data['first_name'] ?? '' }}" required/>
             <label for="first_name">Имя *</label>
         </div>
