@@ -2,7 +2,10 @@
 
 namespace App\Exceptions;
 
+use App\Http\Functions;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -38,4 +41,22 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+    public function render($request, Throwable $e)
+    {
+        $total_user = Functions::getTotalUser();
+        if ($e instanceof NotFoundHttpException) // маршрут не найден
+        {
+            // Не работает, так как сессия недоступна при неправильном указании маршрута - решение пока не нашёл
+            // return response()->view('errors.404', ['total_user' => $total_user, 'description' => 'Маршрут не найден.'])->header('Content-Type', 'text/html');
+
+            return redirect()->route(Functions::ROUTE_NAME_TO_REDIRECT_FROM_DENY_ACCESS)->header('Content-Type', 'text/html');
+        }
+        else if ($e instanceof ModelNotFoundException) // модель не найдена
+        {
+            return response()->view('errors.404', ['total_user' => $total_user, 'description' => 'Модель не найдена.'])->header('Content-Type', 'text/html');
+        }
+        return parent::render($request, $e);
+    }
+
 }

@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('shared.layout')
 
 @section('title', 'Администрирование')
 
@@ -6,8 +6,8 @@
 
 @section('page_title', 'Администрирование')
 
-@section('content')
-    <p>
-        панель администратора
-    </p>
+@section('sub_menu')
+    <a href="{{ route('administration_roles') }}" class="button button_red button_size_small">Роли</a>
+    <a href="{{ route('administration_institutions') }}" class="button button_red button_size_small">Институты</a>
+    <a href="{{ route('administration_bans') }}" class="button button_red button_size_small">Баны</a>
 @endsection

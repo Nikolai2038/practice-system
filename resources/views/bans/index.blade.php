@@ -1,13 +1,13 @@
 @extends('shared.layout')
 
-@section('title', 'Чаты')
+@section('title', 'Баны')
 
 @section('page_sized_class', 'big_page')
 
-@section('page_title', 'Чаты')
+@section('page_title', 'Баны')
 
 @section('content')
     <p>
-        чаты
+        123
     </p>
 @endsection

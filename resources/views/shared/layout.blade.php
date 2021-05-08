@@ -49,7 +49,6 @@
                     </div>
                     <div class="page_center_content">
                         @section('content')
-                            Контент не найден!
                         @show
                     </div>
                 </div>

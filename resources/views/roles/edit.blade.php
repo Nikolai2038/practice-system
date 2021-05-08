@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('shared.layout')
 
 @section('title', $watching_user->getFullName().' - изменение роли пользователя')
 
@@ -24,12 +24,12 @@
                 @foreach($roles as $role)
                     <option
                         @if($watching_user->role == $role)
-                            selected
+                        selected
                         @endif
                         @if($total_user->canChangeRoleTo($role) == false)
-                            disabled
+                        disabled
                         @endif
-                    value={{ $role->id }}>{{ $role->name }}</option>
+                        value={{ $role->id }}>{{ $role->name }}</option>
                 @endforeach
             </select>
         </div>

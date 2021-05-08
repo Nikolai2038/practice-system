@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('shared.layout')
 
 @section('title', 'Роли пользователей')
 

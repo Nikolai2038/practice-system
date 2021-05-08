@@ -20,7 +20,7 @@ class UsersController extends Controller
         $watching_user = $total_user;
         if($user_id != null)
         {
-            $watching_user = User::where('id', '=', $user_id)->first();
+            $watching_user = User::where('id', '=', $user_id)->firstOrFail();
         }
         return response()->view('users.profile', ['total_user' => $total_user, 'watching_user' => $watching_user])->header('Content-Type', 'text/html');
     }

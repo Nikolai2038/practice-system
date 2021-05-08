@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('shared.layout')
 
 @section('title', 'Пользователи')
 
@@ -38,5 +38,5 @@
             </tbody>
         </table>
     </div>
-    {{ $users->links('layouts.pagination') }}
+    {{ $users->links('shared.pagination') }}
 @endsection
