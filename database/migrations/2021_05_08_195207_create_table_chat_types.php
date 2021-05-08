@@ -16,6 +16,7 @@ class CreateTableChatTypes extends Migration
         Schema::create('chat_types', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

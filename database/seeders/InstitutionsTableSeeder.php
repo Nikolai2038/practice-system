@@ -1,7 +1,9 @@
 <?php
 
 namespace Database\Seeders;
+
 use App\Models\Institution;
+use App\Models\InstitutionType;
 use Illuminate\Database\Seeder;
 
 class InstitutionsTableSeeder extends Seeder
@@ -14,7 +16,7 @@ class InstitutionsTableSeeder extends Seeder
             $institution->full_name = 'Полное_название_'.$i;
             $institution->short_name = 'Краткое_название_'.$i;
             $institution->address = 'Адрес_'.$i;
-            $institution->type_id = $i % 2;
+            $institution->type()->associate(InstitutionType::find($i % 2 + 1));
             $institution->save();
         }
     }

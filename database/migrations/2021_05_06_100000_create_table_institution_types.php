@@ -16,6 +16,11 @@ class CreateTableInstitutionTypes extends Migration
         Schema::create('institution_types', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->softDeletes();
+
+            $table->string('name', 32);
+
+            $table->unique('name');
         });
     }
 

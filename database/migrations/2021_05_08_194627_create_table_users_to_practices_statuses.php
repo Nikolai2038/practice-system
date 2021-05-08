@@ -16,6 +16,7 @@ class CreateTableUsersToPracticesStatuses extends Migration
         Schema::create('users_to_practices_statuses', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -26,6 +27,6 @@ class CreateTableUsersToPracticesStatuses extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_statuses');
+        Schema::dropIfExists('users_to_practices_statuses');
     }
 }

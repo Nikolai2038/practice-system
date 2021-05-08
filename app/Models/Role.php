@@ -4,14 +4,24 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Carbon;
 
+/**
+ * @property Carbon $created_at Дата и время создания записи в БД
+ * @property Carbon $updated_at Дата и время последнего изменения записи в БД
+ * @property Carbon $deleted_at Дата и время мягкого удаления записи в БД
+ * @property string $name
+ * @property int $weight
+ * @property HasMany $users
+ */
 class Role extends Model
 {
     use HasFactory;
 
     public function users()
     {
-        return $this->hasMany('App\Models\User');
+        return $this->hasMany(User::class);
     }
 
     public const ROLE_WEIGHT_USER = 0;

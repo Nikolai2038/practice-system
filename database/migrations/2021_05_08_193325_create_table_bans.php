@@ -16,6 +16,14 @@ class CreateTableBans extends Migration
         Schema::create('bans', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->softDeletes();
+
+            $table->bigInteger('user_from_id')->nullable();
+            $table->bigInteger('user_to_id');
+            $table->timestamp('unban_at');
+
+            $table->foreign('user_from_id')->references('id')->on('users');
+            $table->foreign('user_to_id')->references('id')->on('users');
         });
     }
 

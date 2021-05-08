@@ -16,6 +16,7 @@ class CreateTableFilesToMessages extends Migration
         Schema::create('files_to_messages', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

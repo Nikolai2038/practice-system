@@ -16,6 +16,7 @@ class CreateTableUsersToTasksStatuses extends Migration
         Schema::create('users_to_tasks_statuses', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -26,6 +27,6 @@ class CreateTableUsersToTasksStatuses extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('task_statuses');
+        Schema::dropIfExists('users_to_tasks_statuses');
     }
 }

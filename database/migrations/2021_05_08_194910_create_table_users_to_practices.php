@@ -16,6 +16,7 @@ class CreateTableUsersToPractices extends Migration
         Schema::create('users_to_practices', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

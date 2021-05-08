@@ -16,6 +16,7 @@ class CreateTableUsersToTasks extends Migration
         Schema::create('usesks', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

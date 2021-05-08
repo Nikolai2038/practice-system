@@ -5,14 +5,49 @@ namespace App\Models;
 use App\Http\Functions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
+use phpDocumentor\Reflection\Types\Integer;
 
+/**
+ * @property Carbon $created_at Дата и время создания записи в БД
+ * @property Carbon $updated_at Дата и время последнего изменения записи в БД
+ * @property Carbon $deleted_at Дата и время мягкого удаления записи в БД
+ * @property string $login
+ * @property string $password_sha512
+ * @property string $first_name
+ * @property string $second_name
+ * @property string $third_name
+ * @property string $email
+ * @property int $show_email
+ * @property string $phone
+ * @property int $show_phone
+ * @property Role $role
+ * @property Institution $institution
+ * @property Carbon $last_activity_at
+ */
 class User extends Model
 {
     use HasFactory;
 
     public function role()
     {
-        return $this->belongsTo('App\Models\Role');
+        return $this->belongsTo(Role::class);
+    }
+
+    public function bans_from()
+    {
+        return $this->hasMany(Ban::class);
+    }
+
+    public function bans_to()
+    {
+        return $this->hasMany(Ban::class);
+    }
+
+    public function institution()
+    {
+        return $this->belongsTo(Institution::class);
     }
 
     public function getFullName()
