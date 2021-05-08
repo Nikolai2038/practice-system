@@ -46,10 +46,14 @@ class Functions
     public const ROUTE_NAME_TO_REDIRECT_FROM_AUTHORIZATION = 'index';
     public const ROUTE_NAME_TO_REDIRECT_FROM_DENY_ACCESS = 'index';
 
-
+    // Типы значений настроек
     public const SETTING_VALUE_SHOW_TO_NOONE = 0;
     public const SETTING_VALUE_SHOW_TO_CONTACTS = 1;
     public const SETTING_VALUE_SHOW_TO_ALL = 2;
+
+    // Типы институтов - предприятие или учебное заведение
+    public const INSTITUTIONS_TYPE_PRACTIC = 0; // предприятие
+    public const INSTITUTIONS_TYPE_STUDY = 1; // учебное заведение
 
     /** Часовой пояс для дат в БД */
     public const TIMEZONE_PRECISION = 3;
