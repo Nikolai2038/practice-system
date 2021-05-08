@@ -7,7 +7,11 @@
     margin-bottom: 32px;
 }
 
-.form_main div label {
+.form_main .field_not_input {
+    margin-bottom: 24px;
+}
+
+.form_main .field label {
     position: absolute;
     top: 0;
     left: 0;
@@ -15,7 +19,7 @@
     transition: 0.3s;
 }
 
-.form_main div input {
+.form_main .field input {
     font-size: 16px;
     width: 100%;
     padding: 0 0 5px 0;
@@ -26,42 +30,31 @@
     transition: 0.3s;
 }
 
-.form_main div input:focus {
+.form_main .field input:focus {
      border-bottom: 1px solid #1a73a8;
 }
 
-.form_main div input:focus ~ label,
-.form_main div input:not(:placeholder-shown) ~ label {
+.form_main .field input:focus ~ label,
+.form_main .field input:not(:placeholder-shown) ~ label {
     top: -18px;
     font-size: 12px;
     color: #e0e0e0;
 }
 
+.form_main .notification {
+    margin: 24px 0;
+    font-size: 14px;
+    font-weight: bold;
+    color: #259500;
+}
+
 .form_main .errors {
-    margin-bottom: 24px;
+    margin: 24px 0;
 }
 
 .form_main .errors p {
-    margin-bottom: 4px;
-    font-size: 12px;
+    margin: 4px 0;
+    font-size: 14px;
     font-weight: bold;
     color: #ff0000;
-}
-
-.form_main button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    letter-spacing: 1px;
-    font-size: 16px;
-    color :#fff ;
-    background-color: #0071f0;
-    outline: none;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.form_main button:focus,
-.form_main button:hover {
-    background-color: rgba(0, 113, 240, 0.7);
 }

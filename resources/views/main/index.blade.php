@@ -1,11 +1,15 @@
 @extends('layouts.layout')
+
 @section('title', 'Главная')
+
 @section('page_sized_class', 'small_page')
+
 @section('page_title', 'Главная')
+
 @section('content')
     @if($total_user != null)
         <p>
-            Добро пожаловать, {{ $total_user->login }}!
+            Добро пожаловать, {{ $total_user->getFullName() }}!
         </p>
     @else
         <p>

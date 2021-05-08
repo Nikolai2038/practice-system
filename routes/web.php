@@ -75,6 +75,21 @@ Route::get('/administration', [AdministrationController::class, 'index'])
     ->name('administration')
     ->middleware('required_to_be_user', 'required_to_be_administrator');
 
+// Роли
+Route::get('/administration/roles', [AdministrationController::class, 'roles'])
+    ->name('administration_roles')
+    ->middleware('required_to_be_user', 'required_to_be_administrator');
+
+// Изменение роли пользователя
+Route::get('/administration/roles/edit/{user_id}', [AdministrationController::class, 'edit'])
+    ->name('administration_roles_edit')
+    ->middleware('required_to_be_user', 'required_to_be_administrator')
+    ->where('user_id', '[0-9]+');
+
+Route::post('/administration/roles/edit/{user_id}', [AdministrationController::class, 'edit'])
+    ->middleware('required_to_be_user', 'required_to_be_administrator')
+    ->where('user_id', '[0-9]+');
+
 // Контакты, запросы в друзья и т.п.
 Route::get('/contacts', [ContactsController::class, 'index'])
     ->name('contacts')
