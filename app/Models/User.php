@@ -12,7 +12,7 @@ use phpDocumentor\Reflection\Types\Integer;
 
 /**
  * @method static User find
- * @method static Builder where
+ * @method static Builder where(...$params)
  * @method static Builder orderBy
  * @property Carbon $created_at Дата и время создания записи в БД
  * @property Carbon $updated_at Дата и время последнего изменения записи в БД
@@ -56,12 +56,37 @@ class User extends Model
 
     public function practices()
     {
-        return $this->belongsToMany(Practice::class, 'users_to_practices');
+        return $this->belongsToMany(Practice::class, 'users_to_practices')->withTimestamps();
     }
 
     public function users_to_practices_statuses()
     {
-        return $this->belongsToMany(UsersToPracticesStatus::class, 'users_to_practices');
+        return $this->belongsToMany(UsersToPracticesStatus::class, 'users_to_practices')->withTimestamps();
+    }
+
+    public function chats()
+    {
+        return $this->belongsToMany(Chat::class, 'users_to_chats')->withTimestamps();
+    }
+
+    public function tasks_from()
+    {
+        return $this->hasMany(Task::class);
+    }
+
+    public function tasks()
+    {
+        return $this->belongsToMany(Task::class, 'users_to_tasks')->withTimestamps();
+    }
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+    }
+
+    public function files()
+    {
+        return $this->hasMany(File::class);
     }
 
     public function getFullName()

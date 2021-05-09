@@ -14,12 +14,12 @@ class InstitutionTypesTableSeeder extends Seeder
      */
     public function run()
     {
-        $institution_type_1 = new InstitutionType;
-        $institution_type_1->name = 'Предприятие';
-        $institution_type_1->save();
+        $institution_type = new InstitutionType;
+        $institution_type->name = 'Предприятие';
+        $institution_type->save();
 
-        $institution_type_2 = new InstitutionType;
-        $institution_type_2->name = 'Учебное заведение';
-        $institution_type_2->save();
+        $institution_type = new InstitutionType;
+        $institution_type->name = 'Учебное заведение';
+        $institution_type->save();
     }
 }

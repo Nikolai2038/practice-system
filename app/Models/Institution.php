@@ -9,7 +9,7 @@ use Illuminate\Support\Carbon;
 
 /**
  * @method static Institution find
- * @method static Builder where
+ * @method static Builder where(...$params)
  * @method static Builder orderBy
  * @property Carbon $created_at Дата и время создания записи в БД
  * @property Carbon $updated_at Дата и время последнего изменения записи в БД
@@ -17,7 +17,6 @@ use Illuminate\Support\Carbon;
  * @property string $full_name
  * @property string $short_name
  * @property string $address
- * @property InstitutionType $type
  */
 class Institution extends Model
 {

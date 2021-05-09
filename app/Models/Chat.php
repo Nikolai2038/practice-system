@@ -9,7 +9,7 @@ use Illuminate\Support\Carbon;
 
 /**
  * @method static Chat find
- * @method static Builder where
+ * @method static Builder where(...$params)
  * @method static Builder orderBy
  * @property Carbon $created_at Дата и время создания записи в БД
  * @property Carbon $updated_at Дата и время последнего изменения записи в БД
@@ -18,4 +18,29 @@ use Illuminate\Support\Carbon;
 class Chat extends Model
 {
     use HasFactory;
+
+    public function chat_type()
+    {
+        return $this->belongsTo(ChatType::class);
+    }
+
+    public function practice()
+    {
+        return $this->belongsTo(Practice::class);
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(Task::class, 'users_to_chats')->withTimestamps();
+    }
+
+    public function task()
+    {
+        return $this->hasOne(Task::class);
+    }
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class, 'messages_to_chats');
+    }
 }

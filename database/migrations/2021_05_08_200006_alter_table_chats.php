@@ -13,7 +13,9 @@ class AlterTableChats extends Migration
      */
     public function up()
     {
-        //
+        Schema::table('chats', function (Blueprint $table){
+            $table->foreign('task_id')->references('id')->on('tasks');
+        });
     }
 
     /**
@@ -23,6 +25,8 @@ class AlterTableChats extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('chats', function (Blueprint $table){
+            $table->dropForeign(['task_id']);
+        });
     }
 }

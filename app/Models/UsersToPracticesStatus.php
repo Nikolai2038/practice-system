@@ -9,7 +9,7 @@ use Illuminate\Support\Carbon;
 
 /**
  * @method static UsersToPracticesStatus find
- * @method static Builder where
+ * @method static Builder where(...$params)
  * @method static Builder orderBy
  * @property Carbon $created_at Дата и время создания записи в БД
  * @property Carbon $updated_at Дата и время последнего изменения записи в БД
@@ -37,11 +37,11 @@ class UsersToPracticesStatus extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class, 'users_to_practices');
+        return $this->belongsToMany(User::class, 'users_to_practices')->withTimestamps();
     }
 
     public function practices()
     {
-        return $this->belongsToMany(Practice::class, 'users_to_practices');
+        return $this->belongsToMany(Practice::class, 'users_to_practices')->withTimestamps();
     }
 }

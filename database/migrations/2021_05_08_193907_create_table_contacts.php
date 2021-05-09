@@ -22,6 +22,7 @@ class CreateTableContacts extends Migration
             $table->bigInteger('user_to_id');
             $table->boolean('is_accepted')->default(false);
 
+            $table->unique(['user_from_id', 'user_to_id']);
             $table->foreign('user_from_id')->references('id')->on('users');
             $table->foreign('user_to_id')->references('id')->on('users');
         });

@@ -14,7 +14,7 @@ class UsersToPracticesStatusesTableSeeder extends Seeder
      */
     public function run()
     {
-        // название статуса студента на практике - вес (чем больше вес, тем больше прав)
+        // Вес статуса студента на практике (чем больше вес, тем быстрее ему нужно впихнуть чем заниматься)
         $data = [
             ['Зарегистрирован на практику', UsersToPracticesStatus::USERS_TO_PRACTICES_STATUS_WEIGHT_REGISTERED],
             ['Начинает практику', UsersToPracticesStatus::USERS_TO_PRACTICES_STATUS_WEIGHT_STARTING],

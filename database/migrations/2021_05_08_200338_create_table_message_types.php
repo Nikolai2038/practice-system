@@ -17,6 +17,10 @@ class CreateTableMessageTypes extends Migration
             $table->id();
             $table->timestamps();
             $table->softDeletes();
+
+            $table->string('name', 32);
+
+            $table->unique('name');
         });
     }
 

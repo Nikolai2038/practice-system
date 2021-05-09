@@ -17,6 +17,14 @@ class CreateTableTasks extends Migration
             $table->id();
             $table->timestamps();
             $table->softDeletes();
+
+            $table->bigInteger('user_from_id');
+            $table->bigInteger('practice_id');
+            $table->bigInteger('chat_id');
+
+            $table->foreign('user_from_id')->references('id')->on('users');
+            $table->foreign('practice_id')->references('id')->on('practices');
+            $table->foreign('chat_id')->references('id')->on('chats');
         });
     }
 

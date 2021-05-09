@@ -17,6 +17,13 @@ class CreateTableUsersToChats extends Migration
             $table->id();
             $table->timestamps();
             $table->softDeletes();
+
+            $table->bigInteger('user_id');
+            $table->bigInteger('chat_id');
+
+            $table->unique(['user_id', 'chat_id']);
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('chat_id')->references('id')->on('chats');
         });
     }
 

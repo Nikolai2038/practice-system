@@ -17,6 +17,11 @@ class CreateTableUsersToTasksStatuses extends Migration
             $table->id();
             $table->timestamps();
             $table->softDeletes();
+
+            $table->string('name', 32);
+            $table->bigInteger('weight')->default(0);
+
+            $table->unique('name');
         });
     }
 

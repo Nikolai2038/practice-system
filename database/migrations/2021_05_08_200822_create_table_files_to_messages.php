@@ -17,6 +17,13 @@ class CreateTableFilesToMessages extends Migration
             $table->id();
             $table->timestamps();
             $table->softDeletes();
+
+            $table->bigInteger('file_id');
+            $table->bigInteger('message_id');
+
+            $table->unique(['file_id', 'message_id']);
+            $table->foreign('file_id')->references('id')->on('files');
+            $table->foreign('message_id')->references('id')->on('messages');
         });
     }
 

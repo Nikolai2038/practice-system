@@ -9,7 +9,7 @@ use Illuminate\Support\Carbon;
 
 /**
  * @method static Ban find
- * @method static Builder where
+ * @method static Builder where(...$params)
  * @method static Builder orderBy
  * @property Carbon $created_at Дата и время создания записи в БД
  * @property Carbon $updated_at Дата и время последнего изменения записи в БД
