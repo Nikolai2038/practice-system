@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\UsersToPracticesStatus;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -30,6 +31,13 @@ class DatabaseSeeder extends Seeder
         $this->call(ContactsTableSeeder::class);
         $this->call(PracticesTableSeeder::class);
         $this->call(TasksTableSeeder::class);
+        $this->call(MessagesTableSeeder::class);
+        $this->call(FilesTableSeeder::class);
+
+        // Тоже тестирование - промежуточные таблицы между связями многие ко многим - идут в конце, чтобы все необходимые таблицы к этому моменту уже были созданы
+        $this->call(UsersToPracticesTableSeeder::class);
+        $this->call(UsersToChatsTableSeeder::class);
+        $this->call(UsersToTasksTableSeeder::class);
         $this->call(MessagesTableSeeder::class);
         $this->call(FilesTableSeeder::class);
     }

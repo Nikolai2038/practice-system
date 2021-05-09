@@ -17,6 +17,9 @@ class CreateTableUsersToPracticesStatuses extends Migration
             $table->id();
             $table->timestamps();
             $table->softDeletes();
+
+            $table->string('name', 64);
+            $table->bigInteger('weight')->default(0);
         });
     }
 

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Institution;
+use App\Models\Practice;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Seeder;

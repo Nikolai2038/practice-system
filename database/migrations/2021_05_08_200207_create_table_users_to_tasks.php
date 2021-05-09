@@ -13,7 +13,7 @@ class CreateTableUsersToTasks extends Migration
      */
     public function up()
     {
-        Schema::create('usesks', function (Blueprint $table) {
+        Schema::create('users_to_tasks', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->softDeletes();
@@ -27,6 +27,6 @@ class CreateTableUsersToTasks extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('usesks');
+        Schema::dropIfExists('users_to_tasks');
     }
 }

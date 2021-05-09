@@ -9,7 +9,6 @@ class RolesTableSeeder extends Seeder
 {
     public function run()
     {
-        // название роли - вес (чем больше вес, тем больше прав)
         $data = [
             ['Пользователь', Role::ROLE_WEIGHT_USER],
             ['Руководитель от предприятия', Role::ROLE_WEIGHT_DIRECTOR_PRACTICE],
@@ -18,14 +17,14 @@ class RolesTableSeeder extends Seeder
             ['Главный администратор', Role::ROLE_WEIGHT_SUPER_ADMINISTRATOR]
         ];
 
-        $roles_number = count($data);
+        $number_of_elements = count($data);
 
-        for($i = 0; $i < $roles_number; $i++)
+        for($i = 0; $i < $number_of_elements; $i++)
         {
-            $role = new Role;
-            $role->name = $data[$i][0];
-            $role->weight = $data[$i][1];
-            $role->save();
+            $element = new Role;
+            $element->name = $data[$i][0];
+            $element->weight = $data[$i][1];
+            $element->save();
         }
     }
 }

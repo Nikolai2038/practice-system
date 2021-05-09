@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Http\Functions;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -10,6 +11,9 @@ use Illuminate\Support\Carbon;
 use phpDocumentor\Reflection\Types\Integer;
 
 /**
+ * @method static User find
+ * @method static Builder where
+ * @method static Builder orderBy
  * @property Carbon $created_at Дата и время создания записи в БД
  * @property Carbon $updated_at Дата и время последнего изменения записи в БД
  * @property Carbon $deleted_at Дата и время мягкого удаления записи в БД
@@ -48,6 +52,16 @@ class User extends Model
     public function institution()
     {
         return $this->belongsTo(Institution::class);
+    }
+
+    public function practices()
+    {
+        return $this->belongsToMany(Practice::class, 'users_to_practices');
+    }
+
+    public function users_to_practices_statuses()
+    {
+        return $this->belongsToMany(UsersToPracticesStatus::class, 'users_to_practices');
     }
 
     public function getFullName()

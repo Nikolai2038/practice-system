@@ -16,7 +16,7 @@ class InstitutionsTableSeeder extends Seeder
             $institution->full_name = 'Полное_название_'.$i;
             $institution->short_name = 'Краткое_название_'.$i;
             $institution->address = 'Адрес_'.$i;
-            $institution->type()->associate(InstitutionType::find($i % 2 + 1));
+            $institution->institution_type()->associate(InstitutionType::find($i % 2 + 1));
             $institution->save();
         }
     }
