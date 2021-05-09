@@ -11,7 +11,7 @@ use Illuminate\Support\Carbon;
 use phpDocumentor\Reflection\Types\Integer;
 
 /**
- * @method static User find
+ * @method static User find($id)
  * @method static Builder where(...$params)
  * @method static Builder orderBy
  * @property Carbon $created_at Дата и время создания записи в БД

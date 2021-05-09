@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
 /**
- * @method static Institution find
+ * @method static Institution find($id)
  * @method static Builder where(...$params)
  * @method static Builder orderBy
  * @property Carbon $created_at Дата и время создания записи в БД

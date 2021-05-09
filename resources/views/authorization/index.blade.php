@@ -14,14 +14,7 @@
 @section('content')
     <form method="POST" class="form_main">
         {{ csrf_field() }}
-        <div class="field">
-            <input type="text" placeholder=" " name="login" id="login" value="{{ $form_data['login'] ?? '' }}" required/>
-            <label for="login">Логин *</label>
-        </div>
-        <div class="field">
-            <input type="password" placeholder=" " name="password" id="password" value="{{ $form_data['password'] ?? '' }}" required/>
-            <label for="password">Пароль *</label>
-        </div>
+        {!! $html_fields !!}
         @if($errors != null)
             <div class="errors">
                 @foreach($errors as $error)

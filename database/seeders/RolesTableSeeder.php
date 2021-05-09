@@ -11,8 +11,7 @@ class RolesTableSeeder extends Seeder
     {
         $data = [
             ['Пользователь', Role::ROLE_WEIGHT_USER],
-            ['Руководитель от предприятия', Role::ROLE_WEIGHT_DIRECTOR_PRACTICE],
-            ['Руководитель от учебного заведения', Role::ROLE_WEIGHT_DIRECTOR_STUDY],
+            ['Руководитель', Role::ROLE_WEIGHT_DIRECTOR],
             ['Администратор', Role::ROLE_WEIGHT_ADMINISTRATOR],
             ['Главный администратор', Role::ROLE_WEIGHT_SUPER_ADMINISTRATOR]
         ];

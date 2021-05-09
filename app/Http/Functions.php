@@ -43,6 +43,11 @@ class Functions
     /** Максимальная длина пароля пользователя */
     public const MAX_LENGTH_PASSWORD = 128;
 
+    /** Минимальная длина полного названия института */
+    public const MIN_LENGTH_INSTITUTE_FULL_NAME = 4;
+    /** Максимальная длина полного названия института */
+    public const MAX_LENGTH_INSTITUTE_FULL_NAME = 128;
+
     public const ROUTE_NAME_TO_REDIRECT_FROM_AUTHORIZATION = 'index';
     public const ROUTE_NAME_TO_REDIRECT_FROM_DENY_ACCESS = 'index';
 
@@ -57,24 +62,6 @@ class Functions
 
     /** Часовой пояс для дат в БД */
     public const TIMEZONE_PRECISION = 3;
-
-    /** Функция проверки поля ввода */
-    public static function checkInput(Request $request, $input_key, $input_name, $min_length, $max_length, $is_required = false, &$errors = null)
-    {
-        $text_length = strlen($request->input($input_key));
-
-        if($is_required || $text_length > 0)
-        {
-            if(($text_length < $min_length) || ($text_length > $max_length))
-            {
-                $errors[] = 'Поле "'.$input_name.'" должно быть в диапазоне от '.$min_length.' до '.$max_length.' символов!';
-            }
-        }
-        else if($is_required && $text_length == 0)
-        {
-            $errors[] = 'Поле "'.$input_name.'" должно быть заполнено!';
-        }
-    }
 
     /** Проверка авторизации текущего пользователя */
     public static function getTotalUser()
@@ -111,7 +98,9 @@ class Functions
         }
     }
 
-    /** Сохранение сессии */
+    /** Сохранение сессии
+     * @param mixed $user
+     */
     public static function saveSession(User $user)
     {
         $total_user = self::getTotalUser();

@@ -113,9 +113,27 @@ Route::group([
 
         // Создание предприятия / учебного заведения
         Route::get('/create', [ InstitutionsController::class, 'create'])
-            ->name('_create');
+            ->name('_create')
+            ->where('user_id', '[0-9]+');
         Route::post('/create', [ InstitutionsController::class, 'create'])
-            ->name('_create');
+            ->name('_create')
+            ->where('user_id', '[0-9]+');
+
+        // Изменение предприятия / учебного заведения
+        Route::get('/edit/{id}', [ InstitutionsController::class, 'edit'])
+            ->name('_edit')
+            ->where('user_id', '[0-9]+');
+        Route::post('/edit/{id}', [ InstitutionsController::class, 'edit'])
+            ->name('_edit')
+            ->where('user_id', '[0-9]+');
+
+        // Удаление предприятия / учебного заведения
+        Route::get('/delete/{id}', [ InstitutionsController::class, 'delete'])
+            ->name('_delete')
+            ->where('user_id', '[0-9]+');
+        Route::post('/delete/{id}', [ InstitutionsController::class, 'delete'])
+            ->name('_delete')
+            ->where('user_id', '[0-9]+');
     });
 });
 

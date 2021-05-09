@@ -19,8 +19,8 @@
     <form method="POST" class="form_main">
         {{ csrf_field() }}
         <div class="field_not_input">
-            <label for="login">Роль: </label>
-            <select name="role">
+            <label for="role">Роль: </label>
+            <select name="role" id="role">
                 @foreach($roles as $role)
                     <option
                         @if($watching_user->role == $role)

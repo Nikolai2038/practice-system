@@ -2,6 +2,11 @@
 
 @section('title', 'Предприятия / Учебные заведения')
 
+@section('css')
+    @parent
+    <link rel="stylesheet" href="{{ URL::asset('css/tables.css') }}" type="text/css">
+@endsection
+
 @section('page_sized_class', 'big_page')
 
 @section('page_title', 'Предприятия / Учебные заведения')
@@ -13,26 +18,27 @@
 
 @section('content')
     <div class="mobile-table">
-        <table class="table_main">
+        <table class="table_not_linked">
             <thead>
-            <th>ID</th>
-            <th>Полное и краткое название, адрес</th>
-            <th class="td_small">Тип</th>
+                <th>ID</th>
+                <th>Полное и краткое название, адрес</th>
+                <th class="td_small">Тип</th>
+                <th colspan="2">Действия</th>
             </thead>
             <tbody>
-            @foreach($users as $user)
+            @foreach($institutions as $institution)
                 <tr>
-                    <td><a href="{{ route('profile', $user->id) }}">{{ $user->id }}</a></td>
-                    <td><a href="{{ route('profile', $user->id) }}">{{ $user->getFullName() }}</a></td>
-                    <td class="td_small"><a href="{{ route('profile', $user->id) }}">{{ $user->email ?? '-' }}</a></td>
-                    <td class="td_small"><a href="{{ route('profile', $user->id) }}">{{ $user->phone ?? '-' }}</a></td>
-                    <td class="td_small"><a href="{{ route('profile', $user->id) }}">{{ $user->created_at }}</a></td>
-                    <td class="td_small"><a href="{{ route('profile', $user->id) }}">{{ $user->last_activity_at }}<br/>({{ $user->echoActivityStatus() }})</a></td>
-                    <td class="td_small"><a href="{{ route('profile', $user->id) }}">{{ $user->role->name }}</a></td>
+                    <td><span class="td_content">{{ $institution->id }}</span></td>
+                    <td class="td_left">
+                        <span class="td_content"><span class="institution_full_name">{{ $institution->full_name }}</span><br/>@if($institution->short_name != null)<span class="institution_short_name">Сокращённо: {{ $institution->short_name ?? '' }}</span><br/>@endif<span class="institution_address">{{ $institution->address }}</span></span>
+                    </td>
+                    <td class="td_small td_without_a"><span class="td_content">{{ $institution->institution_type->name ?? '-' }}</span></td>
+                    <td class="td_small td_linked"><a href="{{ route('administration_institutions_edit', $institution->id) }}" class="td_content">Изменить</a></td>
+                    <td class="td_small td_linked"><a href="{{ route('administration_institutions_delete', $institution->id) }}" class="td_content">Удалить</a></td>
                 </tr>
             @endforeach
             </tbody>
         </table>
     </div>
-    {{ $users->links('shared.pagination') }}
+    {{ $institutions->links('shared.pagination') }}
 @endsection

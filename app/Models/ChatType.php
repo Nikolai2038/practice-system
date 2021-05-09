@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
 /**
- * @method static ChatType find
+ * @method static ChatType find($id)
  * @method static Builder where(...$params)
  * @method static Builder orderBy
  * @property Carbon $created_at Дата и время создания записи в БД

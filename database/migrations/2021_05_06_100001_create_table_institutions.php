@@ -19,7 +19,7 @@ class CreateTableInstitutions extends Migration
             $table->softDeletes();
 
             $table->string('full_name', 256);
-            $table->string('short_name', 64);
+            $table->string('short_name', 64)->nullable();
             $table->string('address', 128);
             $table->bigInteger('institution_type_id');
 

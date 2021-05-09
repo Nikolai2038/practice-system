@@ -13,7 +13,7 @@
 
 @section('content')
     <div class="mobile-table">
-        <table class="table_main">
+        <table class="table_linked">
             <thead>
             <th>ID</th>
             <th>ФИО</th>
@@ -26,13 +26,13 @@
             <tbody>
             @foreach($users as $user)
                 <tr>
-                    <td><a href="{{ route('profile', $user->id) }}">{{ $user->id }}</a></td>
-                    <td><a href="{{ route('profile', $user->id) }}">{{ $user->getFullName() }}</a></td>
-                    <td class="td_small"><a href="{{ route('profile', $user->id) }}">{{ $user->email ?? '-' }}</a></td>
-                    <td class="td_small"><a href="{{ route('profile', $user->id) }}">{{ $user->phone ?? '-' }}</a></td>
-                    <td class="td_small"><a href="{{ route('profile', $user->id) }}">{{ $user->created_at }}</a></td>
-                    <td class="td_small"><a href="{{ route('profile', $user->id) }}">{{ $user->last_activity_at }}<br/>({{ $user->echoActivityStatus() }})</a></td>
-                    <td class="td_small"><a href="{{ route('profile', $user->id) }}">{{ $user->role->name }}</a></td>
+                    <td><a href="{{ route('profile', $user->id) }}" class="td_content">{{ $user->id }}</a></td>
+                    <td><a href="{{ route('profile', $user->id) }}" class="td_content">{{ $user->getFullName() }}</a></td>
+                    <td class="td_small"><a href="{{ route('profile', $user->id) }}" class="td_content">{{ $user->email ?? '-' }}</a></td>
+                    <td class="td_small"><a href="{{ route('profile', $user->id) }}" class="td_content">{{ $user->phone ?? '-' }}</a></td>
+                    <td class="td_small"><a href="{{ route('profile', $user->id) }}" class="td_content">{{ $user->created_at }}</a></td>
+                    <td class="td_small"><a href="{{ route('profile', $user->id) }}" class="td_content">{{ $user->last_activity_at }}<br/>({{ $user->echoActivityStatus() }})</a></td>
+                    <td class="td_small"><a href="{{ route('profile', $user->id) }}" class="td_content">{{ $user->role->name }}</a></td>
                 </tr>
             @endforeach
             </tbody>

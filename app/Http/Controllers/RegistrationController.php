@@ -1,7 +1,10 @@
 <?php
 namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
+use App\Http\FormFieldInput;
 use App\Http\Functions;
+use App\Models\Institution;
+use App\Models\InstitutionType;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -11,52 +14,59 @@ class RegistrationController extends Controller
     public function index(Request $request)
     {
         $total_user = Functions::getTotalUser();
+
+        $form_field_keys = array(
+            FormFieldInput::FIELD_KEY_LOGIN,
+            FormFieldInput::FIELD_KEY_EMAIL,
+            FormFieldInput::FIELD_KEY_PHONE,
+            FormFieldInput::FIELD_KEY_FIRST_NAME,
+            FormFieldInput::FIELD_KEY_SECOND_NAME,
+            FormFieldInput::FIELD_KEY_THIRD_NAME,
+            FormFieldInput::FIELD_KEY_INSTITUTION_ID,
+            FormFieldInput::FIELD_KEY_PASSWORD,
+            FormFieldInput::FIELD_KEY_PASSWORD_CONFIRMED
+        );
+        $form_field_defaults = null;
+        $fields_options_values = array(
+            FormFieldInput::FIELD_KEY_INSTITUTION_ID => FormFieldInput::generateOneFieldArray(Institution::all('id as value')->toArray()),
+        );
+        $fields_options_values_guarded = null;
+        $fields_options_names = array(
+            FormFieldInput::FIELD_KEY_INSTITUTION_ID => FormFieldInput::generateOneFieldArray(Institution::all('full_name as value')->toArray()),
+        );
+        $html_fields = FormFieldInput::generateHtmlFields($request, $form_field_keys, $form_field_defaults, $fields_options_values, $fields_options_values_guarded, $fields_options_names);
+
         if ($request->isMethod('get'))
         {
-            return response()->view('registration.index', ['total_user' => $total_user])->header('Content-Type', 'text/html');
+            return response()->view('registration.index', ['html_fields' => $html_fields, 'total_user' => $total_user])->header('Content-Type', 'text/html');
         }
         else if ($request->isMethod('post'))
         {
             $errors = array();
 
-            Functions::checkInput($request,'login','Логин',Functions::MIN_LENGTH_LOGIN,Functions::MAX_LENGTH_LOGIN,true,$errors);
-            Functions::checkInput($request,'email','Email',Functions::MIN_LENGTH_EMAIL,Functions::MAX_LENGTH_EMAIL,false,$errors);
-            Functions::checkInput($request,'phone','Телефон',Functions::MIN_LENGTH_PHONE,Functions::MAX_LENGTH_PHONE,false,$errors);
-            Functions::checkInput($request,'first_name','Имя',Functions::MIN_LENGTH_FIRST_NAME,Functions::MAX_LENGTH_FIRST_NAME,true,$errors);
-            Functions::checkInput($request,'second_name','Фамилия',Functions::MIN_LENGTH_SECOND_NAME,Functions::MAX_LENGTH_SECOND_NAME,true,$errors);
-            Functions::checkInput($request,'third_name','Отчество',Functions::MIN_LENGTH_THIRD_NAME,Functions::MAX_LENGTH_THIRD_NAME,false,$errors);
-            Functions::checkInput($request, 'password', 'Пароль', Functions::MIN_LENGTH_PASSWORD, Functions::MAX_LENGTH_PASSWORD, true, $errors);
-            Functions::checkInput($request, 'password_confirmed', 'Подтверждение пароля', Functions::MIN_LENGTH_PASSWORD, Functions::MAX_LENGTH_PASSWORD, true, $errors);
+            FormFieldInput::checkInputs($errors, $request, $form_field_keys, $form_field_defaults, $fields_options_values, $fields_options_values_guarded);
 
-            $password = $request->input('password');
-            $password_confirmed = $request->input('password_confirmed');
-            if($password != $password_confirmed)
-            {
-                $errors[] = 'Пароли не совпадают!';
-            }
+            FormFieldInput::checkInputPasswordConfirmed($request, $errors);
 
             if (count($errors) == 0)
             {
-                $user_found = User::where('login', '=', $request->input('login'))->first();
+                FormFieldInput::checkInputIsLoginAlreadyExists($request, $errors);
 
-                if ($user_found != null)
+                if (count($errors) == 0)
                 {
-                    $errors[] = 'Пользователь с таким логином уже зарегистрирован!';
-                }
-                else
-                {
-                    $password_sha512 = hash('sha512', $request->input('password'));
+                    $password_sha512 = hash('sha512', $request->input(FormFieldInput::FIELD_KEY_PASSWORD));
 
                     // Создание и сохранение нового пользователя
                     $user = new User;
-                    $user->login = $request->input('login');
-                    $user->email = $request->input('email');
-                    $user->phone = $request->input('phone');
-                    $user->first_name = $request->input('first_name');
-                    $user->second_name = $request->input('second_name');
-                    $user->third_name = $request->input('third_name');
+                    $user->login = $request->input(FormFieldInput::FIELD_KEY_LOGIN);
+                    $user->email = $request->input(FormFieldInput::FIELD_KEY_EMAIL);
+                    $user->phone = $request->input(FormFieldInput::FIELD_KEY_PHONE);
+                    $user->first_name = $request->input(FormFieldInput::FIELD_KEY_FIRST_NAME);
+                    $user->second_name = $request->input(FormFieldInput::FIELD_KEY_SECOND_NAME);
+                    $user->third_name = $request->input(FormFieldInput::FIELD_KEY_THIRD_NAME);
                     $user->password_sha512 = $password_sha512;
-                    $user->role_id = Role::ROLE_ID_USER; //!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                    $user->role()->associate(Role::find(Role::ROLE_ID_USER));
+                    $user->institution()->associate(Institution::find($request->input(FormFieldInput::FIELD_KEY_INSTITUTION_ID)));
                     $user->last_activity_at = now();
                     $user->save();
 
@@ -66,7 +76,7 @@ class RegistrationController extends Controller
             }
             return response()
                 ->view('registration.index', [
-                    'form_data' => $request->only(['login', 'email', 'first_name', 'second_name', 'third_name', 'password', 'password_confirmed']),
+                    'html_fields' => $html_fields,
                     'errors' => $errors,
                     'total_user' => $total_user
                 ])

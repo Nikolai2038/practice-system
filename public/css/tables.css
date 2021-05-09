@@ -1,23 +1,28 @@
-.table_main {
+.table_linked,
+.table_not_linked {
     text-decoration: none;
     border-collapse: collapse;
     width: 100%;
     text-align: center;
 }
 
-.table_main th {
+.table_linked th,
+.table_not_linked th {
     font-weight: normal;
     font-size: 14px;
     color: #ffffff;
     background-color: #103957;
 }
 
-.table_main td,
-.table_main th {
+.table_linked td,
+.table_linked th,
+.table_not_linked td,
+.table_not_linked th {
     border: 1px solid #354251;
 }
 
-.table_main tr {
+.table_linked tr,
+.table_not_linked tr {
     height: 48px;
 }
 
@@ -26,30 +31,61 @@
     width: 120px;
 }
 
-.table_main td a,
-.table_main th {
+.td_left {
+    text-align: left;
+    padding: 10px 15px;
+}
+
+.table_linked td .td_content,
+.table_linked th,
+.table_not_linked td .td_content,
+.table_not_linked th {
     line-height: 13px;
     vertical-align: middle;
     white-space: pre-wrap;
     padding: 10px 5px;
 }
 
-.table_main td a,
-.table_main td a span {
+.table_linked td .td_content,
+.table_linked td .td_content span,
+.table_not_linked td .td_content {
     font-size: 13px;
 }
 
-.table_main td a {
+.table_linked td .td_content,
+.table_not_linked td .td_content {
     color: #354251;
     text-decoration: none;
     display: block;
 }
 
-.table_main tr:hover {
-    background-color: #d2ebfc
+.institution_full_name {
+    font-weight: bolder;
+    font-size: 15px;
 }
 
-.table_main tr:hover td a {
+.institution_short_name {
+    color: #878787;
+    font-size: 13px;
+}
+
+.institution_address {
+    font-style: italic;
+    font-size: 13px;
+}
+
+.table_linked tr,
+.table_not_linked tr .td_linked  {
+    background-color: #eaf5ff
+}
+
+.table_linked tr:hover,
+.table_not_linked .td_linked:hover  {
+    background-color: #d3fcd2
+}
+
+.table_linked tr:hover td .td_content,
+.table_not_linked .td_linked:hover {
     color: #354251;
     cursor: pointer;
 }

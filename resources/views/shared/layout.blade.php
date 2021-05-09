@@ -16,16 +16,10 @@
                 <nav id="menu">
                     <a href="{{ route('index') }}" class="button button_blue button_size_small">Главная</a>
                     @if($total_user != null)
-                        <a href="{{ route('contacts') }}" class="button button_blue button_size_small">Контакты</a>
-                        <a href="{{ route('practices') }}" class="button button_blue button_size_small">Практики</a>
-                        <a href="{{ route('chats') }}" class="button button_blue button_size_small">Чаты</a>
+                        <a href="{{ route('contacts') }}" class="button button_blue button_size_small">Мои контакты</a>
+                        <a href="{{ route('practices') }}" class="button button_blue button_size_small">Мои практики</a>
+                        {{-- <a href="{{ route('chats') }}" class="button button_blue button_size_small">Чаты</a> --}}
                         <a href="{{ route('users') }}" class="button button_blue button_size_small">Пользователи</a><br/>
-                        @if($total_user->isDirector())
-                            <a href="{{ route('register') }}" class="button button_green button_size_small">Зарегистрировать</a>
-                            @if($total_user->isAdministrator() == false)
-                                <br/>
-                            @endif
-                        @endif
                         @if($total_user->isAdministrator())
                             <a href="{{ route('administration') }}" class="button button_red button_size_small">Администрирование</a><br/>
                         @endif
