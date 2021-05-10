@@ -47,6 +47,8 @@ class FormFieldInput
     public const FIELD_KEY_INSTITUTION_ADDRESS = 'institution_address';
     public const FIELD_KEY_INSTITUTION_TYPE_ID = 'institution_type_id';
 
+    public const FIELD_KEY_WHO_CAN_SEE_EMAIL = 'who_can_see_email';
+    public const FIELD_KEY_WHO_CAN_SEE_PHONE = 'who_can_see_phone';
     public const FIELD_KEY_NEW_PASSWORD = 'new_password';
     public const FIELD_KEY_NEW_PASSWORD_CONFIRMED = 'new_password_confirmed';
     public const FIELD_KEY_TOTAL_PASSWORD = 'total_password';
@@ -88,6 +90,10 @@ class FormFieldInput
             self::FIELD_KEY_INSTITUTION_TYPE_ID   => new FormFieldInput(self::FIELD_KEY_INSTITUTION_TYPE_ID,
                 'Тип', true, null, null, self::FIELD_TYPE_SELECT),
 
+            self::FIELD_KEY_WHO_CAN_SEE_EMAIL                => new FormFieldInput(self::FIELD_KEY_WHO_CAN_SEE_EMAIL,
+                'Кто может видеть мой email', true, null, null, self::FIELD_TYPE_SELECT),
+            self::FIELD_KEY_WHO_CAN_SEE_PHONE                => new FormFieldInput(self::FIELD_KEY_WHO_CAN_SEE_PHONE,
+                'Кто может видеть мой телефон', true, null, null, self::FIELD_TYPE_SELECT),
             self::FIELD_KEY_NEW_PASSWORD                => new FormFieldInput(self::FIELD_KEY_NEW_PASSWORD,
                 'Новый пароль', false, 4, 128, self::FIELD_TYPE_INPUT_PASSWORD),
             self::FIELD_KEY_NEW_PASSWORD_CONFIRMED      => new FormFieldInput(self::FIELD_KEY_NEW_PASSWORD_CONFIRMED,

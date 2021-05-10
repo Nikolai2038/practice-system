@@ -22,18 +22,18 @@
 @section('content')
     <form method="POST" class="form_main" enctype="multipart/form-data" onsubmit="return checkFileSize(3)">
         {{ csrf_field() }}
-        <div class="field_not_input">
-            <label>Текущая аватарка: </label><br/>
-            <img src="{{ $total_user->getAvatarFileSrc() }}" alt="Не найдена" class="settings_avatar" /><br/>
-            <label>Новая аватарка: </label>
-            <input name="avatar" type="file" id="upload" accept="image/png,image/jpeg,image/gif" text="123" />
-        </div>
-        {!! $html_fields !!}
         @if($notification != null)
             <div class="notification">
                 {{ $notification }}
             </div>
         @endif
+        <div class="field_not_input">
+            <label>Текущая аватарка: </label><br/>
+            <img src="{{ $total_user->getAvatarFileSrc() }}" alt="Не найдена" class="settings_avatar" /><br/>
+            <label>Новая аватарка: </label>
+            <input name="avatar" type="file" id="upload" accept="image/png,image/jpeg,image/gif" />
+        </div>
+        {!! $html_fields !!}
         @if($errors != null)
             <div class="errors">
                 @foreach($errors as $error)

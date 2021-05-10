@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\File;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -34,6 +35,11 @@ class CreateTableFiles extends Migration
      */
     public function down()
     {
+        $files = File::all();
+        foreach ($files as $file)
+        {
+            $file->fileDelete();
+        }
         Schema::dropIfExists('files');
     }
 }

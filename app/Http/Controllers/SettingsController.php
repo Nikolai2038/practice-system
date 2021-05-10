@@ -19,7 +19,9 @@ class SettingsController extends Controller
         $form_field_keys = array(
             FormFieldInput::FIELD_KEY_LOGIN,
             FormFieldInput::FIELD_KEY_EMAIL,
+            FormFieldInput::FIELD_KEY_WHO_CAN_SEE_EMAIL,
             FormFieldInput::FIELD_KEY_PHONE,
+            FormFieldInput::FIELD_KEY_WHO_CAN_SEE_PHONE,
             FormFieldInput::FIELD_KEY_FIRST_NAME,
             FormFieldInput::FIELD_KEY_SECOND_NAME,
             FormFieldInput::FIELD_KEY_THIRD_NAME,
@@ -31,21 +33,28 @@ class SettingsController extends Controller
         $form_field_defaults = array(
             FormFieldInput::FIELD_KEY_LOGIN => $total_user->login,
             FormFieldInput::FIELD_KEY_EMAIL => $total_user->email,
+            FormFieldInput::FIELD_KEY_WHO_CAN_SEE_EMAIL => $total_user->show_email,
             FormFieldInput::FIELD_KEY_PHONE => $total_user->phone,
+            FormFieldInput::FIELD_KEY_WHO_CAN_SEE_PHONE => $total_user->show_phone,
             FormFieldInput::FIELD_KEY_FIRST_NAME => $total_user->first_name,
             FormFieldInput::FIELD_KEY_SECOND_NAME => $total_user->second_name,
             FormFieldInput::FIELD_KEY_THIRD_NAME => $total_user->third_name,
-            FormFieldInput::FIELD_KEY_INSTITUTION_ID => $total_user->institution->id,
+            FormFieldInput::FIELD_KEY_INSTITUTION_ID => $total_user->institution->id ?? null,
         );
         $fields_options_values = array(
             FormFieldInput::FIELD_KEY_INSTITUTION_ID => FormFieldInput::generateOneFieldArray(Institution::all('id as value')->toArray()),
+            FormFieldInput::FIELD_KEY_WHO_CAN_SEE_EMAIL => Functions::SETTINS_VALUES,
+            FormFieldInput::FIELD_KEY_WHO_CAN_SEE_PHONE => Functions::SETTINS_VALUES,
         );
         $fields_options_values_guarded = null;
         $fields_options_names = array(
             FormFieldInput::FIELD_KEY_INSTITUTION_ID => FormFieldInput::generateOneFieldArray(Institution::all('full_name as value')->toArray()),
+            FormFieldInput::FIELD_KEY_WHO_CAN_SEE_EMAIL => Functions::SETTINS_VALUES_NAMES,
+            FormFieldInput::FIELD_KEY_WHO_CAN_SEE_PHONE => Functions::SETTINS_VALUES_NAMES,
         );
         $html_fields = FormFieldInput::generateHtmlFields($request, $form_field_keys, $form_field_defaults, $fields_options_values, $fields_options_values_guarded, $fields_options_names);
 
+        $avatar_file = null;
         $notification = null;
         $errors = null;
 
@@ -112,10 +121,21 @@ class SettingsController extends Controller
                         {
                             if($file != null) // если аватарка была изменена
                             {
+                                if($total_user->avatar_file != null) // если у пользователя уже установлен аватар - его удалим из системы
+                                {
+                                    $db_file = $total_user->avatar_file;
+                                    $db_file->fileDelete(); // удаляем файл с сервера
+                                    $total_user->avatar_file()->dissociate(); // открепляем аватар от пользователя
+                                    $total_user->save();
+                                    $db_file->delete(); // удаляем информацию о файле из БД
+                                }
+
                                 $db_file = new File;
-                                $db_file->name = $file->getFilename();
+                                $db_file->name = $file->getClientOriginalName();
                                 $db_file->prefix = 'avatars';
-                                $db_file->filename = time().'_'.$total_user->id.'_'.random_bytes(8).'_'.$file->getFilename();
+                                $db_file->filename = time().'_'.$total_user->id.'_'.random_int(1000, 9999).'_'.$db_file->name;
+                                $db_file->user_from()->associate($total_user);
+                                $total_user->avatar_file()->associate($db_file);
                                 $db_file->fileUpload($file); // сохранение файла на сервер
                                 $db_file->save();
                                 $total_user->avatar_file()->associate($db_file);
@@ -124,12 +144,13 @@ class SettingsController extends Controller
                             // Изменение и сохранение пользователя
                             $total_user->login = $new_login;
                             $total_user->email = $request->input(FormFieldInput::FIELD_KEY_EMAIL);
+                            $total_user->show_email = $request->input(FormFieldInput::FIELD_KEY_WHO_CAN_SEE_EMAIL);
                             $total_user->phone = $request->input(FormFieldInput::FIELD_KEY_PHONE);
+                            $total_user->show_phone = $request->input(FormFieldInput::FIELD_KEY_WHO_CAN_SEE_PHONE);
                             $total_user->first_name = $request->input(FormFieldInput::FIELD_KEY_FIRST_NAME);
                             $total_user->second_name = $request->input(FormFieldInput::FIELD_KEY_SECOND_NAME);
                             $total_user->third_name = $request->input(FormFieldInput::FIELD_KEY_THIRD_NAME);
                             $total_user->password_sha512 = $password_sha512;
-                            $total_user->role()->associate(Role::find(Role::ROLE_ID_USER));
                             $total_user->institution()->associate(Institution::find($request->input(FormFieldInput::FIELD_KEY_INSTITUTION_ID)));
                             $total_user->last_activity_at = now();
                             $total_user->save();

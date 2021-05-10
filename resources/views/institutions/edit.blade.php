@@ -18,12 +18,12 @@
 @section('content')
     <form method="POST" class="form_main">
         {{ csrf_field() }}
-        {!! $html_fields !!}
         @if($notification != null)
             <div class="notification">
                 {{ $notification }}
             </div>
         @endif
+        {!! $html_fields !!}
         @if($errors != null)
             <div class="errors">
                 @foreach($errors as $error)

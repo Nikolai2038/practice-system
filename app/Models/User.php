@@ -165,42 +165,25 @@ class User extends Model
 
     public function canShowWithSettingValueTo($setting_value, $user)
     {
-        if($user == null) // если второй пользователь - гость
+        if($user->id == $this->id) return true;
+        else if ($setting_value == Functions::SETTING_VALUE_SHOW_TO_ALL) return true;
+        else if ($setting_value == Functions::SETTING_VALUE_SHOW_TO_CONTACTS)
         {
-            if($setting_value == Functions::SETTING_VALUE_SHOW_TO_ALL) return true;
+            $is_in_contacts = false; //!!!!!!!!!!!!!!!!!!!
+            if($is_in_contacts) return true;
             else return false;
         }
-        else // если второй пользователь - зарегистрированный
-        {
-            if($user->id == $this->id) // если пользователь смотрит свои поля
-            {
-                return true;
-            }
-            else
-            {
-                $is_in_contacts = true; //!!!!!!!!!!!!!!!!!!!
-                if($is_in_contacts)
-                {
-                    if ($setting_value == Functions::SETTING_VALUE_SHOW_TO_CONTACTS) return true;
-                    else return false;
-                }
-                else
-                {
-                    if ($setting_value == Functions::SETTING_VALUE_SHOW_TO_ALL) return true;
-                    else return false;
-                }
-            }
-        }
+        else return false;
     }
 
     public function canShowEmailTo($user)
     {
-        return self::canShowWithSettingValueTo($user->show_email, $user);
+        return self::canShowWithSettingValueTo($this->show_email, $user);
     }
 
     public function canShowPhoneTo($user)
     {
-        return self::canShowWithSettingValueTo($user->show_phone, $user);
+        return self::canShowWithSettingValueTo($this->show_phone, $user);
     }
 
     public function getAvatarFileSrc()
@@ -211,7 +194,7 @@ class User extends Model
         }
         else
         {
-            return '';
+            return $this->avatar_file->getFileUrl();
         }
     }
 }

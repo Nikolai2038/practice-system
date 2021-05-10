@@ -41,51 +41,24 @@ class File extends Model
 
     public function fileUpload(UploadedFile $file)
     {
-        Storage::put(
-            $this->prefix,
+        Storage::disk('public')->put(
+            $this->prefix.'/'.$this->filename,
             file_get_contents($file->getRealPath())
         );
     }
 
-    public function getFilePath()
+    public function getFileUrl()
     {
-        return Storage::url($this->filename);
+        return Storage::disk('public')->url($this->prefix.'/'.$this->filename);
     }
 
     public function fileDelete()
     {
-
+        return Storage::disk('public')->delete($this->prefix.'/'.$this->filename);
     }
 
     public function fileDownload()
     {
 
     }
-
-   /* public function fileUpload(UploadedFile $file, $folder, $is_public)
-    {
-        if($is_public)
-        {
-            $this->prefix = public_path().'/'.$folder;
-        }
-        else
-        {
-            $this->prefix = '/files'.'/'.$folder;
-        }
-        $this->name = $file->getFilename();
-        $this->filename = time().'_'.random_bytes(4).'_'.$file->getFilename();
-        $file->move($this->prefix, $this->filename);
-    }
-
-    public function fileDelete()
-    {
-        $file = new UploadedFile($this->prefix, $this->filename);
-        $file->
-    }
-
-    public function fileDownload()
-    {
-        $file = new UploadedFile($this->prefix, $this->filename);
-        return response()->download($file, $name, $headers);
-    }*/
 }

@@ -56,6 +56,18 @@ class Functions
     public const SETTING_VALUE_SHOW_TO_CONTACTS = 1;
     public const SETTING_VALUE_SHOW_TO_ALL = 2;
 
+    public const SETTINS_VALUES = [
+        self::SETTING_VALUE_SHOW_TO_NOONE,
+        self::SETTING_VALUE_SHOW_TO_CONTACTS,
+        self::SETTING_VALUE_SHOW_TO_ALL,
+    ];
+
+    public const SETTINS_VALUES_NAMES = [
+        'Никто',
+        'Контакты',
+        'Все',
+    ];
+
     // Типы институтов - предприятие или учебное заведение
     public const INSTITUTIONS_TYPE_PRACTIC = 0; // предприятие
     public const INSTITUTIONS_TYPE_STUDY = 1; // учебное заведение
