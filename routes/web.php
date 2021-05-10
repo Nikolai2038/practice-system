@@ -71,6 +71,9 @@ Route::get('/register', [ MainController::class, 'register' ])
 Route::get('/settings', [ SettingsController::class, 'index' ])
     ->name('settings')
     ->middleware('required_to_be_user');
+Route::post('/settings', [ SettingsController::class, 'index' ])
+    ->name('settings')
+    ->middleware('required_to_be_user');
 
 // Панель администраторов
 Route::group([
@@ -113,27 +116,25 @@ Route::group([
 
         // Создание предприятия / учебного заведения
         Route::get('/create', [ InstitutionsController::class, 'create'])
-            ->name('_create')
-            ->where('user_id', '[0-9]+');
+            ->name('_create');
         Route::post('/create', [ InstitutionsController::class, 'create'])
-            ->name('_create')
-            ->where('user_id', '[0-9]+');
+            ->name('_create');
 
         // Изменение предприятия / учебного заведения
         Route::get('/edit/{id}', [ InstitutionsController::class, 'edit'])
             ->name('_edit')
-            ->where('user_id', '[0-9]+');
+            ->where('id', '[0-9]+');
         Route::post('/edit/{id}', [ InstitutionsController::class, 'edit'])
             ->name('_edit')
-            ->where('user_id', '[0-9]+');
+            ->where('id', '[0-9]+');
 
         // Удаление предприятия / учебного заведения
         Route::get('/delete/{id}', [ InstitutionsController::class, 'delete'])
             ->name('_delete')
-            ->where('user_id', '[0-9]+');
+            ->where('id', '[0-9]+');
         Route::post('/delete/{id}', [ InstitutionsController::class, 'delete'])
             ->name('_delete')
-            ->where('user_id', '[0-9]+');
+            ->where('id', '[0-9]+');
     });
 });
 

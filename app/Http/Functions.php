@@ -48,7 +48,7 @@ class Functions
     /** Максимальная длина полного названия института */
     public const MAX_LENGTH_INSTITUTE_FULL_NAME = 128;
 
-    public const ROUTE_NAME_TO_REDIRECT_FROM_AUTHORIZATION = 'index';
+    public const ROUTE_NAME_TO_REDIRECT_FROM_AUTHORIZATION = 'profile';
     public const ROUTE_NAME_TO_REDIRECT_FROM_DENY_ACCESS = 'index';
 
     // Типы значений настроек
@@ -63,7 +63,9 @@ class Functions
     /** Часовой пояс для дат в БД */
     public const TIMEZONE_PRECISION = 3;
 
-    /** Проверка авторизации текущего пользователя */
+    /** Проверка авторизации текущего пользователя
+     * @return User
+     */
     public static function getTotalUser()
     {
         if(Session::has('user'))

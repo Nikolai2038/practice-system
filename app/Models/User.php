@@ -89,6 +89,11 @@ class User extends Model
         return $this->hasMany(File::class);
     }
 
+    public function avatar_file()
+    {
+        return $this->belongsTo(File::class);
+    }
+
     public function getFullName()
     {
         $full_name = $this->second_name.' '.$this->first_name;
@@ -167,16 +172,23 @@ class User extends Model
         }
         else // если второй пользователь - зарегистрированный
         {
-            $is_in_contacts = true; //!!!!!!!!!!!!!!!!!!!
-            if($is_in_contacts)
+            if($user->id == $this->id) // если пользователь смотрит свои поля
             {
-                if ($setting_value == Functions::SETTING_VALUE_SHOW_TO_CONTACTS) return true;
-                else return false;
+                return true;
             }
             else
             {
-                if ($setting_value == Functions::SETTING_VALUE_SHOW_TO_ALL) return true;
-                else return false;
+                $is_in_contacts = true; //!!!!!!!!!!!!!!!!!!!
+                if($is_in_contacts)
+                {
+                    if ($setting_value == Functions::SETTING_VALUE_SHOW_TO_CONTACTS) return true;
+                    else return false;
+                }
+                else
+                {
+                    if ($setting_value == Functions::SETTING_VALUE_SHOW_TO_ALL) return true;
+                    else return false;
+                }
             }
         }
     }
@@ -189,5 +201,17 @@ class User extends Model
     public function canShowPhoneTo($user)
     {
         return self::canShowWithSettingValueTo($user->show_phone, $user);
+    }
+
+    public function getAvatarFileSrc()
+    {
+        if($this->avatar_file == null)
+        {
+            return '/img/avatar_default.jpg';
+        }
+        else
+        {
+            return '';
+        }
     }
 }

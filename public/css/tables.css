@@ -6,12 +6,9 @@
     text-align: center;
 }
 
-.table_linked th,
-.table_not_linked th {
-    font-weight: normal;
-    font-size: 14px;
-    color: #ffffff;
-    background-color: #103957;
+.table_linked *,
+.table_not_linked * {
+    font-size: 13px;
 }
 
 .table_linked td,
@@ -21,8 +18,12 @@
     border: 1px solid #354251;
 }
 
-.table_linked tr,
-.table_not_linked tr {
+.table_linked th,
+.table_not_linked th {
+    font-weight: normal;
+    font-size: 14px;
+    color: #ffffff;
+    background-color: #103957;
     height: 48px;
 }
 
@@ -36,20 +37,14 @@
     padding: 10px 15px;
 }
 
-.table_linked td .td_content,
+.table_linked .td_content,
 .table_linked th,
-.table_not_linked td .td_content,
+.table_not_linked .td_content,
 .table_not_linked th {
     line-height: 13px;
     vertical-align: middle;
     white-space: pre-wrap;
     padding: 10px 5px;
-}
-
-.table_linked td .td_content,
-.table_linked td .td_content span,
-.table_not_linked td .td_content {
-    font-size: 13px;
 }
 
 .table_linked td .td_content,
@@ -66,27 +61,28 @@
 
 .institution_short_name {
     color: #878787;
-    font-size: 13px;
 }
 
 .institution_address {
     font-style: italic;
-    font-size: 13px;
+}
+
+.table_not_linked .td_linked .td_content  {
+    padding: 30px 5px;
 }
 
 .table_linked tr,
-.table_not_linked tr .td_linked  {
-    background-color: #eaf5ff
+.table_not_linked .td_linked  {
+    background-color: #eaf5ff;
 }
 
-.table_linked tr:hover,
+.table_linked tr:hover td,
 .table_not_linked .td_linked:hover  {
-    background-color: #d3fcd2
+    background-color: #d3fcd2;
 }
 
-.table_linked tr:hover td .td_content,
-.table_not_linked .td_linked:hover {
-    color: #354251;
+.table_linked td:hover *,
+.table_not_linked .td_linked:hover * {
     cursor: pointer;
 }
 
@@ -94,4 +90,24 @@
     width: 100%;
     max-width: 100%;
     overflow-x: auto;
+}
+
+.profile_table td {
+    padding: 4px 8px;
+    font-size: 14px;
+}
+
+.profile_avatar {
+    min-height: 200px;
+    max-height: 200px;
+    min-width: 200px;
+    max-width: 200px;
+}
+
+.profile_field {
+    width: auto;
+}
+
+.profile_field_header {
+    font-weight: bolder;
 }

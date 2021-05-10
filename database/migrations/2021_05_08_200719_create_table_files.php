@@ -18,7 +18,9 @@ class CreateTableFiles extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            //$table->string('path', 256);
+            $table->string('name', 64);
+            $table->string('prefix', 64);
+            $table->string('filename', 64);
             $table->bigInteger('user_from_id');
 
             $table->foreign('user_from_id')->references('id')->on('users');

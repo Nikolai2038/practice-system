@@ -52,26 +52,25 @@ class RolesController extends Controller
             {
                 $errors = array();
 
-                FormFieldInput::checkInputs($errors, $request, $form_field_keys, $form_field_defaults, $fields_options_values, $fields_options_names, $fields_options_values_guarded);
+                FormFieldInput::checkInputs($errors, $request, $form_field_keys, $form_field_defaults, $fields_options_values, $fields_options_values_guarded);
 
                 if (count($errors) == 0)
                 {
-                    $new_role_id = $request->input(FormFieldInput::FIELD_KEY_ROLE_ID);
-                    $new_role = Role::where('id', '=', $new_role_id)->first();
-                    if ($total_user->canChangeRoleTo($new_role))
+                    try
                     {
+                        $new_role_id = $request->input(FormFieldInput::FIELD_KEY_ROLE_ID);
+                        $new_role = Role::where('id', '=', $new_role_id)->first();
                         $watching_user->role()->associate($new_role);
                         $watching_user->save();
                         $notification = 'Роль успешно изменена!';
                     }
-                    else // если указанная роль превышает по полномочиям роль текущего пользователя
+                    catch (\Exception $exception)
                     {
-                        $errors[] = 'Вы можете назначить только роли, выше которых находитесь сами!';
+                        $errors[] = $exception->getMessage();
                     }
                 }
             }
 
-            $roles = Role::all();
             return response()->view('roles.edit', [
                 'html_fields' => $html_fields,
                 'total_user' => $total_user,

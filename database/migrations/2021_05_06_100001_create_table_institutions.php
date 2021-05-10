@@ -24,7 +24,6 @@ class CreateTableInstitutions extends Migration
             $table->bigInteger('institution_type_id');
 
             $table->unique('full_name');
-            $table->unique('short_name');
         });
     }
 

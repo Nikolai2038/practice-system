@@ -33,6 +33,14 @@ class UsersController extends Controller
         {
             $watching_user = User::where('id', '=', $user_id)->firstOrFail();
         }
+        if($watching_user->canShowEmailTo($total_user) == false)
+        {
+            $watching_user['email'] = 'Скрыт';
+        }
+        if($watching_user->canShowPhoneTo($total_user) == false)
+        {
+            $watching_user['phone'] = 'Скрыт';
+        }
         return response()->view('users.profile', ['total_user' => $total_user, 'watching_user' => $watching_user])->header('Content-Type', 'text/html');
     }
 }

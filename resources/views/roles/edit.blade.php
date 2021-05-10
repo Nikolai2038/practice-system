@@ -18,21 +18,7 @@
 @section('content')
     <form method="POST" class="form_main">
         {{ csrf_field() }}
-        <div class="field_not_input">
-            <label for="role">Роль: </label>
-            <select name="role" id="role">
-                @foreach($roles as $role)
-                    <option
-                        @if($watching_user->role == $role)
-                        selected
-                        @endif
-                        @if($total_user->canChangeRoleTo($role) == false)
-                        disabled
-                        @endif
-                        value={{ $role->id }}>{{ $role->name }}</option>
-                @endforeach
-            </select>
-        </div>
+        {!! $html_fields !!}
         @if($notification != null)
             <div class="notification">
                 {{ $notification }}
@@ -45,6 +31,6 @@
                 @endforeach
             </div>
         @endif
-        <button class="button button_red button_size_normal">Изменить роль</button>
+        <button class="button button_red button_size_normal">Изменить</button>
     </form>
 @endsection

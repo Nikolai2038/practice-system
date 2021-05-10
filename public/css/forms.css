@@ -62,3 +62,12 @@
     font-weight: bold;
     color: #ff0000;
 }
+
+.settings_avatar {
+    min-height: 100px;
+    max-height: 100px;
+    min-width: 100px;
+    max-width: 100px;
+    border: 1px solid #354251;
+    margin: 12px 0;
+}

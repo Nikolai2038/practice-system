@@ -31,6 +31,7 @@ class CreateTableUsers extends Migration
             $table->bigInteger('role_id')->default(0);
             $table->bigInteger('institution_id')->nullable();
             $table->timestamp('last_activity_at');
+            $table->bigInteger('avatar_file_id')->nullable();
 
             $table->unique('login');
             $table->foreign('role_id')->references('id')->on('roles');

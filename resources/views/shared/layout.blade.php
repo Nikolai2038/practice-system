@@ -6,6 +6,8 @@
             <link rel="preconnect" href="https://fonts.gstatic.com"> {{-- Для шрифтов --}}
             <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&family=Roboto&display=swap" rel="stylesheet"> {{-- Для шрифтов --}}
         @show
+        @section('scripts')
+        @show
     </head>
     <body>
         <div id="not_footer">
