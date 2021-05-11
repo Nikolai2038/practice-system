@@ -107,6 +107,11 @@ body {
     font-size: 28px;
 }
 
+.page h3 {
+    font-size: 20px;
+    margin: 32px 0 16px 0;
+}
+
 .big_page {
     width: 100%;
     max-width: 1600px;

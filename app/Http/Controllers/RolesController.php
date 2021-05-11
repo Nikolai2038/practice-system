@@ -14,7 +14,9 @@ class RolesController extends Controller
     public function index()
     {
         $total_user = Functions::getTotalUser();
-        return response()->view('roles.index', ['total_user' => $total_user])->header('Content-Type', 'text/html');
+        $default_role_id = Role::where('weight', '=', Role::ROLE_WEIGHT_USER)->first()->id;
+        $roles = Role::where('id', '!=', $default_role_id)->orderByDesc('weight')->get();
+        return response()->view('roles.index', ['total_user' => $total_user, 'roles' => $roles])->header('Content-Type', 'text/html');
     }
 
     public function edit(Request $request, $user_id)
