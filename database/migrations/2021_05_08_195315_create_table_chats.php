@@ -19,8 +19,8 @@ class CreateTableChats extends Migration
             $table->softDeletes();
 
             $table->bigInteger('chat_type_id');
-            $table->bigInteger('practice_id');
-            $table->bigInteger('task_id');
+            $table->bigInteger('practice_id')->nullable();
+            $table->bigInteger('task_id')->nullable();
 
             $table->foreign('chat_type_id')->references('id')->on('chat_types');
             $table->foreign('practice_id')->references('id')->on('practices');

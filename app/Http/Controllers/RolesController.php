@@ -16,6 +16,10 @@ class RolesController extends Controller
         $total_user = Functions::getTotalUser();
         $default_role_id = Role::where('weight', '=', Role::ROLE_WEIGHT_USER)->first()->id;
         $roles = Role::where('id', '!=', $default_role_id)->orderByDesc('weight')->get();
+        foreach ($roles as $role)
+        {
+            $total_user->checkUserPermissionsToUsers($role->users);
+        }
         return response()->view('roles.index', ['total_user' => $total_user, 'roles' => $roles])->header('Content-Type', 'text/html');
     }
 

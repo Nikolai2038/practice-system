@@ -29,7 +29,7 @@
         @endif
         <div class="field_not_input">
             <label>Текущая аватарка: </label><br/>
-            <img src="{{ $total_user->getAvatarFileSrc() }}" alt="Не найдена" class="settings_avatar" /><br/>
+            <img src="{{ $total_user->getAvatarFileSrc() }}" alt="Изображение не найдено" class="settings_avatar" /><br/>
             <label>Новая аватарка: </label>
             <input name="avatar" type="file" id="upload" accept="image/png,image/jpeg,image/gif" />
         </div>

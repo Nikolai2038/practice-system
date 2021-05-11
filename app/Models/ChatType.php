@@ -22,6 +22,11 @@ class ChatType extends Model
 {
     use HasFactory;
 
+    // АККУРАТНО - ID тут должны совпадать со значениями в БД - пока что будет так
+    public const CHAT_TYPE_ID_PERSONAL = 1;
+    public const CHAT_TYPE_ID_PRACTIC = 2;
+    public const CHAT_TYPE_ID_TASK = 3;
+
     public function chats()
     {
         return $this->hasMany(Chat::class);

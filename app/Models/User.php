@@ -95,6 +95,22 @@ class User extends Model
         return $this->belongsTo(File::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function contacts_from()
+    {
+        return $this->hasMany(Contact::class, 'user_from_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+    */
+    public function contacts_to()
+    {
+        return $this->hasMany(Contact::class, 'user_to_id');
+    }
+
     public function getFullName()
     {
         $full_name = $this->second_name.' '.$this->first_name;
@@ -229,5 +245,110 @@ class User extends Model
     public function canDeleteBan(Ban $ban)
     {
         return (($this->id != $ban->user_to->id) && ($this->hasPermissionOnUser($ban->user_to)));
+    }
+
+    public function checkUserPermissionsToUser(&$user)
+    {
+        if($user->canShowEmailTo($this) == false)
+        {
+            $user['email'] = 'Скрыт';
+        }
+        if($user->canShowPhoneTo($this) == false)
+        {
+            $user['phone'] = 'Скрыт';
+        }
+    }
+
+    public function checkUserPermissionsToUsers(&$users)
+    {
+        foreach ($users as $user)
+        {
+            $this->checkUserPermissionsToUser($user);
+        }
+    }
+
+    public function hasChatWith(User $user) {
+        return false; //!!!!!!!!!!!!!
+    }
+
+    public function getChatWith(User $user) {
+        $chat = Chat::find(1); //!!!!!!!!!!!!!
+        return $chat;
+    }
+
+    public function canCreateChatWith(User $user) {
+        return true; //!!!!!!!!!!!!!
+    }
+
+    public function getAllContacts()
+    {
+        $users_in_contacts = array();
+
+        $contacts_from_accepted = $this->contacts_from()->where('is_accepted', '=', true)->get();
+        foreach ($contacts_from_accepted as $contact_from)
+        {
+            $users_in_contacts[] = $contact_from->user_to;
+        }
+
+        $contacts_to_accepted = $this->contacts_to()->where('is_accepted', '=', true)->get();
+        foreach ($contacts_to_accepted as $contact_to)
+        {
+            $users_in_contacts[] = $contact_to->user_from;
+        }
+
+        self::checkUserPermissionsToUsers($users_in_contacts);
+        return $users_in_contacts;
+    }
+
+    public function getIncomingContacts()
+    {
+        $users_in_contacts = array();
+
+        $contacts_to_accepted = $this->contacts_to()->where('is_accepted', '=', false)->get();
+        foreach ($contacts_to_accepted as $contact_to)
+        {
+            $users_in_contacts[] = $contact_to->user_from;
+        }
+
+        self::checkUserPermissionsToUsers($users_in_contacts);
+        return $users_in_contacts;
+    }
+
+    public function getOutcomingContacts()
+    {
+        $users_in_contacts = array();
+
+        $contacts_from_accepted = $this->contacts_from()->where('is_accepted', '=', false)->get();
+        foreach ($contacts_from_accepted as $contact_from)
+        {
+            $users_in_contacts[] = $contact_from->user_to;
+        }
+
+        self::checkUserPermissionsToUsers($users_in_contacts);
+        return $users_in_contacts;
+    }
+
+    /**
+     * @return Builder|Model|object|Contact
+    */
+    public function getContactRequestWithUser($user)
+    {
+        return Contact::where([
+            ['user_from_id', '=', $this->id],
+            ['user_to_id', '=', $user->id]
+        ])->orWhere([
+            ['user_to_id', '=', $this->id],
+            ['user_from_id', '=', $user->id]
+        ])->first();
+    }
+
+    public function getIncomingContactsCount()
+    {
+        return $this->contacts_to()->where('is_accepted', '=', 'false')->get()->count();
+    }
+
+    public function getOutcomingContactsCount()
+    {
+        return $this->contacts_from()->where('is_accepted', '=', 'false')->get()->count();
     }
 }

@@ -18,7 +18,7 @@
                 <nav id="menu">
                     <a href="{{ route('index') }}" class="button button_blue button_size_small">Главная</a>
                     @if($total_user != null)
-                        <a href="{{ route('contacts') }}" class="button button_blue button_size_small">Мои контакты</a>
+                        <a href="{{ route('contacts') }}" class="button button_blue button_size_small">Мои контакты@if($total_user->getIncomingContactsCount() > 0) (+{{ $total_user->getIncomingContactsCount() }})@endif</a>
                         <a href="{{ route('practices') }}" class="button button_blue button_size_small">Мои практики</a>
                         {{-- <a href="{{ route('chats') }}" class="button button_blue button_size_small">Чаты</a> --}}
                         <a href="{{ route('users') }}" class="button button_blue button_size_small">Пользователи</a><br/>

@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
         $this->call(BansTableSeeder::class);
         $this->call(ContactsTableSeeder::class);
         $this->call(PracticesTableSeeder::class);
+        $this->call(ChatsTableSeeder::class);
         $this->call(TasksTableSeeder::class);
         $this->call(MessagesTableSeeder::class);
         $this->call(FilesTableSeeder::class);

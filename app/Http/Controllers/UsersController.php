@@ -11,17 +11,7 @@ class UsersController extends Controller
     {
         $total_user = Functions::getTotalUser();
         $users = User::orderBy('id')->paginate(10);
-        foreach ($users as $user)
-        {
-            if($user->canShowEmailTo($total_user) == false)
-            {
-                $user['email'] = 'Скрыт';
-            }
-            if($user->canShowPhoneTo($total_user) == false)
-            {
-                $user['phone'] = 'Скрыт';
-            }
-        }
+        $total_user->checkUserPermissionsToUsers($users);
         return response()->view('users.all', ['total_user' => $total_user, 'users' => $users])->header('Content-Type', 'text/html');
     }
 
@@ -33,14 +23,12 @@ class UsersController extends Controller
         {
             $watching_user = User::where('id', '=', $user_id)->firstOrFail();
         }
-        if($watching_user->canShowEmailTo($total_user) == false)
-        {
-            $watching_user['email'] = 'Скрыт';
-        }
-        if($watching_user->canShowPhoneTo($total_user) == false)
-        {
-            $watching_user['phone'] = 'Скрыт';
-        }
-        return response()->view('users.profile', ['total_user' => $total_user, 'watching_user' => $watching_user])->header('Content-Type', 'text/html');
+        $total_user->checkUserPermissionsToUser($watching_user);
+        $contact_to_watching_user = $total_user->getContactRequestWithUser($watching_user);
+        return response()->view('users.profile', [
+            'total_user' => $total_user,
+            'watching_user' => $watching_user,
+            'contact_to_watching_user' => $contact_to_watching_user
+        ])->header('Content-Type', 'text/html');
     }
 }

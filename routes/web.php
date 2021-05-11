@@ -173,17 +173,70 @@ Route::get('/users/{user_id}/bans', [ BansController::class, 'view' ])
     ->where('user_id', '[0-9]+')
     ->middleware('required_to_be_user');
 
-// Контакты, запросы в друзья и т.п.
-Route::get('/contacts', [ ContactsController::class, 'index' ])
-    ->name('contacts')
-    ->middleware('required_to_be_user');
+// Контакты
+Route::group([
+    'prefix' => '/contacts',
+    'as' => 'contacts',
+    'middleware' => ['required_to_be_user']
+], function() {
+    // Список контактов
+    Route::get('/', [ ContactsController::class, 'index' ]);
+
+    // Отправка запроса в контакты
+    // (Создаёт и перенаправляет)
+    Route::get('/create/{user_id}/{came_from_url}', [ ContactsController::class, 'create' ])
+        ->name('_create')
+        ->where('user_id', '[0-9]+')
+        ->where('came_from_url', 'contacts|contacts_requests_incoming|contacts_requests_outcoming|profile');
+
+    // Удаление запроса в контакты, либо отмена is_accepted
+    // (Удаляет и перенаправляет)
+    Route::get('/delete/{user_id}/{came_from_url}', [ ContactsController::class, 'delete' ])
+        ->name('_delete')
+        ->where('user_id', '[0-9]+')
+        ->where('came_from_url', 'contacts|contacts_requests_incoming|contacts_requests_outcoming|profile');
+
+    // Входящие заявки
+    Route::get('/requests/incoming', [ ContactsController::class, 'incoming'])
+        ->name('_requests_incoming');
+    Route::post('/requests/incoming', [ ContactsController::class, 'incoming'])
+        ->name('_requests_incoming');
+
+    // Исходящие заявки
+    Route::get('/requests/outcoming', [ ContactsController::class, 'outcoming'])
+        ->name('_requests_outcoming');
+    Route::post('/requests/outcoming', [ ContactsController::class, 'outcoming'])
+        ->name('_requests_outcoming');
+});
+
+// Чаты
+Route::group([
+    'prefix' => '/chats',
+    'as' => 'chats',
+    'middleware' => ['required_to_be_user']
+], function() {
+    // Список чатов, в которых состоит пользователь
+    Route::get('/', [ ChatsController::class, 'index' ]);
+
+    // Создание личного чата между пользователями (групповые чаты - чаты практик, создаются автоматически, если что)
+    // (Создаёт и перенаправляет)
+    Route::get('/create/{with_user_id}', [ ChatsController::class, 'create' ])
+        ->name('_create')
+        ->where('with_user_id', '[0-9]+');
+
+    // Удаление личного чата между пользователями (групповые чаты - чаты практик, не удаляются, если что)
+    // (Удаляет и перенаправляет)
+    Route::get('/delete/{with_user_id}', [ ChatsController::class, 'delete' ])
+        ->name('_delete')
+        ->where('with_user_id', '[0-9]+');
+
+    // Окно конкретного чата
+    Route::get('/{chat_id}', [ ChatsController::class, 'view' ])
+        ->name('_view')
+        ->where('chat_id', '[0-9]+');
+});
 
 // Панель практик - создание, просмотр и т.п.
 Route::get('/practices', [ PracticesController::class, 'index' ])
     ->name('practices')
-    ->middleware('required_to_be_user');
-
-// Панель чатов - все чаты, с разделением на группы
-Route::get('/chats', [ ChatsController::class, 'index' ])
-    ->name('chats')
     ->middleware('required_to_be_user');

@@ -14,8 +14,23 @@
 @section('sub_menu')
     @if($total_user->id == $watching_user->id)
         <a href="{{ route('settings') }}" class="button button_blue button_size_small">Настройки</a>
+        <a href="{{ route('bans_view', $watching_user->id) }}" class="button button_blue button_size_small">Посмотреть полученные баны</a>
+    @else
+        @if($contact_to_watching_user == null) {{-- Если заявки в контакты между пользователями нет --}}
+            <a href="{{ route('contacts_create', array_merge([$watching_user->id, Route::currentRouteName()], Route::getCurrentRoute()->parameters())) }}" class="button button_blue button_size_small">Добавить в контакты</a>
+        @elseif($contact_to_watching_user->is_accepted == true) {{-- Если заявка в контакты между пользователями есть, и она принята --}}
+            <a href="{{ route('contacts_delete', array_merge([$watching_user->id, Route::currentRouteName()], Route::getCurrentRoute()->parameters())) }}" class="button button_blue button_size_small">Удалить из контактов</a>
+        @elseif($contact_to_watching_user->is_accepted == false) {{-- Если заявка в контакты между пользователями есть, но она не принята --}}
+            @if($contact_to_watching_user->user_from->id == $total_user->id) {{-- Если заявка отправлена текущим пользователем --}}
+                <a href="{{ route('contacts_delete', array_merge([$watching_user->id, Route::currentRouteName()], Route::getCurrentRoute()->parameters())) }}" class="button button_blue button_size_small">Отменить заявку в контакты</a>
+            @else {{-- Если заявка получена текущим пользователем --}}
+                <a href="{{ route('contacts_create', array_merge([$watching_user->id, Route::currentRouteName()], Route::getCurrentRoute()->parameters())) }}" class="button button_blue button_size_small">Принять заявку в контакты</a>
+                <a href="{{ route('contacts_delete', array_merge([$watching_user->id, Route::currentRouteName()], Route::getCurrentRoute()->parameters())) }}" class="button button_blue button_size_small">Отклонить заявку в контакты</a>
+            @endif
+        @endif
+        <a href="{{ route('bans_view', $watching_user->id) }}" class="button button_blue button_size_small">Посмотреть баны, полученные пользователем</a>
     @endif
-    <a href="{{ route('bans_view', $watching_user->id) }}" class="button button_blue button_size_small">Посмотреть баны, полученные пользователем</a>
+
     @if($total_user->isAdministrator())
         <br/>
         @if(($total_user->canChangeRoleOfUser($watching_user)))
