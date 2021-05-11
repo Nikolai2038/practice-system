@@ -71,13 +71,6 @@
     padding: 30px 5px;
 }
 
-.table_not_linked .td_linked_small_padding  {
-    padding: 10px;
-}
-.table_not_linked .td_linked_small_padding .td_content  {
-    padding: 0;
-}
-
 .table_linked tr,
 .table_not_linked .td_linked  {
     background-color: #eaf5ff;
@@ -120,21 +113,30 @@
 }
 
 /* Таблица с контактами */
+.table_not_linked .td_linked_none_padding  {
+    padding: 4px;
+}
+.table_not_linked .td_linked_small_padding .td_content  {
+    padding: 18px;
+}
+.table_not_linked .td_linked_none_padding .td_content  {
+    padding: 0;
+}
 .contact_avatar {
-    min-height: 100px;
-    max-height: 100px;
-    min-width: 100px;
-    max-width: 100px;
+    min-height: 64px;
+    max-height: 64px;
+    min-width: 64px;
+    max-width: 64px;
     border: 1px solid #354251;
     margin-right: 12px;
     float: left;
 }
 .contact_name {
-    font-size: 20px;
-    line-height: 20px;
+    font-size: 16px;
+    line-height: 16px;
     font-weight: bolder;
     padding-top: 8px;
 }
 .td_a_div{
-    height: 102px;
+    height: 68px;
 }

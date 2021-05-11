@@ -52,20 +52,20 @@ class Functions
     public const ROUTE_NAME_TO_REDIRECT_FROM_DENY_ACCESS = 'index';
 
     // Типы значений настроек
-    public const SETTING_VALUE_SHOW_TO_NOONE = 0;
-    public const SETTING_VALUE_SHOW_TO_CONTACTS = 1;
-    public const SETTING_VALUE_SHOW_TO_ALL = 2;
+    public const SETTING_VALUE_NOONE = 0;
+    public const SETTING_VALUE_CONTACTS = 1;
+    public const SETTING_VALUE_ALL = 2;
 
     public const SETTINS_VALUES = [
-        self::SETTING_VALUE_SHOW_TO_NOONE,
-        self::SETTING_VALUE_SHOW_TO_CONTACTS,
-        self::SETTING_VALUE_SHOW_TO_ALL,
+        self::SETTING_VALUE_NOONE,
+        self::SETTING_VALUE_CONTACTS,
+        self::SETTING_VALUE_ALL,
     ];
 
     public const SETTINS_VALUES_NAMES = [
         'Никто',
-        'Контакты',
-        'Все',
+        'Только мои контакты',
+        'Все пользователи',
     ];
 
     // Типы институтов - предприятие или учебное заведение

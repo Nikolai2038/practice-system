@@ -24,9 +24,10 @@ class CreateTableUsers extends Migration
             $table->string('second_name', 64);
             $table->string('third_name', 64)->nullable();
             $table->string('email', 64)->nullable();
-            $table->tinyInteger('show_email')->default(Functions::SETTING_VALUE_SHOW_TO_NOONE);
+            $table->tinyInteger('show_email')->default(Functions::SETTING_VALUE_NOONE);
             $table->string('phone', 16)->nullable();
-            $table->tinyInteger('show_phone')->default(Functions::SETTING_VALUE_SHOW_TO_NOONE);
+            $table->tinyInteger('show_phone')->default(Functions::SETTING_VALUE_NOONE);
+            $table->tinyInteger('accept_chats_from')->default(Functions::SETTING_VALUE_ALL);
             $table->string('password_sha512', 128);
             $table->bigInteger('role_id')->default(0);
             $table->bigInteger('institution_id')->nullable();

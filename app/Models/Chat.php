@@ -31,7 +31,7 @@ class Chat extends Model
 
     public function users()
     {
-        return $this->belongsToMany(Task::class, 'users_to_chats')->withTimestamps();
+        return $this->belongsToMany(User::class, 'users_to_chats')->withTimestamps();
     }
 
     public function task()
@@ -42,5 +42,17 @@ class Chat extends Model
     public function messages()
     {
         return $this->hasMany(Message::class, 'messages_to_chats');
+    }
+
+    public function getSecondUserIfChatIsPersonal($first_user)
+    {
+        if($this->chat_type->id == ChatType::CHAT_TYPE_ID_PERSONAL)
+        {
+            return $this->users()->where('users.id', '!=', $first_user->id)->first();
+        }
+        else
+        {
+            return null;
+        }
     }
 }

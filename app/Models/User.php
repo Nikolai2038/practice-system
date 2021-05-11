@@ -27,6 +27,7 @@ use phpDocumentor\Reflection\Types\Integer;
  * @property int $show_email
  * @property string $phone
  * @property int $show_phone
+ * @property int accept_chats_from
  * @property Role $role
  * @property Institution $institution
  * @property Carbon $last_activity_at
@@ -187,13 +188,13 @@ class User extends Model
         }
     }
 
-    public function canShowWithSettingValueTo($setting_value, $user)
+    public function canAllowActionFromSettingValueToUser($setting_value, $user)
     {
         if($user->id == $this->id) return true;
-        else if ($setting_value == Functions::SETTING_VALUE_SHOW_TO_ALL) return true;
-        else if ($setting_value == Functions::SETTING_VALUE_SHOW_TO_CONTACTS)
+        else if ($setting_value == Functions::SETTING_VALUE_ALL) return true;
+        else if ($setting_value == Functions::SETTING_VALUE_CONTACTS)
         {
-            $is_in_contacts = false; //!!!!!!!!!!!!!!!!!!!
+            $is_in_contacts = $this->getContactRequestWithUser($user)->is_accepted;
             if($is_in_contacts) return true;
             else return false;
         }
@@ -202,12 +203,12 @@ class User extends Model
 
     public function canShowEmailTo($user)
     {
-        return self::canShowWithSettingValueTo($this->show_email, $user);
+        return $this->canAllowActionFromSettingValueToUser($this->show_email, $user);
     }
 
     public function canShowPhoneTo($user)
     {
-        return self::canShowWithSettingValueTo($this->show_phone, $user);
+        return $this->canAllowActionFromSettingValueToUser($this->show_phone, $user);
     }
 
     public function getAvatarFileSrc()
@@ -265,19 +266,6 @@ class User extends Model
         {
             $this->checkUserPermissionsToUser($user);
         }
-    }
-
-    public function hasChatWith(User $user) {
-        return false; //!!!!!!!!!!!!!
-    }
-
-    public function getChatWith(User $user) {
-        $chat = Chat::find(1); //!!!!!!!!!!!!!
-        return $chat;
-    }
-
-    public function canCreateChatWith(User $user) {
-        return true; //!!!!!!!!!!!!!
     }
 
     public function getAllContacts()
@@ -350,5 +338,43 @@ class User extends Model
     public function getOutcomingContactsCount()
     {
         return $this->contacts_from()->where('is_accepted', '=', 'false')->get()->count();
+    }
+
+    public function canCreateChatWith(User $user)
+    {
+        return $user->canAllowActionFromSettingValueToUser($user->accept_chats_from, $this);
+    }
+
+    public function getPersonalChatWith(User $user) {
+        $chats = $this->getPersonalChats();
+        foreach ($chats as $chat)
+        {
+            if($chat->getSecondUserIfChatIsPersonal($this)->id == $user->id)
+            {
+                return $chat;
+            }
+        }
+        return null;
+    }
+
+    public function hasPersonalChatWith(User $user) {
+        return ($this->getPersonalChatWith($user) != null);
+    }
+
+    public function getPersonalChats()
+    {
+        return $this->chats()->where('chat_type_id', '=', ChatType::CHAT_TYPE_ID_PERSONAL)->get();
+    }
+
+    // Находим массив пользователей, с которыми у данного пользователя имеется личный чат
+    public function getPersonalChatsUsers()
+    {
+        $chats_users = array();
+        $chats = $this->getPersonalChats();
+        foreach ($chats as $chat)
+        {
+            $chats_users[] = $chat->getSecondUserIfChatIsPersonal($this);
+        }
+        return $chats_users;
     }
 }

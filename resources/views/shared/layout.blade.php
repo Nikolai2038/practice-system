@@ -17,20 +17,19 @@
                 </div>
                 <nav id="menu">
                     <a href="{{ route('index') }}" class="button button_blue button_size_small">Главная</a>
-                    @if($total_user != null)
-                        <a href="{{ route('contacts') }}" class="button button_blue button_size_small">Мои контакты@if($total_user->getIncomingContactsCount() > 0) (+{{ $total_user->getIncomingContactsCount() }})@endif</a>
-                        <a href="{{ route('practices') }}" class="button button_blue button_size_small">Мои практики</a>
-                        {{-- <a href="{{ route('chats') }}" class="button button_blue button_size_small">Чаты</a> --}}
-                        <a href="{{ route('users') }}" class="button button_blue button_size_small">Пользователи</a><br/>
-                        @if($total_user->isAdministrator())
-                            <a href="{{ route('administration') }}" class="button button_red button_size_small">Администрирование</a><br/>
-                        @endif
-                    @endif
                     @if($total_user == null)
                         <a href="{{ route('authorization') }}" class="button button_blue button_size_small">Авторизация</a>
                         <a href="{{ route('registration') }}" class="button button_blue button_size_small">Регистрация</a>
                     @else
-                        <a href="{{ route('my_profile') }}" class="button button_blue button_size_small">Мой профиль</a>
+                        <a href="{{ route('users') }}" class="button button_blue button_size_small">Пользователи</a>
+                        @if($total_user->isAdministrator())
+                            <a href="{{ route('administration') }}" class="button button_red button_size_small">Администрирование</a>
+                        @endif
+                        <br/>
+                        <a href="{{ route('my_profile') }}" class="button button_blue button_size_small">Профиль</a>
+                        <a href="{{ route('contacts') }}" class="button button_blue button_size_small">Контакты@if($total_user->getIncomingContactsCount() > 0) (+{{ $total_user->getIncomingContactsCount() }})@endif</a>
+                        <a href="{{ route('chats') }}" class="button button_blue button_size_small">Личные чаты</a>
+                        <a href="{{ route('practices') }}" class="button button_blue button_size_small">Практики</a>
                         <a href="{{ route('settings') }}" class="button button_blue button_size_small">Настройки</a>
                         <a href="{{ route('logout') }}" class="button button_blue button_size_small">Выйти из аккаунта</a>
                     @endif

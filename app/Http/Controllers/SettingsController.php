@@ -25,6 +25,7 @@ class SettingsController extends Controller
             FormFieldInput::FIELD_KEY_FIRST_NAME,
             FormFieldInput::FIELD_KEY_SECOND_NAME,
             FormFieldInput::FIELD_KEY_THIRD_NAME,
+            FormFieldInput::FIELD_KEY_WHO_CAN_CREATE_PERSONAL_CHATS_WITH_ME,
             FormFieldInput::FIELD_KEY_INSTITUTION_ID,
             FormFieldInput::FIELD_KEY_NEW_PASSWORD,
             FormFieldInput::FIELD_KEY_NEW_PASSWORD_CONFIRMED,
@@ -39,18 +40,21 @@ class SettingsController extends Controller
             FormFieldInput::FIELD_KEY_FIRST_NAME => $total_user->first_name,
             FormFieldInput::FIELD_KEY_SECOND_NAME => $total_user->second_name,
             FormFieldInput::FIELD_KEY_THIRD_NAME => $total_user->third_name,
+            FormFieldInput::FIELD_KEY_WHO_CAN_CREATE_PERSONAL_CHATS_WITH_ME => $total_user->accept_chats_from,
             FormFieldInput::FIELD_KEY_INSTITUTION_ID => $total_user->institution->id ?? null,
         );
         $fields_options_values = array(
             FormFieldInput::FIELD_KEY_INSTITUTION_ID => FormFieldInput::generateOneFieldArray(Institution::all('id as value')->toArray()),
             FormFieldInput::FIELD_KEY_WHO_CAN_SEE_EMAIL => Functions::SETTINS_VALUES,
             FormFieldInput::FIELD_KEY_WHO_CAN_SEE_PHONE => Functions::SETTINS_VALUES,
+            FormFieldInput::FIELD_KEY_WHO_CAN_CREATE_PERSONAL_CHATS_WITH_ME => Functions::SETTINS_VALUES,
         );
         $fields_options_values_guarded = null;
         $fields_options_names = array(
             FormFieldInput::FIELD_KEY_INSTITUTION_ID => FormFieldInput::generateOneFieldArray(Institution::all('full_name as value')->toArray()),
             FormFieldInput::FIELD_KEY_WHO_CAN_SEE_EMAIL => Functions::SETTINS_VALUES_NAMES,
             FormFieldInput::FIELD_KEY_WHO_CAN_SEE_PHONE => Functions::SETTINS_VALUES_NAMES,
+            FormFieldInput::FIELD_KEY_WHO_CAN_CREATE_PERSONAL_CHATS_WITH_ME => Functions::SETTINS_VALUES_NAMES,
         );
         $html_fields = FormFieldInput::generateHtmlFields($request, $form_field_keys, $form_field_defaults, $fields_options_values, $fields_options_values_guarded, $fields_options_names);
 
@@ -148,6 +152,7 @@ class SettingsController extends Controller
                             $total_user->show_email = $request->input(FormFieldInput::FIELD_KEY_WHO_CAN_SEE_EMAIL);
                             $total_user->phone = $request->input(FormFieldInput::FIELD_KEY_PHONE);
                             $total_user->show_phone = $request->input(FormFieldInput::FIELD_KEY_WHO_CAN_SEE_PHONE);
+                            $total_user->accept_chats_from = $request->input(FormFieldInput::FIELD_KEY_WHO_CAN_CREATE_PERSONAL_CHATS_WITH_ME);
                             $total_user->first_name = $request->input(FormFieldInput::FIELD_KEY_FIRST_NAME);
                             $total_user->second_name = $request->input(FormFieldInput::FIELD_KEY_SECOND_NAME);
                             $total_user->third_name = $request->input(FormFieldInput::FIELD_KEY_THIRD_NAME);
