@@ -41,8 +41,7 @@ class InstitutionsController extends Controller
 
         if ($request->isMethod('get'))
         {
-            $institution_types = InstitutionType::all();
-            return response()->view('institutions.create', ['html_fields' => $html_fields, 'institution_types' => $institution_types, 'total_user' => $total_user])->header('Content-Type', 'text/html');
+            return response()->view('institutions.create', ['html_fields' => $html_fields, 'total_user' => $total_user])->header('Content-Type', 'text/html');
         }
         else if ($request->isMethod('post'))
         {

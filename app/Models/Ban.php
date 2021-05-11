@@ -16,7 +16,9 @@ use Illuminate\Support\Carbon;
  * @property Carbon $deleted_at Дата и время мягкого удаления записи в БД
  * @property User $user_from
  * @property User $user_to
+ * @property boolean $is_permanent
  * @property Carbon $unban_at
+ * @property string $description
  */
 class Ban extends Model
 {
@@ -30,5 +32,18 @@ class Ban extends Model
     public function user_to()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function isActive()
+    {
+        if($this->is_permanent)
+        {
+            return true;
+        }
+        else
+        {
+            $unban_at = new Carbon($this->unban_at);
+            return $unban_at->greaterThan(now());
+        }
     }
 }

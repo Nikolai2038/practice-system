@@ -3,7 +3,7 @@
         Отображено {{ $paginator->count() }} из {{ $paginator->total() }} результатов!<br/>
         Страницы:<br/>
         @if($paginator->onFirstPage() == false)
-            <a href="{{ $paginator->previousPageUrl() }}">Назад</a>
+            <a href="{{ $paginator->previousPageUrl() }}">Предыдущая</a>
         @endif
 
         @foreach ($elements as $element)
@@ -23,7 +23,7 @@
         @endforeach
 
         @if($paginator->hasMorePages())
-            <a href="{{ $paginator->nextPageUrl() }}">Вперёд</a>
+            <a href="{{ $paginator->nextPageUrl() }}">Следующая</a>
         @endif
     </div>
 @endif

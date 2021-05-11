@@ -1,18 +1,19 @@
 @extends('shared.layout')
 
-@section('title', 'Баны')
+@section('title', 'Снятие бана пользователя '.$ban->user_to->getFullName())
 
 @section('css')
     @parent
     <link rel="stylesheet" href="{{ URL::asset('css/tables.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ URL::asset('css/forms.css') }}" type="text/css">
 @endsection
 
 @section('page_sized_class', 'big_page')
 
-@section('page_title', 'Баны')
+@section('page_title', 'Снятие бана пользователя '.$ban->user_to->getFullName())
 
 @section('sub_menu')
-    <a href="{{ route('administration') }}" class="button button_blue button_size_small">Назад</a>
+    <a href="{{ route('bans_view', $ban->user_to->id) }}" class="button button_blue button_size_small">Назад</a>
 @endsection
 
 @section('content')
@@ -25,10 +26,8 @@
                 <th>Причина</th>
                 <th class="td_small">Дата выдачи</th>
                 <th class="td_small">Дата разбана</th>
-                <th colspan="2">Действия</th>
             </thead>
             <tbody>
-            @foreach($bans as $ban)
                 <tr>
                     <td><span class="td_content">{{ $ban->id }}</span></td>
                     <td class="td_linked"><a href="{{ route('profile', $ban->user_to->id) }}" class="td_content">{{ $ban->user_to->getFullName() }}</a></td>
@@ -36,20 +35,18 @@
                     <td><span class="td_content">{{ $ban->description ?? '-' }}</span></td>
                     <td class="td_small"><span class="td_content">{{ $ban->created_at }}</span></td>
                     <td class="td_small"><span class="td_content">@if($ban->is_permanent)Никогда@else{{ $ban->unban_at }}@endif</span>@if($ban->isActive())<span class="ban_active">(Действует)</span>@else<span class="ban_gone">(Истёк)</span>@endif</td>
-                    @if($total_user->canUnbanBan($ban))
-                        <td class="td_small td_linked"><a href="{{ route('administration_bans_unban', $ban->id) }}" class="td_content">Снять бан</a></td>
-                    @else
-                        <td>-</td>
-                    @endif
-                    @if($total_user->canDeleteBan($ban))
-                        <td class="td_small td_linked"><a href="{{ route('administration_bans_delete', $ban->id) }}" class="td_content">Удалить бан</a></td>
-                    @else
-                        <td>-</td>
-                    @endif
                 </tr>
-            @endforeach
             </tbody>
         </table>
     </div>
-    {{ $bans->links('shared.pagination') }}
+    <form method="POST" class="form_main">
+        {{ csrf_field() }}
+        <div class="errors">
+            <p>
+                Вы действительно хотите снять этот бан?<br/>
+                (Это устанавливает дату и время разбана на текущую, сам бан остаётся в истории)
+            </p>
+        </div>
+        <button class="button button_red button_size_normal">Снять</button>
+    </form>
 @endsection

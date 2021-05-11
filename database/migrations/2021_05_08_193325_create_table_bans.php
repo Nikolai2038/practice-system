@@ -20,7 +20,9 @@ class CreateTableBans extends Migration
 
             $table->bigInteger('user_from_id')->nullable();
             $table->bigInteger('user_to_id');
+            $table->boolean('is_permanent')->default(false);
             $table->timestamp('unban_at');
+            $table->string('description')->nullable();
 
             $table->foreign('user_from_id')->references('id')->on('users');
             $table->foreign('user_to_id')->references('id')->on('users');

@@ -12,12 +12,17 @@
 @section('page_title', $watching_user->getFullName())
 
 @section('sub_menu')
-    @if($total_user == $watching_user)
+    @if($total_user->id == $watching_user->id)
         <a href="{{ route('settings') }}" class="button button_blue button_size_small">Настройки</a>
     @endif
+    <a href="{{ route('bans_view', $watching_user->id) }}" class="button button_blue button_size_small">Посмотреть баны, полученные пользователем</a>
     @if($total_user->isAdministrator())
+        <br/>
         @if(($total_user->canChangeRoleOfUser($watching_user)))
             <a href="{{ route('administration_roles_edit', $watching_user->id) }}" class="button button_red button_size_small">Изменить роль</a>
+        @endif
+        @if(($total_user->canBanUser($watching_user)))
+            <a href="{{ route('administration_bans_create', $watching_user->id) }}" class="button button_red button_size_small">Забанить</a>
         @endif
     @endif
 @endsection

@@ -57,8 +57,12 @@ Route::get('/users', [ UsersController::class, 'all' ])
     ->middleware('required_to_be_user');
 
 // Профиль пользователя (если ID не указан - показывается профиль текущего пользователя)
-Route::get('/users/profile/{id?}', [ UsersController::class, 'profile' ])
+Route::get('/users/{id}/profile', [ UsersController::class, 'profile' ])
     ->name('profile')
+    ->middleware('required_to_be_user')
+    ->where('id', '[0-9]+');
+Route::get('/profile', [ UsersController::class, 'profile' ])
+    ->name('my_profile')
     ->middleware('required_to_be_user')
     ->where('id', '[0-9]+');
 
@@ -104,7 +108,32 @@ Route::group([
         'prefix' => '/bans',
         'as' => '_bans'
     ], function() {
+        // Просмотр всех банов в системе
         Route::get('/', [ BansController::class, 'index' ]);
+
+        // Выдача бана
+        Route::get('/create/{user_id}', [ BansController::class, 'create'])
+            ->name('_create')
+            ->where('user_id', '[0-9]+');
+        Route::post('/create/{user_id}', [ BansController::class, 'create'])
+            ->name('_create')
+            ->where('user_id', '[0-9]+');
+
+        // Снятие бана
+        Route::get('/unban/{id}', [ BansController::class, 'unban'])
+            ->name('_unban')
+            ->where('id', '[0-9]+');
+        Route::post('/unban/{id}', [ BansController::class, 'unban'])
+            ->name('_unban')
+            ->where('id', '[0-9]+');
+
+        // Удаление бана
+        Route::get('/delete/{id}', [ BansController::class, 'delete'])
+            ->name('_delete')
+            ->where('id', '[0-9]+');
+        Route::post('/delete/{id}', [ BansController::class, 'delete'])
+            ->name('_delete')
+            ->where('id', '[0-9]+');
     });
 
     // Предприятия / Учебные заведения
@@ -137,6 +166,12 @@ Route::group([
             ->where('id', '[0-9]+');
     });
 });
+
+// Просмотр банов пользователя
+Route::get('/users/{user_id}/bans', [ BansController::class, 'view' ])
+    ->name('bans_view')
+    ->where('user_id', '[0-9]+')
+    ->middleware('required_to_be_user');
 
 // Контакты, запросы в друзья и т.п.
 Route::get('/contacts', [ ContactsController::class, 'index' ])

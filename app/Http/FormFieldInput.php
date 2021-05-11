@@ -53,6 +53,10 @@ class FormFieldInput
     public const FIELD_KEY_NEW_PASSWORD_CONFIRMED = 'new_password_confirmed';
     public const FIELD_KEY_TOTAL_PASSWORD = 'total_password';
 
+    public const FIELD_KEY_BAN_DESCRIPTION = 'ban_description';
+    public const FIELD_KEY_BAN_IS_PERMANENT = 'is_permanent';
+    public const FIELD_KEY_BAN_UNBAN_AT = 'unban_at';
+
     /**
      * @return FormFieldInput[]
      */
@@ -83,23 +87,30 @@ class FormFieldInput
 
             self::FIELD_KEY_INSTITUTION_FULL_NAME   => new FormFieldInput(self::FIELD_KEY_INSTITUTION_FULL_NAME,
                 'Полное название', true, 4, 64),
-            self::FIELD_KEY_INSTITUTION_SHORT_NAME   => new FormFieldInput(self::FIELD_KEY_INSTITUTION_SHORT_NAME,
+            self::FIELD_KEY_INSTITUTION_SHORT_NAME  => new FormFieldInput(self::FIELD_KEY_INSTITUTION_SHORT_NAME,
                 'Краткое название', false, 4, 64),
-            self::FIELD_KEY_INSTITUTION_ADDRESS   => new FormFieldInput(self::FIELD_KEY_INSTITUTION_ADDRESS,
+            self::FIELD_KEY_INSTITUTION_ADDRESS     => new FormFieldInput(self::FIELD_KEY_INSTITUTION_ADDRESS,
                 'Адрес', true, 4, 64),
-            self::FIELD_KEY_INSTITUTION_TYPE_ID   => new FormFieldInput(self::FIELD_KEY_INSTITUTION_TYPE_ID,
+            self::FIELD_KEY_INSTITUTION_TYPE_ID     => new FormFieldInput(self::FIELD_KEY_INSTITUTION_TYPE_ID,
                 'Тип', true, null, null, self::FIELD_TYPE_SELECT),
 
-            self::FIELD_KEY_WHO_CAN_SEE_EMAIL                => new FormFieldInput(self::FIELD_KEY_WHO_CAN_SEE_EMAIL,
+            self::FIELD_KEY_WHO_CAN_SEE_EMAIL       => new FormFieldInput(self::FIELD_KEY_WHO_CAN_SEE_EMAIL,
                 'Кто может видеть мой email', true, null, null, self::FIELD_TYPE_SELECT),
-            self::FIELD_KEY_WHO_CAN_SEE_PHONE                => new FormFieldInput(self::FIELD_KEY_WHO_CAN_SEE_PHONE,
+            self::FIELD_KEY_WHO_CAN_SEE_PHONE       => new FormFieldInput(self::FIELD_KEY_WHO_CAN_SEE_PHONE,
                 'Кто может видеть мой телефон', true, null, null, self::FIELD_TYPE_SELECT),
-            self::FIELD_KEY_NEW_PASSWORD                => new FormFieldInput(self::FIELD_KEY_NEW_PASSWORD,
+            self::FIELD_KEY_NEW_PASSWORD            => new FormFieldInput(self::FIELD_KEY_NEW_PASSWORD,
                 'Новый пароль', false, 4, 128, self::FIELD_TYPE_INPUT_PASSWORD),
-            self::FIELD_KEY_NEW_PASSWORD_CONFIRMED      => new FormFieldInput(self::FIELD_KEY_NEW_PASSWORD_CONFIRMED,
+            self::FIELD_KEY_NEW_PASSWORD_CONFIRMED  => new FormFieldInput(self::FIELD_KEY_NEW_PASSWORD_CONFIRMED,
                 'Подтверждение нового пароля', false, 4, 128, self::FIELD_TYPE_INPUT_PASSWORD),
-            self::FIELD_KEY_TOTAL_PASSWORD                => new FormFieldInput(self::FIELD_KEY_TOTAL_PASSWORD,
+            self::FIELD_KEY_TOTAL_PASSWORD          => new FormFieldInput(self::FIELD_KEY_TOTAL_PASSWORD,
                 'Текущий пароль', true, 4, 128, self::FIELD_TYPE_INPUT_PASSWORD),
+
+            self::FIELD_KEY_BAN_DESCRIPTION         => new FormFieldInput(self::FIELD_KEY_BAN_DESCRIPTION,
+                'Причина блокировки', false, 4, 128),
+            self::FIELD_KEY_BAN_IS_PERMANENT         => new FormFieldInput(self::FIELD_KEY_BAN_IS_PERMANENT,
+                'Блокировка навсегда', true, null, null, self::FIELD_TYPE_SELECT),
+            self::FIELD_KEY_BAN_UNBAN_AT         => new FormFieldInput(self::FIELD_KEY_BAN_UNBAN_AT,
+                'Дата и время разблокировки (если бан не навсегда)', true, 4, 128),
         );
     }
 
@@ -300,6 +311,9 @@ class FormFieldInput
         }
     }
 
+    /**
+     * @return User
+    */
     public static function checkInputIsLoginOrPasswordWrong(Request $request, &$errors = null)
     {
         $password_sha512 = hash('sha512', $request->input(self::FIELD_KEY_PASSWORD));

@@ -30,7 +30,7 @@
                         <a href="{{ route('authorization') }}" class="button button_blue button_size_small">Авторизация</a>
                         <a href="{{ route('registration') }}" class="button button_blue button_size_small">Регистрация</a>
                     @else
-                        <a href="{{ route('profile') }}" class="button button_blue button_size_small">Мой профиль</a>
+                        <a href="{{ route('my_profile') }}" class="button button_blue button_size_small">Мой профиль</a>
                         <a href="{{ route('settings') }}" class="button button_blue button_size_small">Настройки</a>
                         <a href="{{ route('logout') }}" class="button button_blue button_size_small">Выйти из аккаунта</a>
                     @endif

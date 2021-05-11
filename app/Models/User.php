@@ -12,6 +12,7 @@ use phpDocumentor\Reflection\Types\Integer;
 
 /**
  * @method static User find($id)
+ * @method static User findOrFail($id)
  * @method static Builder where(...$params)
  * @method static Builder orderBy
  * @property Carbon $created_at Дата и время создания записи в БД
@@ -41,12 +42,12 @@ class User extends Model
 
     public function bans_from()
     {
-        return $this->hasMany(Ban::class);
+        return $this->hasMany(Ban::class, 'user_from_id');
     }
 
     public function bans_to()
     {
-        return $this->hasMany(Ban::class);
+        return $this->hasMany(Ban::class, 'user_to_id');
     }
 
     public function institution()
@@ -132,7 +133,7 @@ class User extends Model
 
     public function hasPermissionOnUser($user)
     {
-        return ($this->role->weight > $user->role->weight);
+        return (($this->role->weight > $user->role->weight) || ($this->id == $user->id));
     }
 
     public function canChangeRoleOfUser($user)
@@ -153,13 +154,20 @@ class User extends Model
 
     public function echoActivityStatus()
     {
-        if($this->isOnline())
+        if($this->getActiveBan() != null)
         {
-            echo "<span class='online_status'>Онлайн</span>";
+            echo "<span class='ban_active'>Забанен</span>";
         }
         else
         {
-            echo "<span class='offline_status'>Оффлайн</span>";
+            if ($this->isOnline())
+            {
+                echo "<span class='online_status'>Онлайн</span>";
+            }
+            else
+            {
+                echo "<span class='offline_status'>Оффлайн</span>";
+            }
         }
     }
 
@@ -196,5 +204,30 @@ class User extends Model
         {
             return $this->avatar_file->getFileUrl();
         }
+    }
+
+    public function getActiveBan()
+    {
+        $bans = $this->bans_to;
+        foreach ($bans as $ban)
+        {
+            if($ban->isActive()) return $ban;
+        }
+        return null;
+    }
+
+    public function canBanUser(User $user)
+    {
+        return (($this->id != $user->id) && ($this->hasPermissionOnUser($user)) && ($user->getActiveBan() == null)); // можно забанить пользователя только если у него сейчас нет другого бана
+    }
+
+    public function canUnbanBan(Ban $ban)
+    {
+        return (($this->id != $ban->user_to->id) && ($this->hasPermissionOnUser($ban->user_to)));
+    }
+
+    public function canDeleteBan(Ban $ban)
+    {
+        return (($this->id != $ban->user_to->id) && ($this->hasPermissionOnUser($ban->user_to)));
     }
 }

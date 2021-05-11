@@ -16,7 +16,7 @@
 @section('page_title', 'Настройки')
 
 @section('sub_menu')
-    <a href="{{ route('profile') }}" class="button button_blue button_size_small">Вернуться в профиль</a>
+    <a href="{{ route('my_profile') }}" class="button button_blue button_size_small">Вернуться в профиль</a>
 @endsection
 
 @section('content')

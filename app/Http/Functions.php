@@ -48,7 +48,7 @@ class Functions
     /** Максимальная длина полного названия института */
     public const MAX_LENGTH_INSTITUTE_FULL_NAME = 128;
 
-    public const ROUTE_NAME_TO_REDIRECT_FROM_AUTHORIZATION = 'profile';
+    public const ROUTE_NAME_TO_REDIRECT_FROM_AUTHORIZATION = 'my_profile';
     public const ROUTE_NAME_TO_REDIRECT_FROM_DENY_ACCESS = 'index';
 
     // Типы значений настроек

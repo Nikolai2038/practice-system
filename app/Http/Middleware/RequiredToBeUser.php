@@ -24,7 +24,15 @@ class RequiredToBeUser
         }
         else
         {
-            return $next($request);
+            if($total_user->getActiveBan() != null) // если пользователь имеет активный бан - выкидываем его
+            {
+                Functions::deleteSession();
+                return redirect()->route('authorization')->header('Content-Type', 'text/html');
+            }
+            else
+            {
+                return $next($request);
+            }
         }
     }
 }

@@ -107,12 +107,13 @@ class SettingsController extends Controller
                         {
                             $errors[] = 'Файл имеет недопустимый формат!';
                         }
-                        else
+                        else if($file->isExecutable())
                         {
-                            if($file->getSize() > 1024*1024*3)
-                            {
-                                $errors[] = 'Максимальный размер файла - 3 мб!';
-                            }
+                            $errors[] = 'Файл не может быть исполняемым!';
+                        }
+                        else if($file->getSize() > 1024*1024*3)
+                        {
+                            $errors[] = 'Максимальный размер файла - 3 мб!';
                         }
                     }
                     if(count($errors) == 0)

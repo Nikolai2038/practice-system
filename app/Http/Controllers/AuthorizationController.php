@@ -41,6 +41,26 @@ class AuthorizationController extends Controller
 
                 if (count($errors) == 0)
                 {
+                    $active_ban = $user_found->getActiveBan();
+                    if ($active_ban != null)
+                    {
+                        $error = 'Данный аккаунт заблокирован';
+                        if ($active_ban->is_permanent)
+                        {
+                            $error .= ' навсегда!';
+                        }
+                        else
+                        {
+                            $error .= ' до ' . $active_ban->unban_at . '!';
+                        }
+                        $error .= ' Бан выдан администратором ' . $active_ban->user_from->getFullName() . '.';
+                        $error .= ' Причина: ' . ($active_ban->description ?? 'не указана') . '.';
+                        $errors[] = $error;
+                    }
+                }
+
+                if (count($errors) == 0)
+                {
                     Functions::saveSession($user_found);
                     return redirect()->route(Functions::ROUTE_NAME_TO_REDIRECT_FROM_AUTHORIZATION)->header('Content-Type', 'text/html');
                 }

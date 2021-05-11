@@ -144,6 +144,16 @@ body {
 }
 
 .offline_status {
+    color: #9e860c;
+    font-weight: bold;
+}
+
+.ban_gone {
+    color: #1e8b1e;
+    font-weight: bold;
+}
+
+.ban_active {
     color: #892020;
     font-weight: bold;
 }
