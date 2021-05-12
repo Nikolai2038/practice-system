@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FilesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\AuthorizationController;
@@ -238,6 +239,11 @@ Route::group([
         ->name('_view')
         ->where('chat_id', '[0-9]+');
 });
+
+// Скачивание файлов
+Route::get('/files/{filename}/download', [ FilesController::class, 'download' ])
+    ->name('download_file')
+    ->middleware('required_to_be_user');
 
 // Панель практик - создание, просмотр и т.п.
 Route::get('/practices', [ PracticesController::class, 'index' ])

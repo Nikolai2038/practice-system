@@ -23,7 +23,7 @@
 }
 .message {
     width: calc(50% - 16px);
-    min-height: 80px;
+    min-height: 100px;
     margin: 8px;
     padding: 8px;
 }
@@ -61,7 +61,7 @@
 }
 .message .name {
     font-weight: bolder;
-    font-size: 20px;
+    font-size: 16px;
 }
 .message .text {
     font-size: 16px;
@@ -91,5 +91,5 @@
 }
 .created_at {
     font-size: 12px;
-    padding: 4px;
+    padding-bottom: 4px;
 }

@@ -135,13 +135,7 @@ class SettingsController extends Controller
                                     $db_file->delete(); // удаляем информацию о файле из БД
                                 }
 
-                                $db_file = new File;
-                                $db_file->name = $file->getClientOriginalName();
-                                $db_file->prefix = 'avatars';
-                                $db_file->filename = time().'_'.$total_user->id.'_'.random_int(1000, 9999).'_'.$db_file->name;
-                                $db_file->user_from()->associate($total_user);
-                                $db_file->fileUpload($file); // сохранение файла на сервер
-                                $db_file->save();
+                                $db_file = File::fileCreate($file, 'avatars', $total_user);
                                 $total_user->avatar_file()->associate($db_file);
                             }
 

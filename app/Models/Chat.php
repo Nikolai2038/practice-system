@@ -11,6 +11,7 @@ use Illuminate\Support\Carbon;
  * @method static Chat find($id)
  * @method static Builder where(...$params)
  * @method static Builder orderBy
+ * @method static findOrFail(int $param)
  * @property Carbon $created_at Дата и время создания записи в БД
  * @property Carbon $updated_at Дата и время последнего изменения записи в БД
  * @property Carbon $deleted_at Дата и время мягкого удаления записи в БД

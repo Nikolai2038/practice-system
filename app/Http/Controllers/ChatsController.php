@@ -75,10 +75,6 @@ class ChatsController extends Controller
 
             $message_text = $request->input('message_text');
 
-//            if (!isset($files['uploaded_files']['error']) || is_array($files['uploaded_files']['error'])) {
-//                $errors[] = 'Invalid parameters.';
-//            }
-
             if(($message_text != null) || $request->hasFile('uploaded'))
             {
                 $message = new Message;
@@ -104,13 +100,7 @@ class ChatsController extends Controller
 
                         if(count($errors) == 0)
                         {
-                            $db_file = new File;
-                            $db_file->name = $file->getClientOriginalName();
-                            $db_file->prefix = 'files';
-                            $db_file->filename = time() . '_' . $total_user->id . '_' . random_int(1000, 9999) . '_' . $db_file->name;
-                            $db_file->user_from()->associate($total_user);
-                            $db_file->fileUpload($file); // сохранение файла на сервер
-                            $db_file->save();
+                            $db_file = File::fileCreate($file, 'files', $total_user);
                             $message->files()->attach($db_file);
                         }
                     }

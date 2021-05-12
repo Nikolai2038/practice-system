@@ -70,16 +70,13 @@
 
                 let message_text = $("textarea[name=message_text]").val();
                 let _token = $('meta[name="csrf-token"]').attr('content');
-                //let files = document.getElementById('files').prop('files');
 
-                //var files = document.getElementById("files").prop('files')[0];
                 var formData = new FormData();
                 $.each($("#files")[0].files,function(key, input){
                     formData.append('uploaded[]', input);
                 });
                 formData.append('message_text', message_text);
                 formData.append('_token', _token);
-                //formData.append('uploaded', files);
 
                 await $.ajax({
                     url: "/chats/{{ $chat->id }}",
@@ -251,7 +248,10 @@
                         frame_doc += "<br/><span class=\"files\">";
                         messages_files[index].forEach(function (item, i, arr)
                         {
-                            frame_doc += item.name + "; ";
+                            frame_doc += "<a href=\"/files/" + item.filename + "/download\" target=\"_blank\">";
+                            frame_doc += item.name;
+                            frame_doc += "</a>";
+                            frame_doc += "; ";
                         });
                         frame_doc += "</span>";
                     }
