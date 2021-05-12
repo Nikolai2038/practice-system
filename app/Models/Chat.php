@@ -41,7 +41,7 @@ class Chat extends Model
 
     public function messages()
     {
-        return $this->hasMany(Message::class, 'messages_to_chats');
+        return $this->belongsToMany(Message::class, 'messages_to_chats');
     }
 
     public function getSecondUserIfChatIsPersonal($first_user)

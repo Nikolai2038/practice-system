@@ -31,7 +31,7 @@ class File extends Model
 
     public function messages()
     {
-        return $this->belongsTo(Message::class, 'files_to_messages');
+        return $this->belongsToMany(Message::class, 'files_to_messages')->withTimestamps();
     }
 
     public function user_avatar()

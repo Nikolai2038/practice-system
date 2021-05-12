@@ -19,6 +19,7 @@ class CreateTableMessageTypes extends Migration
             $table->softDeletes();
 
             $table->string('name', 32);
+            $table->bigInteger('weight')->default(0);
 
             $table->unique('name');
         });

@@ -35,7 +35,7 @@
                         </td>
                         <td class="td_small">{{ $chats_users[$loop->index]->last_activity_at }}<br/>({{ $chats_users[$loop->index]->echoActivityStatus() }})</td>
                         <td class="td_small td_linked td_linked_small_padding">
-                            <a href="{{ route('chats_delete', $chat->id) }}" class="td_content">Удалить личный чат с пользователем</a>
+                            <a href="{{ route('chats_delete', $chats_users[$loop->index]->id) }}" class="td_content">Удалить личный чат с пользователем</a>
                         </td>
                     </tr>
                 @endforeach

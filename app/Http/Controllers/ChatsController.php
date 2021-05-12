@@ -4,7 +4,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Functions;
 use App\Models\Chat;
 use App\Models\ChatType;
+use App\Models\File;
+use App\Models\Message;
+use App\Models\MessageType;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 class ChatsController extends Controller
@@ -43,15 +47,112 @@ class ChatsController extends Controller
         {
             $chat->users()->detach($total_user);
             $chat->users()->detach($watching_user);
+            $messages = $chat->messages;
+            /**
+             * @var Message $message
+            */
+            foreach ($messages as $message)
+            {
+                $message->chats()->detach($chat);
+            }
+            $chat->messages()->delete();
             $chat->delete();
         }
         return redirect()->route('chats')->header('Content-Type', 'text/html');
     }
 
-    public function view($chat_id)
+    public function view(Request $request, $chat_id)
     {
         $total_user = Functions::getTotalUser();
-        $chat = Chat::find($chat_id);
-        return response()->view('chats.view', ['total_user' => $total_user, 'chat' => $chat])->header('Content-Type', 'text/html');
+        $chat = Chat::findOrFail($chat_id);
+        if($total_user->isUserInChat($chat) == false)
+        {
+            Chat::findOrFail(-1);
+        }
+        if($request->isMethod('post'))
+        {
+            $errors = array();
+
+            $message_text = $request->input('message_text');
+
+//            if (!isset($files['uploaded_files']['error']) || is_array($files['uploaded_files']['error'])) {
+//                $errors[] = 'Invalid parameters.';
+//            }
+
+            if(($message_text != null) || $request->hasFile('uploaded'))
+            {
+                $message = new Message;
+                $message->text = $message_text ?? '';
+                $message->message_type()->associate(MessageType::find(MessageType::MESSAGE_TYPE_ID_OTHER));
+                $message->user_from()->associate($total_user);
+                $message->save();
+                $message->chats()->attach($chat);
+
+                if($request->hasFile('uploaded'))
+                {
+                    $files = $request->file('uploaded');
+                    foreach ($files as $file)
+                    {
+                        if ($file->isExecutable())
+                        {
+                            $errors[] = 'Файл не может быть исполняемым!';
+                        }
+                        else if ($file->getSize() > 1024 * 1024 * 3)
+                        {
+                            $errors[] = 'Максимальный размер файла - 3 мб!';
+                        }
+
+                        if(count($errors) == 0)
+                        {
+                            $db_file = new File;
+                            $db_file->name = $file->getClientOriginalName();
+                            $db_file->prefix = 'files';
+                            $db_file->filename = time() . '_' . $total_user->id . '_' . random_int(1000, 9999) . '_' . $db_file->name;
+                            $db_file->user_from()->associate($total_user);
+                            $db_file->fileUpload($file); // сохранение файла на сервер
+                            $db_file->save();
+                            $message->files()->attach($db_file);
+                        }
+                    }
+                }
+            }
+
+            $messages = $chat->messages;
+            $messages_created_at = array();
+            $messages_users = array();
+            $messages_users_avatars = array();
+            $messages_users_onlines = array();
+            $messages_files = array();
+            /**
+             * @var Message $message
+             */
+            $i = 0;
+            foreach ($messages as $message)
+            {
+                $messages_created_at[$i] = $message->created_at->toDateTimeString();
+                $messages_users[$message->user_from_id] = $message->user_from;
+                $messages_users_avatars[$message->user_from_id] = $message->user_from->getAvatarFileSrc();
+                $messages_users_onlines[$message->user_from_id] = $message->user_from->isOnline();
+                $messages_files[$i] = $message->files;
+                $i++;
+            }
+
+            return response()
+                ->json([
+                    'errors' => $errors,
+                    'total_user' => $total_user,
+                    'messages' => $messages,
+                    'messages_created_at' => $messages_created_at,
+                    'messages_users' => $messages_users,
+                    'messages_users_avatars' => $messages_users_avatars,
+                    'messages_users_onlines' => $messages_users_onlines,
+                    'messages_files' => $messages_files
+                ])
+                ->header('Content-Type', 'text/html');
+        }
+        return response()->view('chats.view', [
+            'total_user' => $total_user,
+            'chat' => $chat
+        ])->header('Content-Type', 'text/html');
     }
 }

@@ -49,6 +49,8 @@
                 </div>
             </div>
         </div>
+        @section('scripts')
+        @show
         <footer>
             © АИС "Прохождение производственной практики", 2021 г.
         </footer>

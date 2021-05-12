@@ -345,6 +345,9 @@ class User extends Model
         return $user->canAllowActionFromSettingValueToUser($user->accept_chats_from, $this);
     }
 
+    /**
+     * @return Chat
+    */
     public function getPersonalChatWith(User $user) {
         $chats = $this->getPersonalChats();
         foreach ($chats as $chat)
@@ -376,5 +379,10 @@ class User extends Model
             $chats_users[] = $chat->getSecondUserIfChatIsPersonal($this);
         }
         return $chats_users;
+    }
+
+    public function isUserInChat(Chat $chat)
+    {
+        return ($chat->users->where('id', '=', $this->id)->first() != null);
     }
 }

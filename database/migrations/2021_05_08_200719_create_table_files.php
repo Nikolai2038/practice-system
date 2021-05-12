@@ -40,6 +40,6 @@ class CreateTableFiles extends Migration
         {
             $file->fileDelete();
         }
-        Schema::dropIfExists('files');
+        Schema::dropIfExists('files');пше 
     }
 }

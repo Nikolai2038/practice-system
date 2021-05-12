@@ -30,9 +30,13 @@ class Message extends Model
         return $this->belongsTo(Message::class);
     }
 
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function files()
     {
-        return $this->hasMany(File::class, 'files_to_messages')->withTimestamps();
+        return $this->belongsToMany(File::class, 'files_to_messages')->withTimestamps();
     }
 
     public function chats()

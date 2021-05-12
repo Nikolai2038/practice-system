@@ -234,6 +234,9 @@ Route::group([
     Route::get('/{chat_id}', [ ChatsController::class, 'view' ])
         ->name('_view')
         ->where('chat_id', '[0-9]+');
+    Route::post('/{chat_id}', [ ChatsController::class, 'view' ])
+        ->name('_view')
+        ->where('chat_id', '[0-9]+');
 });
 
 // Панель практик - создание, просмотр и т.п.

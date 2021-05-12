@@ -28,6 +28,11 @@
                 <a href="{{ route('contacts_delete', array_merge([$watching_user->id, Route::currentRouteName()], Route::getCurrentRoute()->parameters())) }}" class="button button_blue button_size_small">Отклонить заявку в контакты</a>
             @endif
         @endif
+        @if($total_user->hasPersonalChatWith($watching_user))
+            <a href="{{ route('chats_view', $total_user->getPersonalChatWith($watching_user)) }}" class="button button_blue button_size_small">Перейти к личному чату с пользователем</a>
+        @elseif($total_user->canCreateChatWith($watching_user))
+            <a href="{{ route('chats_create', $watching_user->id) }}" class="button button_blue button_size_small">Создать личный чат с пользователем</a>
+        @endif
         <a href="{{ route('bans_view', $watching_user->id) }}" class="button button_blue button_size_small">Посмотреть баны, полученные пользователем</a>
     @endif
 

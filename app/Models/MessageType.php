@@ -22,6 +22,17 @@ class MessageType extends Model
 {
     use HasFactory;
 
+    // АККУРАТНО - ID тут должны совпадать со значениями в БД - пока что будет так
+    public const MESSAGE_TYPE_ID_OTHER = 1;
+    public const MESSAGE_TYPE_ID_TASK_ANSWER = 2;
+    public const MESSAGE_TYPE_ID_QUESTION = 3;
+    public const MESSAGE_TYPE_ID_QUESTION_IMPORTANT = 4;
+
+    public const MESSAGE_TYPE_WEIGHT_OTHER = 0;
+    public const MESSAGE_TYPE_WEIGHT_TASK_ANSWER = 1;
+    public const MESSAGE_TYPE_WEIGHT_QUESTION = 2;
+    public const MESSAGE_TYPE_WEIGHT_QUESTION_IMPORTANT = 3;
+
     public function messages()
     {
         return $this->hasMany(Message::class);
