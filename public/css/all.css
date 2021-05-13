@@ -170,3 +170,7 @@ footer {
     height: 40px;
     font-size: 14px;
 }
+
+.td_notification {
+    background-color: #fff000;
+}

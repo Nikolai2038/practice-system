@@ -20,6 +20,7 @@ class CreateTableUsersToChats extends Migration
 
             $table->bigInteger('user_id');
             $table->bigInteger('chat_id');
+            $table->integer('messages_not_read')->default(0);
 
             $table->unique(['user_id', 'chat_id']);
             $table->foreign('user_id')->references('id')->on('users');

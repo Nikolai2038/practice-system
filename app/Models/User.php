@@ -68,7 +68,7 @@ class User extends Model
 
     public function chats()
     {
-        return $this->belongsToMany(Chat::class, 'users_to_chats')->withTimestamps();
+        return $this->belongsToMany(Chat::class, 'users_to_chats')-> withTimestamps()->withPivot(['messages_not_read'])->as('user_to_chat');
     }
 
     public function tasks_from()
@@ -422,5 +422,52 @@ class User extends Model
     public function isUserInPractice(Practice $practice)
     {
         return ($practice->users->where('id', '=', $this->id)->first() != null);
+    }
+
+    public function getCountNewMessagesInChat(Chat $chat)
+    {
+        $user_to_chat = $this->chats()->find($chat->id)->user_to_chat;
+        return $user_to_chat->messages_not_read;
+    }
+
+    public function getCountNewMessagesInPractice(Practice $practice)
+    {
+        $chat = $practice->getPracticeMainChatOrFail();
+        $user_to_chat = $this->chats()->find($chat->id)->user_to_chat;
+        return $user_to_chat->messages_not_read;
+    }
+
+    public function getCountNewMessagesInPersonalChats()
+    {
+        $chats = $this->chats;
+        $count_new_messages = 0;
+        /**
+         * @var Chat $chat
+         */
+        foreach ($chats as $chat)
+        {
+            if($chat->chat_type->id == ChatType::CHAT_TYPE_ID_PERSONAL)
+            {
+                $count_new_messages += $this->getCountNewMessagesInChat($chat);
+            }
+        }
+        return $count_new_messages;
+    }
+
+    public function getCountNewMessagesInPracticChats()
+    {
+        $chats = $this->chats;
+        $count_new_messages = 0;
+        /**
+         * @var Chat $chat
+         */
+        foreach ($chats as $chat)
+        {
+            if($chat->chat_type->id == ChatType::CHAT_TYPE_ID_PRACTIC)
+            {
+                $count_new_messages += $this->getCountNewMessagesInChat($chat);
+            }
+        }
+        return $count_new_messages;
     }
 }

@@ -224,6 +224,11 @@ class PracticesController extends Controller
         }
         $chat = $practice->getPracticeMainChatOrFail();
         $users = $practice->users()->paginate(10);
+
+        $user_to_chat = $total_user->chats()->find($chat->id)->user_to_chat;
+        $user_to_chat->messages_not_read = 0;
+        $user_to_chat->save();
+
         return response()->view('practices.view', [
             'total_user' => $total_user,
             'practice' => $practice,

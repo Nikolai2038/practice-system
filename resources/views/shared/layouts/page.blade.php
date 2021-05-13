@@ -28,8 +28,8 @@
                         <br/>
                         <a href="{{ route('my_profile') }}" class="button button_blue button_size_small">Профиль</a>
                         <a href="{{ route('contacts') }}" class="button button_blue button_size_small">Контакты@if($total_user->getIncomingContactsCount() > 0) (+{{ $total_user->getIncomingContactsCount() }})@endif</a>
-                        <a href="{{ route('chats') }}" class="button button_blue button_size_small">Личные чаты</a>
-                        <a href="{{ route('practices') }}" class="button button_blue button_size_small">Практики</a>
+                        <a href="{{ route('chats') }}" class="button button_blue button_size_small">Личные чаты@if($total_user->getCountNewMessagesInPersonalChats() > 0) (+{{ $total_user->getCountNewMessagesInPersonalChats() }})@endif</a>
+                        <a href="{{ route('practices') }}" class="button button_blue button_size_small">Практики@if($total_user->getCountNewMessagesInPracticChats() > 0) (+{{ $total_user->getCountNewMessagesInPracticChats() }})@endif</a>
                         <a href="{{ route('settings') }}" class="button button_blue button_size_small">Настройки</a>
                         <a href="{{ route('logout') }}" class="button button_blue button_size_small">Выйти из аккаунта</a>
                     @endif

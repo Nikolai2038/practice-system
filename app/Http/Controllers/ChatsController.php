@@ -64,11 +64,15 @@ class ChatsController extends Controller
     public function view(Request $request, $chat_id)
     {
         $total_user = Functions::getTotalUser();
+        /**
+         * @var Chat $chat
+        */
         $chat = Chat::findOrFail($chat_id);
         if($total_user->isUserInChat($chat) == false)
         {
             Chat::findOrFail(-1);
         }
+
         if($request->isMethod('post'))
         {
             $errors = array();
@@ -83,6 +87,14 @@ class ChatsController extends Controller
                 $message->user_from()->associate($total_user);
                 $message->save();
                 $message->chats()->attach($chat);
+
+                $users_in_chat = $chat->users()->where('users.id', '!=', $total_user->id)->get();
+                foreach ($users_in_chat as $user)
+                {
+                    $user_to_chat = $user->chats()->find($chat_id)->user_to_chat;
+                    $user_to_chat->messages_not_read++;
+                    $user_to_chat->save();
+                }
 
                 if($request->hasFile('uploaded'))
                 {
@@ -127,6 +139,10 @@ class ChatsController extends Controller
                 $i++;
             }
 
+            $user_to_chat = $total_user->chats()->find($chat->id)->user_to_chat;
+            $user_to_chat->messages_not_read = 0;
+            $user_to_chat->save();
+
             return response()
                 ->json([
                     'errors' => $errors,
@@ -141,6 +157,11 @@ class ChatsController extends Controller
                 ])
                 ->header('Content-Type', 'text/html');
         }
+
+        $user_to_chat = $total_user->chats()->find($chat->id)->user_to_chat;
+        $user_to_chat->messages_not_read = 0;
+        $user_to_chat->save();
+
         return response()->view('chats.view', [
             'total_user' => $total_user,
             'chat' => $chat

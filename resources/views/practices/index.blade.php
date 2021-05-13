@@ -28,7 +28,7 @@
             <table class="table_linked">
                 <thead>
                 <th>ID</th>
-                <th>Название</th>
+                <th colspan="2">Название</th>
                 <th class="td_small">Начало практики</th>
                 <th class="td_small">Окончание практики</th>
                 <th class="td_small">Закрыта ли</th>
@@ -36,8 +36,20 @@
                 <tbody>
                 @foreach($practices as $practice)
                     <tr>
+                        @php
+                            $new_messages_in_practice = $total_user->getCountNewMessagesInPractice($practice);
+                        @endphp
                         <td><a href="{{ route('practices_view', $practice->id) }}" class="td_content">{{ $practice->id }}</a></td>
-                        <td><a href="{{ route('practices_view', $practice->id) }}" class="td_content">{{ $practice->name }}</a></td>
+                        <td
+                            @if($new_messages_in_practice == 0)
+                                colspan="2"
+                            @endif
+                        ><a href="{{ route('practices_view', $practice->id) }}" class="td_content">{{ $practice->name }}</a></td>
+                        @if($new_messages_in_practice > 0)
+                            <td class="td_small td_small_padding td_notification">
+                                <a href="{{ route('practices_view', $practice->id) }}" class="td_content">Новых сообщений: {{ $new_messages_in_practice }}!</a>
+                            </td>
+                        @endif
                         <td class="td_small"><a href="{{ route('practices_view', $practice->id) }}" class="td_content">{{ $practice->start_at }}</a></td>
                         <td class="td_small"><a href="{{ route('practices_view', $practice->id) }}" class="td_content">{{ $practice->end_at }}</a></td>
                         <td class="td_small"><a href="{{ route('practices_view', $practice->id) }}" class="td_content">@if($practice->is_closed)Да@elseНет@endif</a></td>

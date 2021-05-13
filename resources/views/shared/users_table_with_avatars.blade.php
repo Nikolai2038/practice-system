@@ -40,7 +40,7 @@
                             $redirect_route_name = Route::currentRouteName();
                             $redirect_route_params = [$user->id, $redirect_route_name];
                             $redirect_route_params_GET = array();
-                            if($practice != null)
+                            if($practice ?? null != null)
                             {
                                 $redirect_route_params_GET[] = $practice->id;
                             }
