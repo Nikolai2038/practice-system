@@ -218,11 +218,17 @@ class PracticesController extends Controller
     {
         $total_user = Functions::getTotalUser();
         $practice = Practice::findOrFail($practice_id);
+        if($total_user->isUserInPractice($practice) == false) // если пользователь не состоит в пракике
+        {
+            return redirect()->route('practices')->header('Content-Type', 'text/html');
+        }
         $chat = $practice->getPracticeMainChatOrFail();
+        $users = $practice->users()->paginate(10);
         return response()->view('practices.view', [
             'total_user' => $total_user,
             'practice' => $practice,
             'chat' => $chat,
+            'users' => $users,
         ])->header('Content-Type', 'text/html');
     }
 
@@ -351,5 +357,23 @@ class PracticesController extends Controller
                 ])->header('Content-Type', 'text/html');
             }
         }
+    }
+
+    public function remove_user($practice_id, $user_id)
+    {
+        $total_user = Functions::getTotalUser();
+        $practice = Practice::findOrFail($practice_id);
+        $removing_user = User::findOrFail($user_id);
+
+        if($total_user->hasPermissionOnPractice($practice)) // Если пользователь имеет права
+        {
+            if($total_user->id != $removing_user->id) // нельзя удалить самого себя
+            {
+                $practice->getPracticeMainChatOrFail()->users()->detach($removing_user); // удаляем указанного пользователя с практики
+                $practice->users()->detach($removing_user); // удаляем указанного пользователя с практики
+            }
+        }
+
+        return redirect()->route('practices_view', $practice_id)->header('Content-Type', 'text/html');
     }
 }

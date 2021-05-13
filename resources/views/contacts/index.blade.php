@@ -1,4 +1,4 @@
-@extends('shared.layout')
+@extends('shared.layouts.page')
 
 @section('title', 'Контакты')
 
@@ -22,6 +22,6 @@
             Нет контактов!
         </p>
     @else
-        @includeIf('contacts.shared.contacts_table')
+        @include('shared.users_table_with_avatars')
     @endif
 @endsection

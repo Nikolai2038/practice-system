@@ -33,7 +33,12 @@ class ContactsController extends Controller
 
     public function create(Request $request, $with_user_id, $came_from_route_name)
     {
-        $came_from_route_params = $request->input();
+        $inputs = $request->input();
+        $came_from_route_params = array();
+        foreach ($inputs as $key => $value)
+        {
+            $came_from_route_params[] = $key;
+        }
         $total_user = Functions::getTotalUser();
         $watching_user = User::findOrFail($with_user_id);
         $contact = $total_user->getContactRequestWithUser($watching_user);
@@ -54,7 +59,12 @@ class ContactsController extends Controller
 
     public function delete(Request $request, $with_user_id, $came_from_route_name)
     {
-        $came_from_route_params = $request->input();
+        $inputs = $request->input();
+        $came_from_route_params = array();
+        foreach ($inputs as $key => $value)
+        {
+            $came_from_route_params[] = $key;
+        }
         $total_user = Functions::getTotalUser();
         $watching_user = User::findOrFail($with_user_id);
         $contact = $total_user->getContactRequestWithUser($watching_user);

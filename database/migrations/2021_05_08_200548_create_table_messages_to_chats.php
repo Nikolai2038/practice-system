@@ -23,7 +23,7 @@ class CreateTableMessagesToChats extends Migration
 
             $table->unique(['message_id', 'chat_id']);
             $table->foreign('message_id')->references('id')->on('messages');
-            $table->foreign('chat_id')->references('id')->on('chats');
+            $table->foreign('chat_id')->references('id')->on('chats')->onDelete('cascade');
         });
     }
 

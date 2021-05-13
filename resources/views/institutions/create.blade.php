@@ -1,4 +1,4 @@
-@extends('shared.layout')
+@extends('shared.layouts.page')
 
 @section('title', 'Добавление предприятия / учебного заведения')
 

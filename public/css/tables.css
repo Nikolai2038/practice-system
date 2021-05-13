@@ -28,13 +28,17 @@
 }
 
 .td_small {
-    max-width: 120px;
-    width: 120px;
+    max-width: 130px;
+    width: 100px;
 }
 
 .td_left {
     text-align: left;
     padding: 10px 15px;
+}
+
+.td_left .td_a_div {
+    text-align: left;
 }
 
 .table_linked .td_content,
@@ -45,6 +49,7 @@
     vertical-align: middle;
     white-space: pre-wrap;
     padding: 10px 5px;
+    text-align: center;
 }
 
 .table_linked td .td_content,
@@ -67,7 +72,7 @@
     font-style: italic;
 }
 
-.table_not_linked .td_linked .td_content  {
+.td_linked .td_small_line_content  {
     padding: 30px 5px;
 }
 
@@ -113,13 +118,13 @@
 }
 
 /* Таблица с контактами */
-.table_not_linked .td_linked_none_padding  {
+.td_small_padding .td_content  {
+    padding: 18px 4px;
+}
+.td_none_padding  {
     padding: 4px;
 }
-.table_not_linked .td_linked_small_padding .td_content  {
-    padding: 18px;
-}
-.table_not_linked .td_linked_none_padding .td_content  {
+.td_none_padding .td_content  {
     padding: 0;
 }
 .contact_avatar {
@@ -138,5 +143,5 @@
     padding-top: 8px;
 }
 .td_a_div{
-    height: 68px;
+    height: 64px;
 }

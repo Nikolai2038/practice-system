@@ -188,14 +188,14 @@ Route::group([
     Route::get('/create/{user_id}/{came_from_url}', [ ContactsController::class, 'create' ])
         ->name('_create')
         ->where('user_id', '[0-9]+')
-        ->where('came_from_url', 'contacts|contacts_requests_incoming|contacts_requests_outcoming|profile');
+        ->where('came_from_url', 'contacts|contacts_requests_incoming|contacts_requests_outcoming|profile|practices_view');
 
     // Удаление запроса в контакты, либо отмена is_accepted
     // (Удаляет и перенаправляет)
     Route::get('/delete/{user_id}/{came_from_url}', [ ContactsController::class, 'delete' ])
         ->name('_delete')
         ->where('user_id', '[0-9]+')
-        ->where('came_from_url', 'contacts|contacts_requests_incoming|contacts_requests_outcoming|profile');
+        ->where('came_from_url', 'contacts|contacts_requests_incoming|contacts_requests_outcoming|profile|practices_view');
 
     // Входящие заявки
     Route::get('/requests/incoming', [ ContactsController::class, 'incoming'])
@@ -219,13 +219,13 @@ Route::group([
     // Список чатов, в которых состоит пользователь
     Route::get('/', [ ChatsController::class, 'index' ]);
 
-    // Создание личного чата между пользователями (групповые чаты - чаты практик, создаются автоматически, если что)
+    // Создание личного чата между пользователями (групповые чаты (чаты практик), создаются автоматически, если что)
     // (Создаёт и перенаправляет)
     Route::get('/create/{with_user_id}', [ ChatsController::class, 'create' ])
         ->name('_create')
         ->where('with_user_id', '[0-9]+');
 
-    // Удаление личного чата между пользователями (групповые чаты - чаты практик, не удаляются, если что)
+    // Удаление личного чата между пользователями (групповые чаты (чаты практик), удаляются автоматически, если что)
     // (Удаляет и перенаправляет)
     Route::get('/delete/{with_user_id}', [ ChatsController::class, 'delete' ])
         ->name('_delete')
@@ -292,4 +292,10 @@ Route::group([
     Route::post('/{practice_id}/delete', [ PracticesController::class, 'delete' ])
         ->name('_delete')
         ->where('practice_id', '[0-9]+');
+
+    // Удаление практики
+    Route::get('/{practice_id}/remove_user/{user_id}', [ PracticesController::class, 'remove_user' ])
+        ->name('_remove_user')
+        ->where('practice_id', '[0-9]+')
+        ->where('user_id', '[0-9]+');
 });

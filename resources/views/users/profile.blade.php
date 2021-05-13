@@ -1,4 +1,4 @@
-@extends('shared.layout')
+@extends('shared.layouts.page')
 
 @section('title', $watching_user->getFullName())
 

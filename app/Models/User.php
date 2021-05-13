@@ -193,11 +193,10 @@ class User extends Model
         else if ($setting_value == Functions::SETTING_VALUE_ALL) return true;
         else if ($setting_value == Functions::SETTING_VALUE_CONTACTS)
         {
-            $is_in_contacts = $this->getContactRequestWithUser($user)->is_accepted;
-            if($is_in_contacts) return true;
-            else return false;
+            $contact_request = $this->getContactRequestWithUser($user);
+            if(($contact_request != null) && ($contact_request->is_accepted)) return true;
         }
-        else return false;
+        return false;
     }
 
     public function canShowEmailTo($user)
@@ -341,7 +340,14 @@ class User extends Model
 
     public function canCreateChatWith(User $user)
     {
-        return $user->canAllowActionFromSettingValueToUser($user->accept_chats_from, $this);
+        if($user->id == $this->id)
+        {
+            return false;
+        }
+        else
+        {
+            return $user->canAllowActionFromSettingValueToUser($user->accept_chats_from, $this);
+        }
     }
 
     /**
@@ -411,5 +417,10 @@ class User extends Model
         {
             return false;
         }
+    }
+
+    public function isUserInPractice(Practice $practice)
+    {
+        return ($practice->users->where('id', '=', $this->id)->first() != null);
     }
 }

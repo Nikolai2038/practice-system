@@ -1,4 +1,4 @@
-@extends('shared.layout')
+@extends('shared.layouts.page')
 
 @section('title', 'Снятие бана пользователя '.$ban->user_to->getFullName())
 

@@ -125,7 +125,7 @@ class FormFieldInput
                 'Дата и время разблокировки (если бан не навсегда)', true, 4, 20),
 
             self::FIELD_KEY_PRACTICE_NAME         => new FormFieldInput(self::FIELD_KEY_PRACTICE_NAME,
-                'Название практики', true, 4, 64),
+                'Название практики', true, 4, 128),
             self::FIELD_KEY_PRACTICE_DESCRIPTION         => new FormFieldInput(self::FIELD_KEY_PRACTICE_DESCRIPTION,
                 'Описание практики', false, 4, 256),
             self::FIELD_KEY_PRACTICE_START_AT         => new FormFieldInput(self::FIELD_KEY_PRACTICE_START_AT,
@@ -135,7 +135,7 @@ class FormFieldInput
             self::FIELD_KEY_PRACTICE_IS_CLOSED         => new FormFieldInput(self::FIELD_KEY_PRACTICE_IS_CLOSED,
                 'Закрыта ли практика', true, null, null, self::FIELD_TYPE_SELECT),
             self::FIELD_KEY_PRACTICE_REGISTRATION_KEY         => new FormFieldInput(self::FIELD_KEY_PRACTICE_REGISTRATION_KEY,
-                'Ключ регистрации на практику (использование: "/practices/join/ключ")', true, 4, 128),
+                'Ключ регистрации на практику', true, 4, 128),
             self::FIELD_KEY_PRACTICE_REGISTRATION_CLOSED_AT         => new FormFieldInput(self::FIELD_KEY_PRACTICE_REGISTRATION_CLOSED_AT,
                 'Дата и время закрытия регистрации на практику', true, 4, 20),
         );

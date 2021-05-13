@@ -130,7 +130,8 @@ class ChatsController extends Controller
             return response()
                 ->json([
                     'errors' => $errors,
-                    'total_user' => $total_user,
+                    'total_user_id' => $total_user->id,
+                    'chat_id' => $chat_id,
                     'messages' => $messages,
                     'messages_created_at' => $messages_created_at,
                     'messages_users' => $messages_users,

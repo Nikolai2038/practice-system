@@ -18,7 +18,7 @@ class CreateTablePractices extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->string('name', 64);
+            $table->string('name', 128);
             $table->string('description', 256)->nullable();
             $table->bigInteger('user_from_id');
             $table->timestamp('start_at');
