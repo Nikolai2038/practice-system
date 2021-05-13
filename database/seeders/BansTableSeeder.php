@@ -16,12 +16,19 @@ class BansTableSeeder extends Seeder
      */
     public function run()
     {
-        for($i = 5; $i <= 19; $i++)
+        $data = [
+            [2, 3, false, new Carbon("2021-05-11 00:00:00")],
+            [8, 8, false, new Carbon("2021-05-29 00:00:00")],
+            [2, 8, true, null],
+        ];
+
+        for($i = 0; $i < count($data); $i++)
         {
             $ban = new Ban;
-            $ban->user_from()->associate(User::find(1));
-            $ban->user_to()->associate(User::find($i));
-            $ban->unban_at = new Carbon("2021-05-".random_int(0, 2).random_int(1, 9)." 00:00:00");
+            $ban->user_from()->associate(User::find($data[$i][0]));
+            $ban->user_to()->associate(User::find($data[$i][1]));
+            $ban->is_permanent = $data[$i][2];
+            $ban->unban_at = $data[$i][3];
             $ban->save();
         }
     }

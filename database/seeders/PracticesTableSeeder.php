@@ -16,7 +16,7 @@ class PracticesTableSeeder extends Seeder
      */
     public function run()
     {
-        $practice = new Practice();
+        /*$practice = new Practice();
 
         $practice->name = 'Название_практики_1';
         $practice->description = 'Описание_практики_1';
@@ -26,6 +26,6 @@ class PracticesTableSeeder extends Seeder
         $practice->registration_key = 'abc';
         $practice->registration_closed_at = new Carbon("2020-05-20 00:00:00");
 
-        $practice->save();
+        $practice->save();*/
     }
 }

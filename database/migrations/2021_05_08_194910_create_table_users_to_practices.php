@@ -24,7 +24,7 @@ class CreateTableUsersToPractices extends Migration
 
             $table->unique(['user_id', 'practice_id']);
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('practice_id')->references('id')->on('practices');
+            $table->foreign('practice_id')->references('id')->on('practices')->onDelete('cascade');
             $table->foreign('users_to_practices_status_id')->references('id')->on('users_to_practices_statuses');
         });
     }

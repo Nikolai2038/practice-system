@@ -23,7 +23,7 @@ class CreateTableChats extends Migration
             $table->bigInteger('task_id')->nullable();
 
             $table->foreign('chat_type_id')->references('id')->on('chat_types');
-            $table->foreign('practice_id')->references('id')->on('practices');
+            $table->foreign('practice_id')->references('id')->on('practices')->onDelete('cascade');
         });
     }
 

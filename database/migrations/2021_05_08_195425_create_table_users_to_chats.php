@@ -23,7 +23,7 @@ class CreateTableUsersToChats extends Migration
 
             $table->unique(['user_id', 'chat_id']);
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('chat_id')->references('id')->on('chats');
+            $table->foreign('chat_id')->references('id')->on('chats')->onDelete('cascade');
         });
     }
 

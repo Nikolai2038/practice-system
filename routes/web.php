@@ -245,7 +245,51 @@ Route::get('/files/{filename}/download', [ FilesController::class, 'download' ])
     ->name('download_file')
     ->middleware('required_to_be_user');
 
+
 // Панель практик - создание, просмотр и т.п.
-Route::get('/practices', [ PracticesController::class, 'index' ])
-    ->name('practices')
-    ->middleware('required_to_be_user');
+Route::group([
+    'prefix' => '/practices',
+    'as' => 'practices',
+    'middleware' => ['required_to_be_user']
+], function() {
+    // Список практик, в которых состоит пользователь
+    Route::get('/', [ PracticesController::class, 'index' ]);
+
+    // Создание новой практики
+    Route::get('/create', [ PracticesController::class, 'create' ])
+        ->name('_create')
+        ->middleware('required_to_be_director');
+    Route::post('/create', [ PracticesController::class, 'create' ])
+        ->name('_create')
+        ->middleware('required_to_be_director');
+
+    // Присоединение к существующей практике
+    Route::get('/join/{registration_key?}', [ PracticesController::class, 'join' ])
+        ->name('_join');
+    Route::post('/join/{registration_key?}', [ PracticesController::class, 'join' ])
+        ->name('_join');
+
+    // Окно конкретной практики
+    Route::get('/{practice_id}', [ PracticesController::class, 'view' ])
+        ->name('_view')
+        ->where('practice_id', '[0-9]+');
+    Route::post('/{practice_id}', [ PracticesController::class, 'view' ])
+        ->name('_view')
+        ->where('practice_id', '[0-9]+');
+
+    // Изменение практики
+    Route::get('/{practice_id}/edit', [ PracticesController::class, 'edit' ])
+        ->name('_edit')
+        ->where('practice_id', '[0-9]+');
+    Route::post('/{practice_id}/edit', [ PracticesController::class, 'edit' ])
+        ->name('_edit')
+        ->where('practice_id', '[0-9]+');
+
+    // Удаление практики
+    Route::get('/{practice_id}/delete', [ PracticesController::class, 'delete' ])
+        ->name('_delete')
+        ->where('practice_id', '[0-9]+');
+    Route::post('/{practice_id}/delete', [ PracticesController::class, 'delete' ])
+        ->name('_delete')
+        ->where('practice_id', '[0-9]+');
+});

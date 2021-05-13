@@ -9,6 +9,7 @@ use Illuminate\Support\Carbon;
 
 /**
  * @method static Practice find($id)
+ * @method static Practice findOrFail($param)
  * @method static Builder where(...$params)
  * @method static Builder orderBy
  * @property Carbon $created_at Дата и время создания записи в БД
@@ -37,8 +38,26 @@ class Practice extends Model
         return $this->belongsToMany(User::class, 'users_to_practices')->withTimestamps();
     }
 
+    public function chats()
+    {
+        return $this->hasMany(Chat::class);
+    }
+
     public function users_to_practices_statuses()
     {
         return $this->belongsToMany(UsersToPracticesStatus::class, 'users_to_practices')->withTimestamps();
+    }
+
+    public static function generateRandomRegistrationKey()
+    {
+        return hash('sha256', random_int(1, 999999999)).hash('sha256', time());
+    }
+
+    /**
+     * @return Chat
+    */
+    public function getPracticeMainChatOrFail()
+    {
+        return $this->chats()->where('task_id', '=', null)->firstOrFail();
     }
 }

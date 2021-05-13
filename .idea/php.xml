@@ -182,6 +182,7 @@
   <component name="PhpUnit">
     <phpunit_settings>
       <PhpUnitSettings configuration_file_path="$PROJECT_DIR$/phpunit.xml" custom_loader_path="$PROJECT_DIR$/vendor/autoload.php" use_configuration_file="true" />
+      <phpunit_by_interpreter interpreter_id="561f9944-65b2-44a6-82e5-cce5b130f65f" configuration_file_path="D:/Users/Nikolai/Documents/Git Repositories/practice-system/phpunit.xml" custom_loader_path="D:/Users/Nikolai/Documents/Git Repositories/practice-system/vendor/autoload.php" use_configuration_file="true" />
     </phpunit_settings>
   </component>
 </project>

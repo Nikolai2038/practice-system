@@ -126,8 +126,7 @@ class User extends Model
     {
         $user_role_id = $this->role->id;
         return (
-            ($user_role_id == Role::ROLE_ID_DIRECTOR_PRACTICE) ||
-            ($user_role_id == Role::ROLE_ID_DIRECTOR_STUDY) ||
+            ($user_role_id == Role::ROLE_ID_DIRECTOR) ||
             ($user_role_id == Role::ROLE_ID_ADMINISTRATOR) ||
             ($user_role_id == Role::ROLE_ID_SUPER_ADMINISTRATOR)
         );
@@ -384,5 +383,33 @@ class User extends Model
     public function isUserInChat(Chat $chat)
     {
         return ($chat->users->where('id', '=', $this->id)->first() != null);
+    }
+
+    public function canCreatePractices()
+    {
+        return $this->isDirector();
+    }
+
+    public function hasPermissionOnPractice(Practice $practice)
+    {
+        if($this->isDirector())
+        {
+            if($practice->user_id == $this->id) // Если практика создана этим же пользователем
+            {
+                return true;
+            }
+            else if($this->hasPermissionOnUser($practice->user_from)) // если пользователь имеет права выше, чем пользователь, создавший практику - то имеет права над практикой
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
     }
 }

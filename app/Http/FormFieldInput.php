@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Models\InstitutionType;
+use App\Models\Practice;
 use App\Models\User;
 use Illuminate\Http\Request;
 use phpDocumentor\Reflection\Types\Array_;
@@ -58,6 +59,14 @@ class FormFieldInput
     public const FIELD_KEY_BAN_IS_PERMANENT = 'is_permanent';
     public const FIELD_KEY_BAN_UNBAN_AT = 'unban_at';
 
+    public const FIELD_KEY_PRACTICE_NAME = 'practice_name';
+    public const FIELD_KEY_PRACTICE_DESCRIPTION = 'practice_description';
+    public const FIELD_KEY_PRACTICE_START_AT = 'practice_start_at';
+    public const FIELD_KEY_PRACTICE_END_AT = 'practice_end_at';
+    public const FIELD_KEY_PRACTICE_IS_CLOSED = 'practice_is_closed';
+    public const FIELD_KEY_PRACTICE_REGISTRATION_KEY = 'practice_registration_key';
+    public const FIELD_KEY_PRACTICE_REGISTRATION_CLOSED_AT = 'practice_registration_closed_at';
+
     /**
      * @return FormFieldInput[]
      */
@@ -69,7 +78,7 @@ class FormFieldInput
             self::FIELD_KEY_EMAIL                   => new FormFieldInput(self::FIELD_KEY_EMAIL,
                 'Email', false, 4, 64),
             self::FIELD_KEY_PHONE                   => new FormFieldInput(self::FIELD_KEY_PHONE,
-                'Телефон', false, 4, 64),
+                'Телефон', false, 4, 16),
             self::FIELD_KEY_FIRST_NAME              => new FormFieldInput(self::FIELD_KEY_FIRST_NAME,
                 'Имя', true, 4, 64),
             self::FIELD_KEY_SECOND_NAME             => new FormFieldInput(self::FIELD_KEY_SECOND_NAME,
@@ -87,11 +96,11 @@ class FormFieldInput
                 'Роль', true, null, null, self::FIELD_TYPE_SELECT),
 
             self::FIELD_KEY_INSTITUTION_FULL_NAME   => new FormFieldInput(self::FIELD_KEY_INSTITUTION_FULL_NAME,
-                'Полное название', true, 4, 64),
+                'Полное название', true, 4, 256),
             self::FIELD_KEY_INSTITUTION_SHORT_NAME  => new FormFieldInput(self::FIELD_KEY_INSTITUTION_SHORT_NAME,
                 'Краткое название', false, 4, 64),
             self::FIELD_KEY_INSTITUTION_ADDRESS     => new FormFieldInput(self::FIELD_KEY_INSTITUTION_ADDRESS,
-                'Адрес', true, 4, 64),
+                'Адрес', true, 4, 128),
             self::FIELD_KEY_INSTITUTION_TYPE_ID     => new FormFieldInput(self::FIELD_KEY_INSTITUTION_TYPE_ID,
                 'Тип', true, null, null, self::FIELD_TYPE_SELECT),
 
@@ -109,11 +118,26 @@ class FormFieldInput
                 'Текущий пароль', true, 4, 128, self::FIELD_TYPE_INPUT_PASSWORD),
 
             self::FIELD_KEY_BAN_DESCRIPTION         => new FormFieldInput(self::FIELD_KEY_BAN_DESCRIPTION,
-                'Причина блокировки', false, 4, 128),
+                'Причина блокировки', false, 4, 64),
             self::FIELD_KEY_BAN_IS_PERMANENT         => new FormFieldInput(self::FIELD_KEY_BAN_IS_PERMANENT,
                 'Блокировка навсегда', true, null, null, self::FIELD_TYPE_SELECT),
             self::FIELD_KEY_BAN_UNBAN_AT         => new FormFieldInput(self::FIELD_KEY_BAN_UNBAN_AT,
-                'Дата и время разблокировки (если бан не навсегда)', true, 4, 128),
+                'Дата и время разблокировки (если бан не навсегда)', true, 4, 20),
+
+            self::FIELD_KEY_PRACTICE_NAME         => new FormFieldInput(self::FIELD_KEY_PRACTICE_NAME,
+                'Название практики', true, 4, 64),
+            self::FIELD_KEY_PRACTICE_DESCRIPTION         => new FormFieldInput(self::FIELD_KEY_PRACTICE_DESCRIPTION,
+                'Описание практики', false, 4, 256),
+            self::FIELD_KEY_PRACTICE_START_AT         => new FormFieldInput(self::FIELD_KEY_PRACTICE_START_AT,
+                'Дата и время начала практики', true, 4, 20),
+            self::FIELD_KEY_PRACTICE_END_AT         => new FormFieldInput(self::FIELD_KEY_PRACTICE_END_AT,
+                'Дата и время окончания практики', true, 4, 20),
+            self::FIELD_KEY_PRACTICE_IS_CLOSED         => new FormFieldInput(self::FIELD_KEY_PRACTICE_IS_CLOSED,
+                'Закрыта ли практика', true, null, null, self::FIELD_TYPE_SELECT),
+            self::FIELD_KEY_PRACTICE_REGISTRATION_KEY         => new FormFieldInput(self::FIELD_KEY_PRACTICE_REGISTRATION_KEY,
+                'Ключ регистрации на практику (использование: "/practices/join/ключ")', true, 4, 128),
+            self::FIELD_KEY_PRACTICE_REGISTRATION_CLOSED_AT         => new FormFieldInput(self::FIELD_KEY_PRACTICE_REGISTRATION_CLOSED_AT,
+                'Дата и время закрытия регистрации на практику', true, 4, 20),
         );
     }
 
@@ -343,6 +367,34 @@ class FormFieldInput
             if ($user_found != null)
             {
                 $errors[] = 'Пользователь с таким логином уже зарегистрирован!';
+            }
+        }
+    }
+
+    public static function checkInputIsPracticeNameAlreadyExists(Request $request, &$errors = null)
+    {
+        $practice_name = $request->input(self::FIELD_KEY_PRACTICE_NAME);
+        if($practice_name != null)
+        {
+            $practice_found = Practice::where('name', '=', $practice_name)->first();
+
+            if ($practice_found != null)
+            {
+                $errors[] = 'Практика с таким названием уже существует!';
+            }
+        }
+    }
+
+    public static function checkInputIsPracticeRegistrationKeyAlreadyExists(Request $request, &$errors = null)
+    {
+        $practice_registration_key = $request->input(self::FIELD_KEY_PRACTICE_REGISTRATION_KEY);
+        if($practice_registration_key != null)
+        {
+            $practice_found = Practice::where('registration_key', '=', $practice_registration_key)->first();
+
+            if ($practice_found != null)
+            {
+                $errors[] = 'Данный ключ регистрации практики уже занят!';
             }
         }
     }

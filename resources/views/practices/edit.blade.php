@@ -1,6 +1,6 @@
 @extends('shared.layout')
 
-@section('title', $watching_user->getFullName().' - изменение роли пользователя')
+@section('title', 'Изменение практики '.$practice->name)
 
 @section('css')
     @parent
@@ -9,10 +9,10 @@
 
 @section('page_sized_class', 'big_page')
 
-@section('page_title', $watching_user->getFullName().' - изменение роли пользователя')
+@section('page_title', 'Изменение практики '.$practice->name)
 
 @section('sub_menu')
-    <a href="{{ route('profile', $watching_user->id) }}" class="button button_blue button_size_small">Вернутся в профиль пользователя</a>
+    <a href="{{ route('practices_view', $practice->id) }}" class="button button_blue button_size_small">Назад</a>
 @endsection
 
 @section('content')
