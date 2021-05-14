@@ -39,12 +39,12 @@
                         @php
                             $redirect_route_name = Route::currentRouteName();
                             $redirect_route_params = [$user->id, $redirect_route_name];
-                            $redirect_route_params_GET = array();
+                            $redirect_route_params_to_redirected_route = array();
                             if($practice ?? null != null)
                             {
-                                $redirect_route_params_GET[] = $practice->id;
+                                $redirect_route_params_to_redirected_route[] = $practice->id;
                             }
-                            $redirect_route_params = array_merge($redirect_route_params, $redirect_route_params_GET);
+                            $redirect_route_params = array_merge($redirect_route_params, $redirect_route_params_to_redirected_route);
                         @endphp
                         @if($total_user->getContactRequestWithUser($user) == null) {{-- Если заявки в контакты между пользователями нет --}}
                             <a href="{{ route('contacts_create', $redirect_route_params) }}" class="td_content">Добавить в контакты</a>

@@ -16,16 +16,23 @@
         <a href="{{ route('settings') }}" class="button button_blue button_size_small">Настройки</a>
         <a href="{{ route('bans_view', $watching_user->id) }}" class="button button_blue button_size_small">Посмотреть полученные баны</a>
     @else
+        @php
+            $redirect_route_name = Route::currentRouteName();
+            $redirect_route_params = [$watching_user->id, $redirect_route_name];
+            $redirect_route_params_to_redirected_route = array();
+            $redirect_route_params_to_redirected_route[] = $watching_user->id;
+            $redirect_route_params = array_merge($redirect_route_params, $redirect_route_params_to_redirected_route);
+        @endphp
         @if($contact_to_watching_user == null) {{-- Если заявки в контакты между пользователями нет --}}
-            <a href="{{ route('contacts_create', array_merge([$watching_user->id, Route::currentRouteName()], Route::getCurrentRoute()->parameters())) }}" class="button button_blue button_size_small">Добавить в контакты</a>
+            <a href="{{ route('contacts_create', $redirect_route_params) }}" class="button button_blue button_size_small">Добавить в контакты</a>
         @elseif($contact_to_watching_user->is_accepted == true) {{-- Если заявка в контакты между пользователями есть, и она принята --}}
-            <a href="{{ route('contacts_delete', array_merge([$watching_user->id, Route::currentRouteName()], Route::getCurrentRoute()->parameters())) }}" class="button button_blue button_size_small">Удалить из контактов</a>
+            <a href="{{ route('contacts_delete', $redirect_route_params) }}" class="button button_blue button_size_small">Удалить из контактов</a>
         @elseif($contact_to_watching_user->is_accepted == false) {{-- Если заявка в контакты между пользователями есть, но она не принята --}}
             @if($contact_to_watching_user->user_from->id == $total_user->id) {{-- Если заявка отправлена текущим пользователем --}}
-                <a href="{{ route('contacts_delete', array_merge([$watching_user->id, Route::currentRouteName()], Route::getCurrentRoute()->parameters())) }}" class="button button_blue button_size_small">Отменить заявку в контакты</a>
+                <a href="{{ route('contacts_delete', $redirect_route_params) }}" class="button button_blue button_size_small">Отменить заявку в контакты</a>
             @else {{-- Если заявка получена текущим пользователем --}}
-                <a href="{{ route('contacts_create', array_merge([$watching_user->id, Route::currentRouteName()], Route::getCurrentRoute()->parameters())) }}" class="button button_blue button_size_small">Принять заявку в контакты</a>
-                <a href="{{ route('contacts_delete', array_merge([$watching_user->id, Route::currentRouteName()], Route::getCurrentRoute()->parameters())) }}" class="button button_blue button_size_small">Отклонить заявку в контакты</a>
+                <a href="{{ route('contacts_create', $redirect_route_params) }}" class="button button_blue button_size_small">Принять заявку в контакты</a>
+                <a href="{{ route('contacts_delete', $redirect_route_params) }}" class="button button_blue button_size_small">Отклонить заявку в контакты</a>
             @endif
         @endif
         @if($total_user->hasPersonalChatWith($watching_user))
