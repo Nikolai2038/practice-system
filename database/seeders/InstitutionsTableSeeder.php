@@ -10,7 +10,7 @@ class InstitutionsTableSeeder extends Seeder
 {
     public function run()
     {
-        for($i = 1; $i <= 30; $i++)
+        /*for($i = 1; $i <= 30; $i++)
         {
             $institution = new Institution;
             $institution->full_name = 'Полное_название_'.$i;
@@ -18,6 +18,6 @@ class InstitutionsTableSeeder extends Seeder
             $institution->address = 'Адрес_'.$i;
             $institution->institution_type()->associate(InstitutionType::find($i % 2 + 1));
             $institution->save();
-        }
+        }*/
     }
 }

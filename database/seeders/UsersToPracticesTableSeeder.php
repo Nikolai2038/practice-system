@@ -16,6 +16,6 @@ class UsersToPracticesTableSeeder extends Seeder
      */
     public function run()
     {
-        User::find(1)->practices()->attach(Practice::find(1), ['users_to_practices_status_id' => UsersToPracticesStatus::USERS_TO_PRACTICES_STATUS_ID_REGISTERED]);
+        //User::find(1)->practices()->attach(Practice::find(1), ['users_to_practices_status_id' => UsersToPracticesStatus::USERS_TO_PRACTICES_STATUS_ID_REGISTERED]);
     }
 }

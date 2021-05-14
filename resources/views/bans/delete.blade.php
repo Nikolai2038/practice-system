@@ -34,7 +34,7 @@
                     <td class="td_linked"><a href="{{ route('profile', $ban->user_from->id) }}" class="td_content">{{ $ban->user_from->getFullName() }}</a></td>
                     <td><span class="td_content">{{ $ban->description ?? '-' }}</span></td>
                     <td class="td_small"><span class="td_content">{{ $ban->created_at }}</span></td>
-                    <td class="td_small"><span class="td_content">@if($ban->is_permanent)Никогда@else{{ $ban->unban_at }}@endif</span>@if($ban->isActive())<span class="ban_active">(Действует)</span>@else<span class="ban_gone">(Истёк)</span>@endif</td>
+                    <td class="td_small"><span class="td_content">@if($ban->is_permanent)Никогда@else{{ $ban->unban_at }}@endif @if($ban->isActive())<span class="ban_active">(Действует)</span>@else<span class="ban_gone">(Истёк)</span>@endif</span></td>
                 </tr>
             </tbody>
         </table>

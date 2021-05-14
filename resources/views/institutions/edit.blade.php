@@ -31,6 +31,6 @@
                 @endforeach
             </div>
         @endif
-        <button class="button button_red button_size_normal">Изменить</button>
+        <button class="button button_green button_size_normal">Изменить</button>
     </form>
 @endsection

@@ -15,7 +15,7 @@ class ContactsTableSeeder extends Seeder
      */
     public function run()
     {
-        $contact = new Contact();
+        /*$contact = new Contact();
         $contact->user_from()->associate(User::find(1));
         $contact->user_to()->associate(User::find(2));
         $contact->is_accepted = true;
@@ -31,6 +31,6 @@ class ContactsTableSeeder extends Seeder
         $contact->user_from()->associate(User::find(1));
         $contact->user_to()->associate(User::find(4));
         $contact->is_accepted = false;
-        $contact->save();
+        $contact->save();*/
     }
 }

@@ -16,7 +16,7 @@ class BansTableSeeder extends Seeder
      */
     public function run()
     {
-        $data = [
+        /*$data = [
             [2, 3, false, new Carbon("2021-05-11 00:00:00")],
             [8, 8, false, new Carbon("2021-05-29 00:00:00")],
             [2, 8, true, null],
@@ -30,6 +30,6 @@ class BansTableSeeder extends Seeder
             $ban->is_permanent = $data[$i][2];
             $ban->unban_at = $data[$i][3];
             $ban->save();
-        }
+        }*/
     }
 }

@@ -74,7 +74,7 @@ class FormFieldInput
     {
         return array(
             self::FIELD_KEY_LOGIN                   => new FormFieldInput(self::FIELD_KEY_LOGIN,
-                'Логин', true, 4, 64),
+                'Логин', true, 3, 64),
             self::FIELD_KEY_EMAIL                   => new FormFieldInput(self::FIELD_KEY_EMAIL,
                 'Email', false, 4, 64),
             self::FIELD_KEY_PHONE                   => new FormFieldInput(self::FIELD_KEY_PHONE,
@@ -169,7 +169,7 @@ class FormFieldInput
             $result .= ' placeholder=" " name="' . $this->input_key . '" id="' . $this->input_key . '"';
             if ($field_value != '')
             {
-                $result .= ' value="' . ($field_value) . '"';
+                $result .= ' value="' . htmlentities($field_value) . '"';
             }
             if ($this->is_required)
             {

@@ -14,17 +14,15 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         $user = new User;
-        $user->login = 'nikolai-415';
-        $user->second_name = 'Иванов';
-        $user->first_name = 'Николай';
-        $user->third_name = 'Александрович';
+        $user->login = 'admin';
+        $user->first_name = 'Администратор';
+        $user->second_name = 'Главный';
         $user->password_sha512 = hash('sha512', '342089');
         $user->role()->associate(Role::find(Role::ROLE_ID_SUPER_ADMINISTRATOR));
-        $user->institution()->associate(Institution::find(1));
         $user->last_activity_at = now();
         $user->save();
 
-        $data = [
+        /*$data = [
             ['Осипов',      'Артём',        'Андреевич',    'braun.oda@rodriguez.biz',          Role::ROLE_ID_ADMINISTRATOR],
             ['Скворцов',    'Роман',        null,           'astark@hotmail.com',               Role::ROLE_ID_USER],
             ['Лебедев',     'Никита',       'Глебович',     null,                               Role::ROLE_ID_DIRECTOR],
@@ -51,6 +49,6 @@ class UsersTableSeeder extends Seeder
             $user->role()->associate(Role::find($data[$i][4]));
             $user->last_activity_at = now();
             $user->save();
-        }
+        }*/
     }
 }

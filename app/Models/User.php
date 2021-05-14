@@ -238,7 +238,7 @@ class User extends Model
 
     public function canUnbanBan(Ban $ban)
     {
-        return (($this->id != $ban->user_to->id) && ($this->hasPermissionOnUser($ban->user_to)));
+        return (($this->id != $ban->user_to->id) && ($this->hasPermissionOnUser($ban->user_to)) && $ban->isActive());
     }
 
     public function canDeleteBan(Ban $ban)

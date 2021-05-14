@@ -110,20 +110,27 @@ class BansController extends Controller
     {
         $total_user = Functions::getTotalUser();
         $ban = Ban::find($ban_id);
-        if ($request->isMethod('get'))
+        $watching_user = $ban->user_to;
+        if($total_user->canUnbanBan($ban) == false)
         {
-            return response()->view('bans.unban', ['total_user' => $total_user, 'ban' => $ban])->header('Content-Type', 'text/html');
-        }
-        else if ($request->isMethod('post'))
-        {
-            $watching_user = $ban->user_to;
-            $ban->unban_at = now()->toDateTimeString();
-            if($ban->is_permanent)
-            {
-                $ban->is_permanent = false;
-            }
-            $ban->save();
             return redirect()->route('bans_view', $watching_user->id)->header('Content-Type', 'text/html');
+        }
+        else
+        {
+            if ($request->isMethod('get'))
+            {
+                return response()->view('bans.unban', ['total_user' => $total_user, 'ban' => $ban])->header('Content-Type', 'text/html');
+            }
+            else if ($request->isMethod('post'))
+            {
+                $ban->unban_at = now()->toDateTimeString();
+                if ($ban->is_permanent)
+                {
+                    $ban->is_permanent = false;
+                }
+                $ban->save();
+                return redirect()->route('bans_view', $watching_user->id)->header('Content-Type', 'text/html');
+            }
         }
     }
 
@@ -131,15 +138,22 @@ class BansController extends Controller
     {
         $total_user = Functions::getTotalUser();
         $ban = Ban::find($ban_id);
-        if ($request->isMethod('get'))
+        $watching_user = $ban->user_to;
+        if($total_user->canDeleteBan($ban) == false)
         {
-            return response()->view('bans.delete', ['total_user' => $total_user, 'ban' => $ban])->header('Content-Type', 'text/html');
-        }
-        else if ($request->isMethod('post'))
-        {
-            $watching_user = $ban->user_to;
-            $ban->delete();
             return redirect()->route('bans_view', $watching_user->id)->header('Content-Type', 'text/html');
+        }
+        else
+        {
+            if ($request->isMethod('get'))
+            {
+                return response()->view('bans.delete', ['total_user' => $total_user, 'ban' => $ban])->header('Content-Type', 'text/html');
+            }
+            else if ($request->isMethod('post'))
+            {
+                $ban->delete();
+                return redirect()->route('bans_view', $watching_user->id)->header('Content-Type', 'text/html');
+            }
         }
     }
 }
