@@ -18,8 +18,8 @@ class CreateTableUsersToChats extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->bigInteger('user_id');
-            $table->bigInteger('chat_id');
+            $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('chat_id')->unsigned();
             $table->integer('messages_not_read')->default(0);
 
             $table->unique(['user_id', 'chat_id']);

@@ -18,9 +18,9 @@ class CreateTableUsersToPractices extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->bigInteger('user_id');
-            $table->bigInteger('practice_id');
-            $table->bigInteger('users_to_practices_status_id');
+            $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('practice_id')->unsigned();
+            $table->bigInteger('users_to_practices_status_id')->unsigned();
 
             $table->unique(['user_id', 'practice_id']);
             $table->foreign('user_id')->references('id')->on('users');

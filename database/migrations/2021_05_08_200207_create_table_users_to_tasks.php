@@ -18,9 +18,9 @@ class CreateTableUsersToTasks extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->bigInteger('user_id');
-            $table->bigInteger('task_id');
-            $table->bigInteger('users_to_tasks_status_id');
+            $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('task_id')->unsigned();
+            $table->bigInteger('users_to_tasks_status_id')->unsigned();
 
             $table->unique(['user_id', 'task_id']);
             $table->foreign('user_id')->references('id')->on('users');

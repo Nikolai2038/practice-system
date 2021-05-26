@@ -18,8 +18,8 @@ class CreateTableMessagesToChats extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->bigInteger('message_id');
-            $table->bigInteger('chat_id');
+            $table->bigInteger('message_id')->unsigned();
+            $table->bigInteger('chat_id')->unsigned();
 
             $table->unique(['message_id', 'chat_id']);
             $table->foreign('message_id')->references('id')->on('messages');

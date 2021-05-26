@@ -20,12 +20,12 @@ class CreateTablePractices extends Migration
 
             $table->string('name', 128);
             $table->string('description', 256)->nullable();
-            $table->bigInteger('user_from_id');
-            $table->timestamp('start_at');
-            $table->timestamp('end_at');
+            $table->bigInteger('user_from_id')->unsigned();
+            $table->timestamp('start_at')->nullable();
+            $table->timestamp('end_at')->nullable();
             $table->boolean('is_closed')->default(false);
             $table->string('registration_key', 128);
-            $table->timestamp('registration_closed_at');
+            $table->timestamp('registration_closed_at')->nullable();
 
             $table->unique('name');
             $table->unique('registration_key');

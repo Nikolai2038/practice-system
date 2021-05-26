@@ -22,7 +22,7 @@ class CreateTableFiles extends Migration
             $table->string('name', 64);
             $table->string('prefix', 64);
             $table->string('filename', 134); // название файла = ключ_sha_512 (128 симв.) + '.' + расширение (3 или 4 симв.) + 1 (на всякий случай)
-            $table->bigInteger('user_from_id');
+            $table->bigInteger('user_from_id')->unsigned();
 
             $table->foreign('user_from_id')->references('id')->on('users');
         });

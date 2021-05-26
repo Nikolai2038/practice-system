@@ -400,11 +400,11 @@ class User extends Model
     {
         if($this->isDirector())
         {
-            if($practice->user_id == $this->id) // Если практика создана этим же пользователем
+            if($practice->user_id == $this->id)                                  // Если практика создана этим же пользователем
             {
                 return true;
             }
-            else if($this->hasPermissionOnUser($practice->user_from)) // если пользователь имеет права выше, чем пользователь, создавший практику - то имеет права над практикой
+            else if($this->hasPermissionOnUser($practice->user_from))               // если пользователь имеет права выше, чем пользователь, создавший практику - то имеет права над практикой
             {
                 return true;
             }

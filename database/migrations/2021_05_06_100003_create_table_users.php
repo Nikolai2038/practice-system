@@ -29,10 +29,10 @@ class CreateTableUsers extends Migration
             $table->tinyInteger('show_phone')->default(Functions::SETTING_VALUE_NOONE);
             $table->tinyInteger('accept_chats_from')->default(Functions::SETTING_VALUE_ALL);
             $table->string('password_sha512', 128);
-            $table->bigInteger('role_id')->default(0);
-            $table->bigInteger('institution_id')->nullable();
-            $table->timestamp('last_activity_at');
-            $table->bigInteger('avatar_file_id')->nullable();
+            $table->bigInteger('role_id')->default(0)->unsigned();
+            $table->bigInteger('institution_id')->nullable()->unsigned();
+            $table->timestamp('last_activity_at')->nullable();
+            $table->bigInteger('avatar_file_id')->nullable()->unsigned();
 
             $table->unique('login');
             $table->foreign('role_id')->references('id')->on('roles');

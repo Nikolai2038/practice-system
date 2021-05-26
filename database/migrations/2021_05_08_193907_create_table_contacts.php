@@ -18,8 +18,8 @@ class CreateTableContacts extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->bigInteger('user_from_id')->nullable();
-            $table->bigInteger('user_to_id');
+            $table->bigInteger('user_from_id')->unsigned();
+            $table->bigInteger('user_to_id')->unsigned();
             $table->boolean('is_accepted')->default(false);
 
             $table->unique(['user_from_id', 'user_to_id']);

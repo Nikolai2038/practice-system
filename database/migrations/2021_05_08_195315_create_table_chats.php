@@ -18,9 +18,9 @@ class CreateTableChats extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->bigInteger('chat_type_id');
-            $table->bigInteger('practice_id')->nullable();
-            $table->bigInteger('task_id')->nullable();
+            $table->bigInteger('chat_type_id')->unsigned();
+            $table->bigInteger('practice_id')->nullable()->unsigned();
+            $table->bigInteger('task_id')->nullable()->unsigned();
 
             $table->foreign('chat_type_id')->references('id')->on('chat_types');
             $table->foreign('practice_id')->references('id')->on('practices')->onDelete('cascade');

@@ -19,8 +19,8 @@ class CreateTableMessages extends Migration
             $table->softDeletes();
 
             $table->string('text', 8192);
-            $table->bigInteger('user_from_id');
-            $table->bigInteger('message_type_id');
+            $table->bigInteger('user_from_id')->unsigned();
+            $table->bigInteger('message_type_id')->unsigned();
 
             $table->foreign('user_from_id')->references('id')->on('users');
             $table->foreign('message_type_id')->references('id')->on('message_types');

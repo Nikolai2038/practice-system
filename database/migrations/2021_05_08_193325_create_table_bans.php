@@ -18,8 +18,8 @@ class CreateTableBans extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->bigInteger('user_from_id')->nullable();
-            $table->bigInteger('user_to_id');
+            $table->bigInteger('user_from_id')->unsigned();
+            $table->bigInteger('user_to_id')->unsigned();
             $table->boolean('is_permanent')->default(false);
             $table->timestamp('unban_at')->nullable();;
             $table->string('description', 64)->nullable();

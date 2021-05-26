@@ -21,9 +21,10 @@ class CreateTableInstitutions extends Migration
             $table->string('full_name', 256);
             $table->string('short_name', 64)->nullable();
             $table->string('address', 128);
-            $table->bigInteger('institution_type_id');
+            $table->bigInteger('institution_type_id')->unsigned();
 
             $table->unique('full_name');
+            $table->foreign('institution_type_id')->references('id')->on('institution_types');
         });
     }
 
