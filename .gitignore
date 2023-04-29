@@ -11,3 +11,12 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+
+# Файлы IntelliJ IDEA
+/.idea
+
+# Прокинутые данные PostgreSQL
+/postgres_data
+
+# Прокинутые данные PGAdmin
+/pgadmin_data

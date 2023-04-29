@@ -1,11 +1,5 @@
 version: "3.9"
 
-volumes:
-  postgres_data:
-    external: true
-  pgadmin_data:
-    external: true
-
 services:
 
   php:
@@ -45,7 +39,7 @@ services:
     ports:
       - ${DB_PORT}:5432
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - ./postgres_data:/var/lib/postgresql/data
     networks:
       - network
 
@@ -59,7 +53,7 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - pgadmin_data:/var/lib/pgadmin
+      - ./pgadmin_data:/var/lib/pgadmin
     links:
       - "postgres"
     networks:
